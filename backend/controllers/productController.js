@@ -13,7 +13,7 @@ const getProducts = async (req, res) => {
                 .status(404)
                 .json({ success: false, error: `Products not found` })
         }
-        return res.status(200).json({ success: true, data: products })
+        return res.status(200).json(products)
     }).catch(err => console.log(err))
 }
 
