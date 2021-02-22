@@ -16,6 +16,10 @@ const productSchema = new mongoose.Schema(
 
         price: { type: Number, required: true, default: 0 },
 
+        classification: { type: String, required: true },   // ponuka, dopyt, darujem
+
+        condition: { type: String, required: true },   // nove, pouzite, vlastna vyroba
+
         // OPTIONAL
         moreProperties: [
             {
