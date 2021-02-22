@@ -1,0 +1,29 @@
+{
+  "name": "diploma-thesis",
+  "version": "1.0.0",
+  "description": "MERN supply-demand oriented information system",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SkaAnn/Diploma-Thesis.git"
+  },
+  "keywords": [
+    "MERN",
+    "supply",
+    "demand",
+    "donor"
+  ],
+  "author": "Bc. Anna Skachová",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SkaAnn/Diploma-Thesis/issues"
+  },
+  "homepage": "https://github.com/SkaAnn/Diploma-Thesis#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
