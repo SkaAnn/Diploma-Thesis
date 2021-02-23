@@ -24,7 +24,7 @@ const productSchema = new mongoose.Schema(
         moreProperties: [
             {
                 key: { type: String, required: true },
-                value: { type: String, required: true },
+                val: { type: String, required: true },
             }
         ]
 

@@ -1,8 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FormContainer from '../components/FormContainer'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 
 const ProductCreateScreen = () => {
+
+    // Local state
+    const [propsList, setPropsList] = useState([]);
+
+    // Handle input change
+    const handleInputChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...propsList];
+        list[index][name] = value;
+        setPropsList(list);
+    };
+
+    // Handle click event of the Remove button
+    const handleRemoveClick = index => {
+        console.log(`remove ${index}`)
+        const list = [...propsList];
+        console.log(`list before ${JSON.stringify(list)}`)
+        list.splice(index, 1);
+        console.log(`list after ${JSON.stringify(list)}`)
+        setPropsList(list);
+    };
+
+    // Handle click event of the Add button
+    const handleAddClick = () => {
+        setPropsList([...propsList, { key: '', val: '' }]);
+    };
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -16,11 +42,11 @@ const ProductCreateScreen = () => {
                     <Form.Label>Kategória</Form.Label>
                     <Form.Control as="select" required>
                         <option value=''>Vyberte z možností...</option>
-                        <option>auto</option>
-                        <option>elektronika</option>
-                        <option>knihy</option>
-                        <option>hračky</option>
-                        <option>domáce potreby</option>
+                        <option value='car'>auto</option>
+                        <option value='elektro'>elektronika</option>
+                        <option value='books'>knihy</option>
+                        <option value='toys'>hračky</option>
+                        <option value='household'>domáce potreby</option>
                     </Form.Control>
                 </Form.Group>
 
@@ -36,7 +62,7 @@ const ProductCreateScreen = () => {
 
                 <Form.Group controlId="price">
                     <Form.Label>Cena</Form.Label>
-                    <Form.Control type='number' componentClass={'input'} step={'.01'} min={0}
+                    <Form.Control type='number' step={'.01'} min={0}
                         onChange={(e) => console.log(e.target.value)} />
                     <Form.Text id="priceBlock" muted> Ak chcete niečo darovať zadajte 0 </Form.Text>
                 </Form.Group>
@@ -59,7 +85,46 @@ const ProductCreateScreen = () => {
                     <Form.Label>Pridaj ďalšie vlastnosti</Form.Label>
                 </Form.Group>
 
-                <Button type='submit' variant='indigo'>ULOŽIŤ</Button>
+                {/* https://www.cluemediator.com/add-or-remove-input-fields-dynamically-with-reactjs */}
+                {propsList.length === 0
+                    ? <Button type='button' className='btn btn-primary' onClick={handleAddClick}>Pridať</Button>
+                    :
+                    propsList.map((x, i) => {
+                        return (
+                            <Form.Group>
+                                <Form.Control
+                                    type='text'
+                                    name='key'
+                                    placeholder='Zadajte názov vlastnosti'
+                                    value={x.key}
+                                    onChange={e => handleInputChange(e, i)}
+                                />
+
+                                <Form.Control
+                                    type='text'
+                                    className="ml10"
+                                    name='val'
+                                    placeholder='Zadajte hodnotu vlastnosti'
+                                    value={x.val}
+                                    onChange={e => handleInputChange(e, i)}
+                                />
+
+                                <div className="btn-box">
+                                    {propsList.length >= 1 &&
+                                        <Button type='button' className="mr10" onClick={() => handleRemoveClick(i)}>
+                                            <i className="fas fa-trash" /> Odstrániť</Button>
+                                    }
+                                    {propsList.length - 1 === i &&
+                                        <Button type='button' onClick={handleAddClick} className="btn btn-outline-primary">
+                                            <i className="fas fa-plus-circle" /> Pridať</Button>}
+                                </div>
+                            </Form.Group>
+                        );
+                    })}
+                
+                <div style={{ marginTop: 20 }}>{JSON.stringify(propsList)}</div>
+
+                <Button type='submit' variant='indigo' style={{ width: '100%' }}>ULOŽIŤ</Button>
             </Form>
         </FormContainer>
     )
