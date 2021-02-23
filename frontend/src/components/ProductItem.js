@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Card, Button, Row, Col } from 'react-bootstrap'
 
 const ProductItem = ({ product }) => {
@@ -44,9 +45,16 @@ const ProductItem = ({ product }) => {
                     </Col>
                 </Row>
             </Card.Header>
-            <Card.Img variant="top" className='card-img-top' src="/images/sample.jpg" />
+
+            <Link to={`/product/${product._id}`}>
+                <Card.Img variant="top" className='card-img-top' src="/images/sample.jpg" />
+            </Link>
+
             <Card.Body>
-                <Card.Title>{product.title}</Card.Title>
+                <Card.Title>
+                    <Link to={`/product/${product._id}`}>{product.title}</Link>
+                </Card.Title>
+
                 <Row>
                     <Col s={6} style={{ margin: 'auto' }}>
                         <span className={badgeType(product.condition)}>{chooseCondition(product.condition)}</span>
