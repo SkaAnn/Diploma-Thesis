@@ -1,29 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Button, Row, Col } from 'react-bootstrap'
+import { translateCondition, translateClassification } from '../utils/translate'
 
 const ProductItem = ({ product }) => {
 
-    const chooseCondition = (condition) => {
-        switch (condition) {
-            case "1":
-                return 'NOVÝ TOVAR'
-            case "2":
-                return 'POUŽITÝ TOVAR'
-            case "3":
-                return 'VLASTNÁ VÝROBA' // RUČNÁ
-            default:
-                return ""
-        }
-    }
-
     const badgeType = (condition) => {
         switch (condition) {
-            case "1":
+            case "new":
                 return 'badge badge-success'
-            case "2":
+            case "used":
                 return 'badge badge-primary'
-            case "3":
+            case "handmade":
                 return 'badge badge-secondary'
             default:
                 return ''
@@ -39,8 +27,8 @@ const ProductItem = ({ product }) => {
         <Card className='my-3 rounded' style={{ width: '15rem' }}>
             <Card.Header style={{ backgroundColor: '#FED8B1' }}>
                 <Row>
-                    <Col xs={6}> {product.classification} </Col>
-                    <Col xs={6} style={{ textAlign: 'right' }}>
+                    <Col size='6'> {translateClassification(product.classification)} </Col>
+                    <Col size='6' style={{ textAlign: 'right' }}>
                         <i className="far fa-star" ></i>
                     </Col>
                 </Row>
@@ -57,7 +45,7 @@ const ProductItem = ({ product }) => {
 
                 <Row>
                     <Col s={6} style={{ margin: 'auto' }}>
-                        <span className={badgeType(product.condition)}>{chooseCondition(product.condition)}</span>
+                        <span className={badgeType(product.condition)}>{translateCondition(product.condition)}</span>
                     </Col>
                     <Col s={6} style={{ fontSize: '1.7rem', textAlign: 'right' }}>
                         <strong>{product.price}€</strong>
