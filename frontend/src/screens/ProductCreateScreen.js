@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 import FormContainer from '../components/FormContainer'
 import { Form, Button, Row, Col } from 'react-bootstrap'
+import axios from 'axios'
 
 const ProductCreateScreen = () => {
 
-    // Local state
-    const [propsList, setPropsList] = useState([]);
+    // Component level states from Form
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [price, setPrice] = useState(0)
+    const [classification, setClassification] = useState('')
+    const [condition, setCondition] = useState('')
+    const [propsList, setPropsList] = useState([])  // moreProperties
 
     // Handle input change
     const handleInputChange = (e, index) => {
@@ -32,6 +38,19 @@ const ProductCreateScreen = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
+
+        // ADD PRODUCT
+        const createProduct = async () => {
+            const newProduct = {
+                title, description, price,
+                classification, condition, moreProperties: propsList
+            }
+            console.log(JSON.stringify(newProduct))
+            const { data } = await axios.post('/api/products', newProduct)
+            console.log(JSON.stringify(data))
+        }
+
+        createProduct()
     }
 
     return (
@@ -52,29 +71,31 @@ const ProductCreateScreen = () => {
 
                 <Form.Group controlId='title'>
                     <Form.Label>Názov</Form.Label>
-                    <Form.Control type='text' placeholder='Zadajte názov produktu' required></Form.Control>
+                    <Form.Control type='text' value={title} onChange={(e) => setTitle(e.target.value)}
+                        placeholder='Zadajte názov produktu' required></Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId='description'>
                     <Form.Label>Popis</Form.Label>
-                    <Form.Control as="textarea" rows={4} placeholder='Zadajte popis produktu' required />
+                    <Form.Control as="textarea" value={description} onChange={(e) => setDescription(e.target.value)}
+                        placeholder='Zadajte popis produktu' rows={4} required />
                 </Form.Group>
 
                 <Form.Group controlId="price">
                     <Form.Label>Cena</Form.Label>
                     <Form.Control type='number' step={'.01'} min={0}
-                        onChange={(e) => console.log(e.target.value)} />
+                        value={price} onChange={(e) => setPrice(Number(e.target.value))} />
                     <Form.Text id="priceBlock" muted> Ak chcete niečo darovať zadajte 0 </Form.Text>
                 </Form.Group>
 
-                <Form.Group controlId="conditionBox">
+                <Form.Group controlId="conditionBox" value={condition} onChange={(e) => setCondition(e.target.value)}>
                     <Form.Label>Stav tovaru</Form.Label>
                     <Form.Check type="radio" name='condition' value='new' label="nový" required />
                     <Form.Check type="radio" name='condition' value='used' label="použitý" required />
                     <Form.Check type="radio" name='condition' value='handmade' label="vlastná výroba" required />
                 </Form.Group>
 
-                <Form.Group controlId="classificationBox">
+                <Form.Group controlId="classificationBox" value={classification} onChange={(e) => setClassification(e.target.value)}>
                     <Form.Label>Typ</Form.Label>
                     <Form.Check type="radio" name='classification' value='supply' label="ponuka" required />
                     <Form.Check type="radio" name='classification' value='demand' label="dopyt" required />
@@ -121,7 +142,7 @@ const ProductCreateScreen = () => {
                             </Form.Group>
                         );
                     })}
-                
+
                 <div style={{ marginTop: 20 }}>{JSON.stringify(propsList)}</div>
 
                 <Button type='submit' variant='indigo' style={{ width: '100%' }}>ULOŽIŤ</Button>
