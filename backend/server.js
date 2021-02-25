@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
 import productRoutes from './routes/productRoutes.js'
 
@@ -20,5 +21,9 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/products',productRoutes)
+
+// Handling errors
+app.use(notFound)           // e.g. not existing id
+app.use(errorHandler)     // error, or not existing routing
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
