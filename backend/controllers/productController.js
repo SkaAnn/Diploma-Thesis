@@ -5,7 +5,30 @@ import Product from '../models/productModel.js'
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find({})
+    let mysort
+    // console.log(req.query.sortKey)
+
+    // Sorting products criterium
+    switch (req.query.sortKey) {
+        case 'time_desc': {
+            mysort = { createdAt: 1 }
+            break
+        }
+        case 'price_asc': {
+            mysort = { price: 1 }
+            break
+        }
+        case 'price_desc': {
+            mysort = { price: -1 }
+            break
+        }
+        default: {
+            mysort = { createdAt: -1 }
+            break
+        }
+    }
+
+    const products = await Product.find({}).sort(mysort)
 
     res.json(products)
 })
@@ -52,7 +75,7 @@ const updateProduct = asyncHandler(async (req, res) => {
         product.price = body.price
         product.condition = body.condition
         product.classification = body.classification
-        product.moreProperties = body.moreProperties 
+        product.moreProperties = body.moreProperties
 
         const updatedProduct = await product.save()
         res.json(updatedProduct)

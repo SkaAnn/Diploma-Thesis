@@ -11,7 +11,9 @@ import Loader from '../components/Loader'
 
 import { listProducts } from '../actions/productActions'
 
-const HomeScreen = () => {
+const HomeScreen = ({match}) => {
+    const sortKey = match.params.sortKey
+
     const dispatch = useDispatch()  // call and manage an actions
 
     // Global states
@@ -23,8 +25,8 @@ const HomeScreen = () => {
     useEffect(() => {
         // @GET all products from db
         // FIRE OFF the action listProducts action
-        dispatch(listProducts())
-    }, [dispatch])
+        dispatch(listProducts(sortKey))
+    }, [dispatch, sortKey])
 
     return (
         <>
