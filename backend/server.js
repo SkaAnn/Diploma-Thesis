@@ -1,11 +1,14 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import dotenv from 'dotenv'
 import cors from 'cors'
 
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+
+dotenv.config()
 
 // Connect to database
 connectDB() 
