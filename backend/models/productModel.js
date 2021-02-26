@@ -4,11 +4,11 @@ const productSchema = new mongoose.Schema(
     {
         // REQUIRED
         // Relation between product and user
-        // user:{
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     required: true,
-        //     ref: 'User',
-        // },
+        user:{
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User',
+        },
 
         name: { type: String, required: true },
 

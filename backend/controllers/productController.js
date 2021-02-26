@@ -50,7 +50,16 @@ const getProductById = asyncHandler(async (req, res) => {
 // @route   POST /api/products
 // @access  
 const createProduct = asyncHandler(async (req, res) => {
-    const product = new Product(req.body)
+    const { name, description, price, condition,
+        classification, moreProperties } = req.body
+
+    const data = {
+        user: req.user._id, 
+        name, description, price,
+        condition, classification, moreProperties
+    }
+
+    const product = new Product(data)
 
     const createdProduct = await product.save()
 

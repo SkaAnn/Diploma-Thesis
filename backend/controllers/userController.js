@@ -53,4 +53,11 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 })
 
-export { authUser, registerUser }
+// @desc    Get user profile
+// @route   GET /api/users/profile
+// @access  Private // TODO ZMENIT!!!
+const getUserProfile = asyncHandler(async (req, res) => {
+    res.send('Success')
+})
+
+export { authUser, registerUser, getUserProfile }
