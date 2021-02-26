@@ -70,7 +70,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 
     if (product) {
         // TODO - Update params
-        product.title = body.title
+        product.name = body.name
         product.description = body.description
         product.price = body.price
         product.condition = body.condition

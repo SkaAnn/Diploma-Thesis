@@ -6,7 +6,7 @@ import axios from 'axios'
 const ProductCreateScreen = () => {
 
     // Component level states from Form
-    const [title, setTitle] = useState('')
+    const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
     const [classification, setClassification] = useState('')
@@ -42,7 +42,7 @@ const ProductCreateScreen = () => {
         // ADD PRODUCT
         const createProduct = async () => {
             const newProduct = {
-                title, description, price,
+                name, description, price,
                 classification, condition, moreProperties: propsList
             }
             console.log(JSON.stringify(newProduct))
@@ -69,9 +69,9 @@ const ProductCreateScreen = () => {
                     </Form.Control>
                 </Form.Group>
 
-                <Form.Group controlId='title'>
+                <Form.Group controlId='name'>
                     <Form.Label>Názov</Form.Label>
-                    <Form.Control type='text' value={title} onChange={(e) => setTitle(e.target.value)}
+                    <Form.Control type='text' value={name} onChange={(e) => setName(e.target.value)}
                         placeholder='Zadajte názov produktu' required></Form.Control>
                 </Form.Group>
 

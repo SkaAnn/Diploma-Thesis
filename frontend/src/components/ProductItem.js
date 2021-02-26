@@ -40,7 +40,7 @@ const ProductItem = ({ product }) => {
 
             <Card.Body>
                 <Card.Title>
-                    <Link to={`/product/${product._id}`}>{product.title}</Link>
+                    <Link to={`/product/${product._id}`}>{product.name}</Link>
                 </Card.Title>
 
                 <Row>

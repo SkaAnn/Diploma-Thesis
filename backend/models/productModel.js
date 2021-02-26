@@ -10,7 +10,7 @@ const productSchema = new mongoose.Schema(
         //     ref: 'User',
         // },
 
-        title: { type: String, required: true },
+        name: { type: String, required: true },
 
         description: { type: String, required: true },
 
