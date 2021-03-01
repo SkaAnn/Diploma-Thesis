@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer'
 import { Form, Button, Row, Col } from 'react-bootstrap'
-import axios from 'axios'
+import { createProduct } from '../actions/productActions'
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 
-const ProductCreateScreen = () => {
+const ProductCreateScreen = ({ history }) => {
+    const dispatch = useDispatch()
 
     // Component level states from Form
     const [name, setName] = useState('')
@@ -12,6 +15,13 @@ const ProductCreateScreen = () => {
     const [classification, setClassification] = useState('')
     const [condition, setCondition] = useState('')
     const [propsList, setPropsList] = useState([])  // moreProperties
+
+    // Global state
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
+    const productCreate = useSelector(state => state.productCreate)
+    const { loading, error: errorCreate, success: successCreate } = productCreate
 
     // Handle input change
     const handleInputChange = (e, index) => {
@@ -36,21 +46,29 @@ const ProductCreateScreen = () => {
         setPropsList([...propsList, { key: '', val: '' }]);
     };
 
+    useEffect(() => {
+        dispatch({ type: PRODUCT_CREATE_RESET })
+
+        if (!userInfo) {
+            history.push('/login')
+        }
+
+        if (successCreate) {
+            // TODO prepnut na zoznam mojich produktov a vypisat uspesnu hlasku
+            history.push(`/`)
+        }
+
+    }, [dispatch, userInfo, history, successCreate])
+
     const submitHandler = (e) => {
         e.preventDefault()
 
-        // ADD PRODUCT
-        const createProduct = async () => {
-            const newProduct = {
-                name, description, price,
-                classification, condition, moreProperties: propsList
-            }
-            console.log(JSON.stringify(newProduct))
-            const { data } = await axios.post('/api/products', newProduct)
-            console.log(JSON.stringify(data))
+        const newProduct = {
+            name, description, price,
+            classification, condition, moreProperties: propsList
         }
-
-        createProduct()
+        // DISPATCH CREATE PRODUCT
+        dispatch(createProduct(newProduct))
     }
 
     return (
@@ -112,7 +130,7 @@ const ProductCreateScreen = () => {
                     :
                     propsList.map((x, i) => {
                         return (
-                            <Form.Group>
+                            <Form.Group key={i}>
                                 <Form.Control
                                     type='text'
                                     name='key'

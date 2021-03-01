@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {
+    PRODUCT_CREATE_FAIL, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS,
     PRODUCT_DETAILS_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS,
     PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS,
     PRODUCT_LIST_USER_FAIL, PRODUCT_LIST_USER_REQUEST, PRODUCT_LIST_USER_SUCCESS
@@ -55,6 +56,41 @@ export const listUserProducts = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: PRODUCT_LIST_USER_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message : error.message,
+        })
+    }
+}
+
+// @ Create new product
+export const createProduct = (product) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PRODUCT_CREATE_REQUEST,
+        })
+
+        // Get userInfo from userLogin
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        console.log(config)
+        console.log(JSON.stringify(product))
+
+        const { data } = await axios.post(`/api/products`, product, config)
+
+        dispatch({
+            type: PRODUCT_CREATE_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_CREATE_FAIL,
             payload: error.response && error.response.data.message
                 ? error.response.data.message : error.message,
         })

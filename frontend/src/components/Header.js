@@ -28,14 +28,17 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
-                            <LinkContainer to='/my/product/create'>
-                                <Nav.Link>Pridaj produkt</Nav.Link>
-                            </LinkContainer>
+
 
                             {userInfo ? (
-                                <NavDropdown title={userInfo.name} id='username'>
-                                    <NavDropdown.Item onClick={logoutHandler}>Odhlásiť sa</NavDropdown.Item>
-                                </NavDropdown>
+                                <>
+                                    <LinkContainer to='/my/product/create'>
+                                        <Nav.Link>Pridaj produkt</Nav.Link>
+                                    </LinkContainer>
+                                    <NavDropdown title={userInfo.name} id='username'>
+                                        <NavDropdown.Item onClick={logoutHandler}>Odhlásiť sa</NavDropdown.Item>
+                                    </NavDropdown>
+                                </>
                             ) : (
                                     <LinkContainer to='/login'>
                                         <Nav.Link><i className='fas fa-user' />  Prihlásiť sa</Nav.Link>
