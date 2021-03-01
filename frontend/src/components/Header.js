@@ -1,10 +1,23 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, Container } from 'react-bootstrap'
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
+import { logout } from '../actions/userActions'
 
 // #3f51b5
 // https://bootsnipp.com/snippets/mMynR
 const Header = () => {
+
+    const dispatch = useDispatch()
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
+    const logoutHandler = () => {
+        // DISPATCH LOGOUT
+        dispatch(logout())
+    }
+
     return (
         <header>
             <Navbar className='navbar-dark indigo' expand="lg" collapseOnSelect>
@@ -18,14 +31,22 @@ const Header = () => {
                             <LinkContainer to='/my/product/create'>
                                 <Nav.Link>Pridaj produkt</Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to='/login'>
-                                <Nav.Link><i className='fas fa-user' />  Prihlásiť sa</Nav.Link>
-                            </LinkContainer>
+
+                            {userInfo ? (
+                                <NavDropdown title={userInfo.name} id='username'>
+                                    <NavDropdown.Item onClick={logoutHandler}>Odhlásiť sa</NavDropdown.Item>
+                                </NavDropdown>
+                            ) : (
+                                    <LinkContainer to='/login'>
+                                        <Nav.Link><i className='fas fa-user' />  Prihlásiť sa</Nav.Link>
+                                    </LinkContainer>
+                                )}
+
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
-            </Navbar>
-        </header>
+            </Navbar >
+        </header >
     )
 }
 
