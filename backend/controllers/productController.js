@@ -54,7 +54,7 @@ const createProduct = asyncHandler(async (req, res) => {
         classification, moreProperties } = req.body
 
     const data = {
-        user: req.user._id, 
+        user: req.user._id,
         name, description, price,
         condition, classification, moreProperties
     }
@@ -111,12 +111,20 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
 // TODO
 // inactivateProduct - oznacit produkt za neaktivny, vypredany
-// getProductsByUser - ziskaj produkty jedneho usera
+
+// @desc    Get products from one user 
+// @route   GET /api/products/user/:id
+// @access  Public
+const getProductsByUser = asyncHandler(async (req, res) => {
+    const products = await Product.find({ user: req.params.id })
+    res.json(products)
+})
 
 export {
     getProducts,
     getProductById,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getProductsByUser
 }
