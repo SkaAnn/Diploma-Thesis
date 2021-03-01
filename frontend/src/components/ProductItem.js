@@ -51,7 +51,11 @@ const ProductItem = ({ product }) => {
                         <strong>{product.price}€</strong>
                     </Col>
                 </Row>
-                <Card.Text><i className='far fa-user'></i> &nbsp; USER_NAME <span> • </span> USER_CITY </Card.Text>
+                <Card.Text>
+                    <Link to={`/user/${product.user._id}/profile`}>
+                        <i className='far fa-user'></i> &nbsp; {product.user.name}
+                    </Link>
+                    <span> • </span> USER_CITY </Card.Text>
             </Card.Body>
         </Card>
 

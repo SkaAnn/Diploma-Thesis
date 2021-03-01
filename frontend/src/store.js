@@ -5,12 +5,13 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { productListReducer } from './reducers/productReducers'
-import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
+import { userLoginReducer, userRegisterReducer, userDetailsReducer } from './reducers/userReducers'
 
 const reducer = combineReducers({
     productList: productListReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
+    userDetails: userDetailsReducer,
 })
 
 // Get from local storage

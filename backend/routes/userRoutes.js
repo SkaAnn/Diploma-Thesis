@@ -12,7 +12,7 @@ router.route('/')
 router.route('/login')
     .post(authUser)
 
-router.route('/profile')
-    .get(protect, getUserProfile)
+router.route('/profile/:id')
+    .get(getUserProfile)
 
 export default router

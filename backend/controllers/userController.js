@@ -54,10 +54,20 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get user profile
-// @route   GET /api/users/profile
-// @access  Private // TODO ZMENIT!!!
+// @route   GET /api/users/profile/:id
+// @access  Public
 const getUserProfile = asyncHandler(async (req, res) => {
-    res.send('Success')
+    const user = await User.findById(req.params.id)
+    if (user) {
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+        })
+    } else {
+        res.status(404)
+        throw new Error('User not found')
+    }
 })
 
 export { authUser, registerUser, getUserProfile }

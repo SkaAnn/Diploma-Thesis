@@ -28,7 +28,7 @@ const getProducts = asyncHandler(async (req, res) => {
         }
     }
 
-    const products = await Product.find({}).sort(mysort)
+    const products = await Product.find({}).populate('user', 'id name').sort(mysort)
 
     res.json(products)
 })

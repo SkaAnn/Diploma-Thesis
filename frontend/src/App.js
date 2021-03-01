@@ -7,8 +7,10 @@ import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
+import UserProfileScreen from './screens/UserProfileScreen'
 import ProductScreen from './screens/ProductScreen'
 import ProductCreateScreen from './screens/ProductCreateScreen'
+
 
 const App = () => {
   return (
@@ -18,6 +20,7 @@ const App = () => {
         <Container>
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
+          <Route path='/user/:id/profile' component={UserProfileScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/my/product/create' component={ProductCreateScreen} />
           <Route path='/sort/:sortKey' component={HomeScreen} exact />
