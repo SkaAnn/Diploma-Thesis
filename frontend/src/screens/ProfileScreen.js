@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Table, Button, Form } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import { listUserDetails } from '../actions/userActions'
 import ProductItem from '../components/ProductItem'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listUserProducts } from '../actions/productActions'
+import { listUserDetails, updateUserProfile } from '../actions/userActions'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 const UserProfileScreen = ({ history }) => {
     // Component level state
@@ -26,16 +27,25 @@ const UserProfileScreen = ({ history }) => {
     const productListUser = useSelector(state => state.productListUser)     // get global state (from store.js)
     const { loading: loadingProducts, error: errorProducts, products } = productListUser
 
+    const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
+    const { success } = userUpdateProfile
+
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            // DISPATCH USER DETAILS
-            dispatch(listUserDetails(userInfo._id))
-            // DISPATCH USER PRODUCTS
-            dispatch(listUserProducts(userInfo._id))
+            if (!user || !user.name || success) {
+                dispatch({ type: USER_UPDATE_PROFILE_RESET })
+                // DISPATCH USER DETAILS
+                dispatch(listUserDetails(userInfo._id))
+                // DISPATCH USER PRODUCTS
+                dispatch(listUserProducts(userInfo._id))
+            } else {
+                setName(user.name)
+                setEmail(user.email)
+            }
         }
-    }, [dispatch, userInfo, history])
+    }, [dispatch, userInfo, user, success, history])
 
     const deleteHandler = (id) => {
         console.log('Delete...')
@@ -46,6 +56,12 @@ const UserProfileScreen = ({ history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
+
+        const updatedUser = { id: user._id, name, email, password }
+        console.log(updatedUser)
+        // DISPATCH UPDATE PROFILE
+        dispatch(updateUserProfile(updatedUser))
+
     }
 
     return (
@@ -69,7 +85,8 @@ const UserProfileScreen = ({ history }) => {
                                         <Form.Control type='email' placeholder='Enter email' value={email}
                                             onChange={(e) => setEmail(e.target.value)} ></Form.Control>
                                     </Form.Group>
-                                    <Form.Group controlId='password'>
+
+                                    {/* <Form.Group controlId='password'>
                                         <Form.Label>Password</Form.Label>
                                         <Form.Control type='password' placeholder='Enter password' value={password}
                                             onChange={(e) => setPassword(e.target.value)} ></Form.Control>
@@ -79,7 +96,7 @@ const UserProfileScreen = ({ history }) => {
                                         <Form.Label>Confirm Password</Form.Label>
                                         <Form.Control type='password' placeholder='Confirn password' value={confirmPassword}
                                             onChange={(e) => setConfirmPassword(e.target.value)} ></Form.Control>
-                                    </Form.Group>
+                                    </Form.Group> */}
                                     <Button type='submit' variant='primary'>Update</Button>
                                 </Form>
                             </>)}
