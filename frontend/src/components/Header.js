@@ -32,11 +32,11 @@ const Header = () => {
 
                             {userInfo ? (
                                 <>
-                                    <LinkContainer to='/my/product/create'>
+                                    <LinkContainer to='/user/my/product/create'>
                                         <Nav.Link>Pridaj produkt</Nav.Link>
                                     </LinkContainer>
                                     <NavDropdown title={userInfo.name} id='username'>
-                                        <LinkContainer to={`/user/${userInfo._id}/profile`}>
+                                        <LinkContainer to={`/user/my/profile`}>
                                             <NavDropdown.Item>Profil</NavDropdown.Item>
                                         </LinkContainer>
                                         <NavDropdown.Item onClick={logoutHandler}>Odhlásiť sa</NavDropdown.Item>

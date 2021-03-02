@@ -8,7 +8,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listUserProducts } from '../actions/productActions'
 
-const UserProfileScreen = ({ match }) => {
+const UserProfileScreen = ({ history }) => {
     // Component level state
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -17,6 +17,9 @@ const UserProfileScreen = ({ match }) => {
 
     const dispatch = useDispatch()
 
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
     const userDetails = useSelector(state => state.userDetails)
     const { loading, error, user } = userDetails
 
@@ -24,11 +27,15 @@ const UserProfileScreen = ({ match }) => {
     const { loading: loadingProducts, error: errorProducts, products } = productListUser
 
     useEffect(() => {
-        // DISPATCH USER DETAILS
-        dispatch(listUserDetails(match.params.id))
-        // DISPATCH USER PRODUCTS
-        dispatch(listUserProducts(match.params.id))
-    }, [dispatch])
+        if (!userInfo) {
+            history.push('/login')
+        } else {
+            // DISPATCH USER DETAILS
+            dispatch(listUserDetails(userInfo._id))
+            // DISPATCH USER PRODUCTS
+            dispatch(listUserProducts(userInfo._id))
+        }
+    }, [dispatch, userInfo, history])
 
     const deleteHandler = (id) => {
         console.log('Delete...')
@@ -102,7 +109,7 @@ const UserProfileScreen = ({ match }) => {
                                             (<i className='fas fa-check' style={{ color: 'green' }} />)
                                             : (<i className='fas fa-times' style={{ color: 'red' }} />)}</td> */}
                                         <td>
-                                            <LinkContainer to={`/admin/user/${user._id}/edit`}>
+                                            <LinkContainer to={`/user/product/${product._id}/edit`}>
                                                 <Button variant='light' className='btn-sm'>
                                                     <i className='fas fa-edit'></i>
                                                 </Button>
