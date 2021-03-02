@@ -8,25 +8,28 @@ import ProductItem from '../components/ProductItem'
 import SortPanel from '../components/SortPanel'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Paginate from '../components/Paginate'
 
 import { listProducts } from '../actions/productActions'
 
-const HomeScreen = ({match}) => {
+const HomeScreen = ({ match }) => {
     const sortKey = match.params.sortKey
+
+    const pageNumber = match.params.pageNumber || 1
 
     const dispatch = useDispatch()  // call and manage an actions
 
     // Global states
     const productList = useSelector(state => state.productList)     // get global state (from store.js)
-    const { loading, error, products } = productList                // parts of global state productList (parts as in reducer)
+    const { loading, error, products, pages, page } = productList                // parts of global state productList (parts as in reducer)
 
     // Do something when screen loads
 
     useEffect(() => {
         // @GET all products from db
         // FIRE OFF the action listProducts action
-        dispatch(listProducts(sortKey))
-    }, [dispatch, sortKey])
+        dispatch(listProducts(sortKey, pageNumber))
+    }, [dispatch, sortKey, pageNumber])
 
     return (
         <>
@@ -41,6 +44,7 @@ const HomeScreen = ({match}) => {
                                     <ProductItem key={product._id} product={product} />
                                 </Col>))}
                         </Row>
+                        <Paginate pages={pages} page={page} sortKey={sortKey ? sortKey : ''} />
                     </>)
             }
         </>

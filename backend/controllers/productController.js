@@ -8,6 +8,10 @@ const getProducts = asyncHandler(async (req, res) => {
     let mysort
     // console.log(req.query.sortKey)
 
+    // Pagination
+    const pageSize = 6
+    const page = Number(req.query.pageNumber) || 1
+
     // Sorting products criterium
     switch (req.query.sortKey) {
         case 'time_desc': {
@@ -28,9 +32,17 @@ const getProducts = asyncHandler(async (req, res) => {
         }
     }
 
-    const products = await Product.find({}).populate('user', 'id name').sort(mysort)
+    // Count all products
+    const count = await Product.countDocuments()
 
-    res.json(products)
+    const products = await Product
+        .find({})
+        .populate('user', 'id name')
+        .sort(mysort)
+        .limit(pageSize)
+        .skip(pageSize * (page - 1))
+
+    res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
 // @desc    Fetch single product
