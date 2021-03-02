@@ -36,6 +36,9 @@ const Header = () => {
                                         <Nav.Link>Pridaj produkt</Nav.Link>
                                     </LinkContainer>
                                     <NavDropdown title={userInfo.name} id='username'>
+                                        <LinkContainer to={`/user/${userInfo._id}/profile`}>
+                                            <NavDropdown.Item>Profil</NavDropdown.Item>
+                                        </LinkContainer>
                                         <NavDropdown.Item onClick={logoutHandler}>Odhlásiť sa</NavDropdown.Item>
                                     </NavDropdown>
                                 </>

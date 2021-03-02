@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import { listUserDetails } from '../actions/userActions'
+import ProductItem from '../components/ProductItem'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listUserProducts } from '../actions/productActions'
 
-const UserProfileScreen = ({ match }) => {
+const UserProductsScreen = ({ match }) => {
 
     const dispatch = useDispatch()
 
@@ -41,13 +42,16 @@ const UserProfileScreen = ({ match }) => {
                 {loadingProducts ? <Loader />
                     : errorProducts ? <Message>{error}</Message>
                         : (
-                             products.map(product => (
-                                 <p>{product.name}</p>
-                             )) 
+                            <Row>
+                            {products.map(product => (
+                                <Col key={product._id} lg={4} md={6}>
+                                    <ProductItem key={product._id} product={product} />
+                                </Col>))}
+                            </Row>
                         )}
             </Col>
         </Row>
     )
 }
 
-export default UserProfileScreen
+export default UserProductsScreen

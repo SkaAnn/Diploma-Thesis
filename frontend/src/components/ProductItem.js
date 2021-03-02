@@ -52,7 +52,7 @@ const ProductItem = ({ product }) => {
                     </Col>
                 </Row>
                 <Card.Text>
-                    <Link to={`/user/${product.user._id}/profile`}>
+                    <Link to={`/products/user/${product.user._id}`}>
                         <i className='far fa-user'></i> &nbsp; {product.user.name}
                     </Link>
                     <span> • </span> USER_CITY </Card.Text>
