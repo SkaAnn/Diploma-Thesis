@@ -20,7 +20,8 @@ const Header = () => {
 
     return (
         <header>
-            <Navbar className='navbar-dark indigo' expand="lg" collapseOnSelect>
+            {/* fixed='top */}
+            <Navbar className='navbar-dark indigo' fixed='top' expand="lg" collapseOnSelect>
                 <Container>
                     <LinkContainer to='/'>
                         <Navbar.Brand>DP-2021</Navbar.Brand>

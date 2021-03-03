@@ -33,3 +33,26 @@ main {
 .font22{
     font-size: 22px;
 }
+
+/* *********** NAVBARS *********** */
+
+.sticky-top {
+    padding-top: 56px;
+}
+
+.fixed-top-2 {
+    margin-top: 56px;
+}
+
+.title-image-view{
+    height: 50vh !important;
+    margin-bottom: -55px;
+}
+
+.height-inherit{
+    height: inherit;
+}
+
+.vert-align-mid{
+    vertical-align: middle;
+}
