@@ -17,20 +17,18 @@ const App = () => {
   return (
     <Router>
       <Header />
-      <main className='py-3'>
-        <Container>
-          <Route path='/login' component={LoginScreen} />
-          <Route path='/register' component={RegisterScreen} />
-          <Route path='/products/user/:id' component={UserProductsScreen} />
-          <Route path='/product/:id' component={ProductScreen} />
-          <Route path='/user/my/profile' component={ProfileScreen} />
-          <Route path='/user/my/product/create' component={ProductCreateScreen} />
-          <Route path='/user/product/:id/edit' component={ProductEditScreen} />
-          <Route path='/sort/:sortKey' component={HomeScreen} exact />
-          <Route path='/page/:pageNumber' component={HomeScreen} exact />
-          <Route path='/sort/:sortKey/page/:pageNumber' component={HomeScreen} exact />
-          <Route path='/' component={HomeScreen} exact />
-        </Container>
+      <main className='pb-3'>
+        <Route path='/login' component={LoginScreen} />
+        <Route path='/register' component={RegisterScreen} />
+        <Route path='/products/user/:id' component={UserProductsScreen} />
+        <Route path='/product/:id' component={ProductScreen} />
+        <Route path='/user/my/profile' component={ProfileScreen} />
+        <Route path='/user/my/product/create' component={ProductCreateScreen} />
+        <Route path='/user/product/:id/edit' component={ProductEditScreen} />
+        <Route path='/sort/:sortKey' component={HomeScreen} exact />
+        <Route path='/page/:pageNumber' component={HomeScreen} exact />
+        <Route path='/sort/:sortKey/page/:pageNumber' component={HomeScreen} exact />
+        <Route path='/' component={HomeScreen} exact />
       </main>
       <Footer />
     </Router>

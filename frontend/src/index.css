@@ -3,7 +3,7 @@ body{
 }
 
 main {
-    min-height: 80vh;
+    min-height: 75vh;
 }
 
 /* *********** PRODUCT CARD *********** */
@@ -37,7 +37,7 @@ main {
 /* *********** NAVBARS *********** */
 
 .sticky-top {
-    padding-top: 56px;
+    padding-top: 55px;
 }
 
 .fixed-top-2 {

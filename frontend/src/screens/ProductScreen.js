@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Card } from 'react-bootstrap'
+import { Row, Col, Card, Container } from 'react-bootstrap'
 import Tabs from '../components/Tabs'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -24,7 +24,7 @@ const ProductScreen = ({ match }) => {
             { loading ? <Loader />
                 : error ? <Message>{error}</Message>
                     : (
-                        <>
+                         <Container className='sticky-top mt-4'>
                             <Row>
                                 <Col md='6'>
                                     <Row>
@@ -57,7 +57,7 @@ const ProductScreen = ({ match }) => {
                                     <Tabs />
                                 </Col>
                             </Row>
-                        </>
+                        </Container>
                     )}
         </>
     )

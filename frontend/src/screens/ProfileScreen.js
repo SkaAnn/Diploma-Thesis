@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Table, Button, Form } from 'react-bootstrap'
+import { Row, Col, Table, Button, Form, Container } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import ProductItem from '../components/ProductItem'
 import Message from '../components/Message'
@@ -34,6 +34,7 @@ const UserProfileScreen = ({ history }) => {
         if (!userInfo) {
             history.push('/login')
         } else {
+            // TU JE BUG!!!
             if (!user || !user.name || success) {
                 dispatch({ type: USER_UPDATE_PROFILE_RESET })
                 // DISPATCH USER DETAILS
@@ -65,28 +66,29 @@ const UserProfileScreen = ({ history }) => {
     }
 
     return (
-        <Row>
-            <Col lg={3}>
-                <h2>User Profile</h2>
+        <Container className='sticky-top mt-4'>
+            <Row>
+                <Col lg={3}>
+                    <h2>User Profile</h2>
 
-                {loading ? <Loader />
-                    : error ? <Message>{error}</Message>
-                        : (
-                            <>
-                                <Form onSubmit={submitHandler}>
-                                    <Form.Group controlId='name'>
-                                        <Form.Label>Name</Form.Label>
-                                        <Form.Control type='name' placeholder='Enter name' value={name}
-                                            onChange={(e) => setName(e.target.value)} ></Form.Control>
-                                    </Form.Group>
+                    {loading ? <Loader />
+                        : error ? <Message>{error}</Message>
+                            : (
+                                <>
+                                    <Form onSubmit={submitHandler}>
+                                        <Form.Group controlId='name'>
+                                            <Form.Label>Name</Form.Label>
+                                            <Form.Control type='name' placeholder='Enter name' value={name}
+                                                onChange={(e) => setName(e.target.value)} ></Form.Control>
+                                        </Form.Group>
 
-                                    <Form.Group controlId='email'>
-                                        <Form.Label>Email Address</Form.Label>
-                                        <Form.Control type='email' placeholder='Enter email' value={email}
-                                            onChange={(e) => setEmail(e.target.value)} ></Form.Control>
-                                    </Form.Group>
+                                        <Form.Group controlId='email'>
+                                            <Form.Label>Email Address</Form.Label>
+                                            <Form.Control type='email' placeholder='Enter email' value={email}
+                                                onChange={(e) => setEmail(e.target.value)} ></Form.Control>
+                                        </Form.Group>
 
-                                    {/* <Form.Group controlId='password'>
+                                        {/* <Form.Group controlId='password'>
                                         <Form.Label>Password</Form.Label>
                                         <Form.Control type='password' placeholder='Enter password' value={password}
                                             onChange={(e) => setPassword(e.target.value)} ></Form.Control>
@@ -97,50 +99,51 @@ const UserProfileScreen = ({ history }) => {
                                         <Form.Control type='password' placeholder='Confirn password' value={confirmPassword}
                                             onChange={(e) => setConfirmPassword(e.target.value)} ></Form.Control>
                                     </Form.Group> */}
-                                    <Button type='submit' variant='primary'>Update</Button>
-                                </Form>
-                            </>)}
-            </Col>
-            <Col lg={9}>
-                {loadingProducts ? <Loader />
-                    : errorProducts ? <Message>{error}</Message>
-                        : (<Table striped bordered responsive className='table-sm'>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>NAME</th>
-                                    <th>PRICE</th>
-                                    {/* <th>EMAIL</th> */}
-                                    {/* <th>ADMIN</th> */}
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {products.map(product => (
-                                    <tr key={product._id}>
-                                        <td>{product._id}</td>
-                                        <td>{product.name}</td>
-                                        <td>{product.price}</td>
-                                        {/* <td><a href={`mailto:${user.email}`}>{user.email}</a></td> */}
-                                        {/* <td>{user.isAdmin ?
+                                        <Button type='submit' variant='primary'>Update</Button>
+                                    </Form>
+                                </>)}
+                </Col>
+                <Col lg={9}>
+                    {loadingProducts ? <Loader />
+                        : errorProducts ? <Message>{error}</Message>
+                            : (<Table striped bordered responsive className='table-sm'>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>NAME</th>
+                                        <th>PRICE</th>
+                                        {/* <th>EMAIL</th> */}
+                                        {/* <th>ADMIN</th> */}
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {products.map(product => (
+                                        <tr key={product._id}>
+                                            <td>{product._id}</td>
+                                            <td>{product.name}</td>
+                                            <td>{product.price}</td>
+                                            {/* <td><a href={`mailto:${user.email}`}>{user.email}</a></td> */}
+                                            {/* <td>{user.isAdmin ?
                                             (<i className='fas fa-check' style={{ color: 'green' }} />)
                                             : (<i className='fas fa-times' style={{ color: 'red' }} />)}</td> */}
-                                        <td>
-                                            <LinkContainer to={`/user/product/${product._id}/edit`}>
-                                                <Button variant='light' className='btn-sm'>
-                                                    <i className='fas fa-edit'></i>
+                                            <td>
+                                                <LinkContainer to={`/user/product/${product._id}/edit`}>
+                                                    <Button variant='light' className='btn-sm'>
+                                                        <i className='fas fa-edit'></i>
+                                                    </Button>
+                                                </LinkContainer>
+                                                <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(product._id)}>
+                                                    <i className='fas fa-trash'></i>
                                                 </Button>
-                                            </LinkContainer>
-                                            <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(product._id)}>
-                                                <i className='fas fa-trash'></i>
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>)}
-            </Col>
-        </Row>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>)}
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

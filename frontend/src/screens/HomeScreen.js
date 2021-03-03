@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import axios from 'axios'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ProductItem from '../components/ProductItem'
@@ -10,6 +10,8 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
 import ProductCard from '../components/ProductCard'
+import ControlPanel from '../components/ControlPanel'
+import TitleImage from '../components/TitleImage'
 
 import { listProducts } from '../actions/productActions'
 
@@ -37,16 +39,20 @@ const HomeScreen = ({ match }) => {
             {   loading ? (<Loader />)
                 : error ? (<Message>{error}</Message>)
                     :
-                    (<>
-                        <Route render={({ history }) => <SortPanel history={history} />} />
-                        <Row>
-                            {products.map(product => (
-                                <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                                    {/* <ProductItem key={product._id} product={product} /> */}
-                                    <ProductCard key={product._id} product={product} /> 
-                                </Col>))}
-                        </Row>
-                        <Paginate pages={pages} page={page} sortKey={sortKey ? sortKey : ''} />
+                    (<> 
+                        {page===1 && <TitleImage /> }
+                        <ControlPanel />
+                        <Container className='mt-4'>
+                            <Route render={({ history }) => <SortPanel history={history} />} />
+                            <Row>
+                                {products.map(product => (
+                                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                                        {/* <ProductItem key={product._id} product={product} /> */}
+                                        <ProductCard key={product._id} product={product} />
+                                    </Col>))}
+                            </Row>
+                            <Paginate pages={pages} page={page} sortKey={sortKey ? sortKey : ''} />
+                        </Container>
                     </>)
             }
         </>
