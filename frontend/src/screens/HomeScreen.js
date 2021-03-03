@@ -9,6 +9,7 @@ import SortPanel from '../components/SortPanel'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
+import ProductCard from '../components/ProductCard'
 
 import { listProducts } from '../actions/productActions'
 
@@ -41,7 +42,8 @@ const HomeScreen = ({ match }) => {
                         <Row>
                             {products.map(product => (
                                 <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                                    <ProductItem key={product._id} product={product} />
+                                    {/* <ProductItem key={product._id} product={product} /> */}
+                                    <ProductCard key={product._id} product={product} /> 
                                 </Col>))}
                         </Row>
                         <Paginate pages={pages} page={page} sortKey={sortKey ? sortKey : ''} />

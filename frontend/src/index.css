@@ -5,3 +5,31 @@ body{
 main {
     min-height: 80vh;
 }
+
+/* *********** PRODUCT CARD *********** */
+
+.not-breaking{
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.card-pad{
+    padding: 1rem 1.25rem 0.6rem 1.25rem !important;
+}
+
+.view{
+    background-color: rgba(0,0,0,.03);
+}
+
+.font14{
+    font-size: 14px;
+}
+
+.font20{
+    font-size: 20px;
+}
+
+.font22{
+    font-size: 22px;
+}
