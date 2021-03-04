@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Row, Form, Button } from 'react-bootstrap'
+import { Row, Form, Button, Col } from 'react-bootstrap'
 
 const SortPanel = ({ history }) => {
     const [sortKey, setSortKey] = useState()
@@ -11,24 +11,34 @@ const SortPanel = ({ history }) => {
         // console.log(`sortKey: ${sortKey}`)
         if (sortKey === '') {
             history.push('/')
-        }else{
+        } else {
             history.push(`/sort/${sortKey}`)
         }
     }
 
     return (
-        <Row>
-            <Form onSubmit={submitHandler} inline>
-                <Button type='submit' onClick={(e) => setSortKey('')} variant='outline-success' className='p-2'>
-                    Najnovšie</Button>
-                <Button type='submit' onClick={(e) => setSortKey('time_desc')} variant='outline-success' className='p-2'>
-                    Najstaršie</Button>
-                <Button type='submit' onClick={(e) => setSortKey('price_asc')} variant='outline-success' className='p-2'>
-                    Najlacnejšie</Button>
-                <Button type='submit' onClick={(e) => setSortKey('price_desc')} variant='outline-success' className='p-2'>
-                    Najdrahšie</Button>
-            </Form>
-        </Row>
+
+        <Form onSubmit={submitHandler} inline>
+            <Row className='w-100'>
+                <Col md='3'>
+                    <Button type='submit' onClick={(e) => setSortKey('')} variant='outline-success' className='p-2'>
+                        Najnovšie</Button>
+                </Col>
+                <Col md='3'>
+                    <Button type='submit' onClick={(e) => setSortKey('time_desc')} variant='outline-success' className='p-2'>
+                        Najstaršie</Button>
+                </Col>
+                <Col md='3'>
+                    <Button type='submit' onClick={(e) => setSortKey('price_asc')} variant='outline-success' className='p-2'>
+                        Najlacnejšie</Button>
+                </Col>
+                <Col md='3'>
+                    <Button type='submit' onClick={(e) => setSortKey('price_desc')} variant='outline-success' className='p-2'>
+                        Najdrahšie</Button>
+                </Col>
+            </Row>
+        </Form>
+
     )
 }
 

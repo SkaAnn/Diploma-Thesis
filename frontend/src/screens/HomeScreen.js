@@ -36,14 +36,15 @@ const HomeScreen = ({ match }) => {
 
     return (
         <>
+            {page === 1 && <TitleImage />}
+            <Route render={({ history }) => <ControlPanel history={history} />} />
             {   loading ? (<Loader />)
                 : error ? (<Message>{error}</Message>)
                     :
-                    (<> 
-                        {page===1 && <TitleImage /> }
-                        <ControlPanel />
+                    (<>
+
                         <Container className='mt-4'>
-                            <Route render={({ history }) => <SortPanel history={history} />} />
+                            {/* <Route render={({ history }) => <SortPanel history={history} />} /> */}
                             <Row>
                                 {products.map(product => (
                                     <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
