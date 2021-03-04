@@ -58,6 +58,10 @@ main {
     height: inherit;
 }
 
+.width-inherit{
+    width: inherit;
+}
+
 .vert-align-mid{
     vertical-align: middle;
 }

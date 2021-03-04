@@ -1,15 +1,12 @@
-import React, { useState } from 'react'
-import { Row, Form, Button, Col } from 'react-bootstrap'
+import e from 'cors';
+import React from 'react'
 
 const SortPanel = ({ history }) => {
-    const [sortKey, setSortKey] = useState()
 
-    // console.log(`init sortKey: ${sortKey}`)
-
-    const submitHandler = (e) => {
-        e.preventDefault()
-        // console.log(`sortKey: ${sortKey}`)
-        if (sortKey === '') {
+    const onChangeHandler = (e) => {
+        const sortKey = e.target.value;
+        console.log(`sortKey: ${sortKey}`)
+        if (sortKey === 'time_asc') {
             history.push('/')
         } else {
             history.push(`/sort/${sortKey}`)
@@ -17,28 +14,13 @@ const SortPanel = ({ history }) => {
     }
 
     return (
-
-        <Form onSubmit={submitHandler} inline>
-            <Row className='w-100'>
-                <Col md='3'>
-                    <Button type='submit' onClick={(e) => setSortKey('')} variant='outline-success' className='p-2'>
-                        Najnovšie</Button>
-                </Col>
-                <Col md='3'>
-                    <Button type='submit' onClick={(e) => setSortKey('time_desc')} variant='outline-success' className='p-2'>
-                        Najstaršie</Button>
-                </Col>
-                <Col md='3'>
-                    <Button type='submit' onClick={(e) => setSortKey('price_asc')} variant='outline-success' className='p-2'>
-                        Najlacnejšie</Button>
-                </Col>
-                <Col md='3'>
-                    <Button type='submit' onClick={(e) => setSortKey('price_desc')} variant='outline-success' className='p-2'>
-                        Najdrahšie</Button>
-                </Col>
-            </Row>
-        </Form>
-
+        <select className="my-auto browser-default custom-select" onChange={onChangeHandler}>
+            <option value=''></option>
+            <option value='time_asc'>Najnovšie</option>
+            <option value='time_desc'>Najstaršie</option>
+            <option value='price_asc'>Najlacnejšie</option>
+            <option value='price_desc'>Najdrahšie</option>
+        </select>
     )
 }
 

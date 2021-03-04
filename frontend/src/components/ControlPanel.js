@@ -1,43 +1,43 @@
 import React, { useState } from 'react'
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact'
 import SortPanel from './SortPanel'
+import FilterPanel from './FilterPanel'
 
 const ControlPanel = ({ history }) => {
     const [show, setShow] = useState(false)
 
     return (
+        // pohyblivy div -> vonkajsi div (farba2) -> vnutorny kontajner (farba1)
         <div className="sticky-top">
-            <div style={{ backgroundColor: 'black', textAlign: 'center', color: 'white', minHeight: '40px' }} >
-                <MDBContainer>
-                    <MDBRow>
-                        <MDBCol size='6' className='my-auto'>
-                            Filtrovať
-                            </MDBCol>
-                        <MDBCol size='6' className='my-auto'>
-                            <button type="button" className='btn ' onClick={(e) => setShow(!show)}
-                                style={{ boxShadow: 'none', margin: '0' }}> Zoradiť </button>
-                        </MDBCol>
-                    </MDBRow>
+            <div style={{ backgroundColor: '#f2e9e9' }}>
+                <MDBContainer className='py-3 px-3' style={{ backgroundColor: '#f0d2ff' }}>
+                    <MDBRow className='my-auto px-4' style={{ lineHeight: '2' }}>
 
-                    <MDBRow>
-                        <MDBCol size='12' className='my-auto'>
-                            <div className={`my-3 mx-5 ${show ? 'd-block' : 'd-none'}`} style={{ backgroundColor: 'white', color: 'black' }} >
+                        <MDBCol sm='9' md='8' className='my-auto'>
+                            <MDBRow>
+                                <MDBCol size='12' className='my-auto' onClick={(e) => setShow(!show)} style={{ cursor: 'pointer' }} >
+                                    Filtrovať
+                                </MDBCol>
+
+                                <MDBCol size='12' className='my-auto'>
+                                    <div className={`py-3 mb-3 ${show ? 'd-block' : 'd-none'}`} >
+                                        fhauifgaifryauegrfakrhaoi rfhaiurgaryuafr
+                                        fhauifgaifryauegrfakrhaoi rfhaiurgaryuafr
+                                        <FilterPanel />
+                                    </div>
+                                </MDBCol>
+                            </MDBRow>
+                        </MDBCol>
+
+                        <MDBCol sm='3' md='4' >
+                            <div className='d-inline-flex width-inherit'>
+                                <span className='my-auto mr-3'>Zoradiť </span>
                                 <SortPanel history={history} />
                             </div>
                         </MDBCol>
-
                     </MDBRow>
 
                 </MDBContainer>
-            </div>
-
-            <div>
-                <select className="browser-default custom-select">
-                    <option>Choose your option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
             </div>
 
         </div >

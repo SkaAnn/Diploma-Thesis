@@ -37,14 +37,16 @@ const HomeScreen = ({ match }) => {
     return (
         <>
             {page === 1 && <TitleImage />}
-            <Route render={({ history }) => <ControlPanel history={history} />} />
             {   loading ? (<Loader />)
-                : error ? (<Message>{error}</Message>)
+                : error ? (<Container className='mt-5'><Message>{error}</Message> </Container>)
                     :
                     (<>
 
-                        <Container className='mt-4'>
+                        <Route render={({ history }) => <ControlPanel history={history} />} />
+                        <Container className='mt-5'>
+
                             {/* <Route render={({ history }) => <SortPanel history={history} />} /> */}
+
                             <Row>
                                 {products.map(product => (
                                     <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
