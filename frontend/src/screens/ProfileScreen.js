@@ -8,6 +8,7 @@ import Loader from '../components/Loader'
 import { listUserProducts } from '../actions/productActions'
 import { listUserDetails, updateUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 
 const UserProfileScreen = ({ history }) => {
     // Component level state
@@ -30,11 +31,15 @@ const UserProfileScreen = ({ history }) => {
     const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
     const { success } = userUpdateProfile
 
+    const productUpdate = useSelector((state) => state.productUpdate)
+    const { success: productUpdateSuccess } = productUpdate
+
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            if (!user || !user.name || success) {
+            if (!user || !user.name || success || productUpdateSuccess) {
+                dispatch({ type: PRODUCT_UPDATE_RESET })
                 dispatch({ type: USER_UPDATE_PROFILE_RESET })
                 // DISPATCH USER DETAILS
                 dispatch(listUserDetails(userInfo._id))
@@ -45,7 +50,7 @@ const UserProfileScreen = ({ history }) => {
                 setEmail(user.email)
             }
         }
-    }, [dispatch, userInfo, user, success, history])
+    }, [dispatch, userInfo, user, success, productUpdateSuccess, history])
 
     const deleteHandler = (id) => {
         console.log('Delete...')
