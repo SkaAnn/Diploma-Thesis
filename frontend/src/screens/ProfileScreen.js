@@ -5,7 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import ProductItem from '../components/ProductItem'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listUserProducts } from '../actions/productActions'
+import { listMyProducts } from '../actions/productActions'
 import { getUserProfile, listUserDetails, updateUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
@@ -32,8 +32,8 @@ const UserProfileScreen = ({ history }) => {
     const { success } = userUpdateProfile
 
     // get products from logged user
-    const productListUser = useSelector(state => state.productListUser)
-    const { loading: loadingProducts, error: errorProducts, products } = productListUser
+    const productListMy = useSelector(state => state.productListMy)
+    const { loading: loadingProducts, error: errorProducts, products } = productListMy
 
     // updated product from EditProductScreen
     const productUpdate = useSelector((state) => state.productUpdate)
@@ -49,7 +49,7 @@ const UserProfileScreen = ({ history }) => {
                 // DISPATCH USER DETAILS
                 dispatch(getUserProfile())
                 // DISPATCH USER PRODUCTS
-                dispatch(listUserProducts(userInfo._id))
+                dispatch(listMyProducts())
             } else {
                 setName(user.name)
                 setEmail(user.email)

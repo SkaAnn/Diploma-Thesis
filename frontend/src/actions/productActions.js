@@ -3,7 +3,8 @@ import {
     PRODUCT_CREATE_FAIL, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS,
     PRODUCT_DETAILS_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS,
     PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS,
-    PRODUCT_LIST_USER_FAIL, PRODUCT_LIST_USER_REQUEST, PRODUCT_LIST_USER_SUCCESS, 
+    PRODUCT_LIST_MY_FAIL, PRODUCT_LIST_MY_REQUEST, PRODUCT_LIST_MY_SUCCESS,
+    PRODUCT_LIST_USER_FAIL, PRODUCT_LIST_USER_REQUEST, PRODUCT_LIST_USER_SUCCESS,
     PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS
 }
     from '../constants/productConstants'
@@ -64,6 +65,36 @@ export const listUserProducts = (id) => async (dispatch) => {
     }
 }
 
+// @ Fetching MY products
+export const listMyProducts = () => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PRODUCT_LIST_MY_REQUEST,
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get('/api/products/my', config)
+
+        dispatch({
+            type: PRODUCT_LIST_MY_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_LIST_MY_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message : error.message,
+        })
+    }
+}
+
 // @ Create new product
 export const createProduct = (product) => async (dispatch, getState) => {
     try {
@@ -115,7 +146,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
             }
         }
 
-        const {data}  = await axios.put(`/api/products/${product._id}`, product, config)
+        const { data } = await axios.put(`/api/products/${product._id}`, product, config)
 
         dispatch({
             type: PRODUCT_UPDATE_SUCCESS,

@@ -1,7 +1,7 @@
 import express from 'express'
 import {
     getProducts, getProductById, createProduct,
-    updateProduct, deleteProduct, getProductsByUser
+    updateProduct, deleteProduct, getProductsByUser, getMyProducts
 } from '../controllers/productController.js'
 import { protect } from '../middleware/authMiddleware.js'
 
@@ -12,10 +12,12 @@ router.route('/')
     .get(getProducts)
     .post(protect, createProduct)
 
+router.route('/my').get(protect, getMyProducts)
+
 router.route('/user/:id').get(getProductsByUser)
 
 router.route('/:id')
-    .put(updateProduct)
+    .put(protect, updateProduct)
     .delete(deleteProduct)
     .get(getProductById)
 

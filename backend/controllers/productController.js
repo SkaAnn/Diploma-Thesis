@@ -60,7 +60,7 @@ const getProductById = asyncHandler(async (req, res) => {
 
 // @desc    Create a product
 // @route   POST /api/products
-// @access  
+// @access  Private
 const createProduct = asyncHandler(async (req, res) => {
     const { name, description, price, condition,
         classification, moreProperties } = req.body
@@ -81,7 +81,7 @@ const createProduct = asyncHandler(async (req, res) => {
 // TODO: pri kazdej zmene kodu modelu pozriet parametre ktore sa maju aktualizovat
 // @desc    Update a product
 // @route   PUT /api/products/:id
-// @access  
+// @access  Private
 const updateProduct = asyncHandler(async (req, res) => {
     // const { name, price, description, image,
     //     brand, category, countInStock } = req.body
@@ -122,7 +122,16 @@ const deleteProduct = asyncHandler(async (req, res) => {
 })
 
 // TODO
-// inactivateProduct - oznacit produkt za neaktivny, vypredany
+// deactivateProduct - oznacit produkt za neaktivny, vypredany
+
+// @desc    Get my products 
+// @route   GET /api/products/my
+// @access  Private
+const getMyProducts = asyncHandler(async (req, res) => {
+    const products = await Product.find({ user: req.user._id })
+    res.json(products)
+})
+
 
 // @desc    Get products from one user 
 // @route   GET /api/products/user/:id
@@ -138,5 +147,6 @@ export {
     createProduct,
     updateProduct,
     deleteProduct,
+    getMyProducts,
     getProductsByUser
 }
