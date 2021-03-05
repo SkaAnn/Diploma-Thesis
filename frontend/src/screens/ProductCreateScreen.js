@@ -32,6 +32,10 @@ const ProductCreateScreen = ({ history }) => {
         { label: 2000, value: 2000 },
     ]
 
+    // Need to pass onSelect={(val) => setSelected(val)}
+    const [selected, setSelected] = useState({})    // SELECTED OPTION FROM SELECTOR
+
+
     const dispatch = useDispatch()
 
     // Component level states from Form
@@ -91,8 +95,10 @@ const ProductCreateScreen = ({ history }) => {
 
         const newProduct = {
             name, description, price,
-            classification, condition, moreProperties: propsList
+            classification, condition, moreProperties: propsList,
+            year: selected.value
         }
+        //console.log(newProduct)
         // DISPATCH CREATE PRODUCT
         dispatch(createProduct(newProduct))
     }
@@ -101,7 +107,7 @@ const ProductCreateScreen = ({ history }) => {
         <FormContainer>
             <Form onSubmit={submitHandler}>
 
-                <ReactSelect req={true} options={options} />
+                <ReactSelect req={true} options={options} onSelect={(val) => setSelected(val)} />
 
                 <Form.Group controlId="category">
                     <Form.Label>Kategória</Form.Label>

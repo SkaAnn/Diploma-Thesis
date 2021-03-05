@@ -4,6 +4,16 @@ import FixRequiredSelect from './FixRequiredSelect.js';
 
 const ReactSelect = (props) => {
 
+    const [state, setState] = useState({})
+
+    const handleChange = (selectedOption) => {
+        setState({ selectedOption });
+        props.onSelect(selectedOption)
+        console.log(`Option selected:`, selectedOption);
+    };
+
+    const { selectedOption } = state;
+
     const options = props.options
 
     const Select = (props) => (
@@ -17,8 +27,8 @@ const ReactSelect = (props) => {
     return (
         <>
             {props.req
-                ? <Select options={options} placeholder={<span>Vyberte...</span>} required />
-                : <Select options={options} placeholder={<span>Vyberte...</span>} />
+                ? <Select value={selectedOption} onChange={handleChange} options={options} placeholder={<span>Vyberte...</span>} required />
+                : <Select value={selectedOption} onChange={handleChange} options={options} placeholder={<span>Vyberte...</span>} />
             }
         </>
     )
