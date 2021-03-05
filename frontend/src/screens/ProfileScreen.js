@@ -6,7 +6,7 @@ import ProductItem from '../components/ProductItem'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listUserProducts } from '../actions/productActions'
-import { listUserDetails, updateUserProfile } from '../actions/userActions'
+import { getUserProfile, listUserDetails, updateUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 
@@ -19,18 +19,23 @@ const UserProfileScreen = ({ history }) => {
 
     const dispatch = useDispatch()
 
+    // is logged
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
-    const userDetails = useSelector(state => state.userDetails)
-    const { loading, error, user } = userDetails
+    // get info about logged user
+    const userProfile = useSelector(state => state.userProfile)
+    const { loading, error, user } = userProfile
 
-    const productListUser = useSelector(state => state.productListUser)     // get global state (from store.js)
-    const { loading: loadingProducts, error: errorProducts, products } = productListUser
-
+    // update logged user
     const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
     const { success } = userUpdateProfile
 
+    // get products from logged user
+    const productListUser = useSelector(state => state.productListUser)
+    const { loading: loadingProducts, error: errorProducts, products } = productListUser
+
+    // updated product from EditProductScreen
     const productUpdate = useSelector((state) => state.productUpdate)
     const { success: productUpdateSuccess } = productUpdate
 
@@ -42,7 +47,7 @@ const UserProfileScreen = ({ history }) => {
                 dispatch({ type: PRODUCT_UPDATE_RESET })
                 dispatch({ type: USER_UPDATE_PROFILE_RESET })
                 // DISPATCH USER DETAILS
-                dispatch(listUserDetails(userInfo._id))
+                dispatch(getUserProfile())
                 // DISPATCH USER PRODUCTS
                 dispatch(listUserProducts(userInfo._id))
             } else {
