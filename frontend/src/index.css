@@ -5,3 +5,8 @@ body{
 main {
     min-height: 80vh;
 }
+
+.multi-preview img {
+    max-width: 100px;
+    padding: 5px;
+  }

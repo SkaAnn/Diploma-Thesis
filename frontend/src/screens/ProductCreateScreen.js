@@ -8,6 +8,7 @@ import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 import ReactSelect from '../components/ReactSelect'
 import { categoryOptions } from '../utils/options'
 import Loader from '../components/Loader'
+import UploadMultipleImages from '../components/UploadMultipleImages'
 
 const ProductCreateScreen = ({ history }) => {
 
@@ -114,6 +115,8 @@ const ProductCreateScreen = ({ history }) => {
     return (
         <FormContainer>
             <Form onSubmit={submitHandler}>
+
+                <UploadMultipleImages />
 
                 <Form.Group controlId='image'>
                     <Form.Label>Image</Form.Label>

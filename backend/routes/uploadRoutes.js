@@ -17,7 +17,14 @@ const storage = multer.diskStorage({
     },
 
     filename(req, file, cb) {
-        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
+        if (file.fieldname === 'avatar') {
+            // Set profile photo
+            // console.log(`${file.fieldname}${path.extname(file.originalname)}`)
+            cb(null, `profile${path.extname(file.originalname)}`)
+        } else {
+            // Product photos
+            cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
+        }
     }
 })
 
