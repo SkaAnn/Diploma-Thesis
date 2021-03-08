@@ -55,7 +55,7 @@ const upload = multer({
 
 router.route('/photos').post(upload.array('photos', 10), function (req, res) {
     // var file = req.body.photos;
-    // res.send('Photos uploaded');
+    res.send('Photos uploaded');
     // console.log(`Req files: ${req.body.photos}`);
 });
 

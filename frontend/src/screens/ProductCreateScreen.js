@@ -31,7 +31,7 @@ const ProductCreateScreen = ({ history }) => {
     const [uploading, setUploading] = useState(false)
 
     // Product images
-    const [images, setImages] = useState()
+    const [images, setImages] = useState([])
 
     // Global state
     const userLogin = useSelector(state => state.userLogin)
@@ -76,7 +76,12 @@ const ProductCreateScreen = ({ history }) => {
         //console.log(file)
         const formData = new FormData()
         formData.append('userId', userInfo._id);
-        formData.append('photos', images[0])    // image sa vola i v backend
+        formData.append('photos', images)    // image sa vola i v backend
+
+        for (var i = 0; i < images.length; i++) {
+            formData.append('photos', images[i])
+        }
+                
         setUploading(true)
 
         try {
@@ -155,7 +160,7 @@ const ProductCreateScreen = ({ history }) => {
         <FormContainer>
             <Form onSubmit={submitHandler}>
 
-                <UploadMultipleImages onUpload={(val) => setImages(val)}  />
+                <UploadMultipleImages onUpload={(val) => setImages(val)} />
 
                 <Form.Group controlId='image'>
                     <Form.Label>Image</Form.Label>

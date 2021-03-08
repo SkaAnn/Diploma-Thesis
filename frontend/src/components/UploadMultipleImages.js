@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 // https://www.positronx.io/react-multiple-files-upload-with-node-express-tutorial/
+// https://www.positronx.io/react-single-and-multiple-images-upload-preview/
 export default class UploadMultipleImages extends Component {
 
     fileObj = [];
@@ -72,7 +73,7 @@ export default class UploadMultipleImages extends Component {
                 </div>
 
                 <div className="form-group">
-                    <input type="file" className="form-control" onChange={this.uploadMultipleFiles} multiple />
+                    <input type="file" name='photos' className="form-control" onChange={this.uploadMultipleFiles} multiple />
                 </div>
                 <button type="button" className="btn btn-danger btn-block" onClick={this.uploadFiles}>Upload</button>
             </form >
