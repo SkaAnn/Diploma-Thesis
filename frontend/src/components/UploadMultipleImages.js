@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+// https://www.positronx.io/react-multiple-files-upload-with-node-express-tutorial/
 export default class UploadMultipleImages extends Component {
 
     fileObj = [];
@@ -16,13 +17,33 @@ export default class UploadMultipleImages extends Component {
     }
 
     uploadMultipleFiles(e) {
-        this.fileObj.push(e.target.files)
-        for (let i = 0; i < this.fileObj[0].length; i++) {
-            this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
+        // if (this.fileObj.length === 0) { 
+        //     this.fileObj.push(e.target.files) 
+        // } else {
+        Array.from(e.target.files).forEach(file => { this.fileObj.push(file) });
+        //e.target.files.map(file => this.fileObj.push(file))
+        // }
+        this.fileArray = []
+        for (let i = 0; i < this.fileObj.length; i++) {
+            this.fileArray.push(URL.createObjectURL(this.fileObj[i]))
         }
         this.setState({ file: this.fileArray })
-        this.fileObj = []
+        console.log(this.fileObj)
+        this.props.onUpload(this.fileObj)
     }
+
+
+    // uploadMultipleFiles(e) {
+    //     this.fileObj.push(e.target.files)
+    //     for (let i = 0; i < this.fileObj[0].length; i++) {
+    //         this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
+    //     }
+    //     this.setState({ file: this.fileArray })
+    //     this.setState({ imgCollection: e.target.files })
+    //     console.log(this.state.imgCollection)
+    //     this.props.onUpload(this.imgCollection) //this.fileArray)
+    //     this.fileObj = []
+    // }
 
     uploadFiles(e) {
         e.preventDefault()
@@ -32,6 +53,8 @@ export default class UploadMultipleImages extends Component {
     deleteImage(e, index) {
         e.preventDefault()
         this.fileArray.splice(index, 1);
+        this.fileObj.splice(index, 1);
+        this.props.onUpload(this.fileObj)
         console.log(index)
         this.setState(
             { reload: true },

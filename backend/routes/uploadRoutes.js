@@ -17,12 +17,14 @@ const storage = multer.diskStorage({
     },
 
     filename(req, file, cb) {
+        console.log('som tu')
         if (file.fieldname === 'avatar') {
             // Set profile photo
             // console.log(`${file.fieldname}${path.extname(file.originalname)}`)
             cb(null, `profile${path.extname(file.originalname)}`)
         } else {
             // Product photos
+            console.log('som tu v products photos ')
             cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
         }
     }
@@ -51,9 +53,12 @@ const upload = multer({
 
 // @rootRoute   /api/upload
 
-router.route('/').post(upload.array('photos', 12), (req, res) => { // mozme i multiple
-    res.send(`Upload more photos`)
-})
+router.route('/photos').post(upload.array('photos', 10), function (req, res) {
+    // var file = req.body.photos;
+    // res.send('Photos uploaded');
+    // console.log(`Req files: ${req.body.photos}`);
+});
+
 
 router.route('/profile').post(upload.single('avatar'), (req, res) => { // mozme i multiple
     res.send(`\\${req.file.path}`)

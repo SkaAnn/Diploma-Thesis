@@ -30,6 +30,9 @@ const ProductCreateScreen = ({ history }) => {
     const [image, setImage] = useState('')
     const [uploading, setUploading] = useState(false)
 
+    // Product images
+    const [images, setImages] = useState()
+
     // Global state
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -39,6 +42,7 @@ const ProductCreateScreen = ({ history }) => {
 
     const uploadFileHandler = async (e) => {
         const file = e.target.files[0]  // can upload multiple files
+        console.log(file)
         const formData = new FormData()
         formData.append('userId', userInfo._id);
         formData.append('avatar', file)    // image sa vola i v backend
@@ -55,6 +59,37 @@ const ProductCreateScreen = ({ history }) => {
 
             const { data } = await axios.post(`/api/upload/profile`, formData, config)
             setImage(data)
+            setUploading(false)
+        } catch (error) {
+            console.error(error)
+            setUploading(false)
+        }
+    }
+
+    const uploadFiles = async (e) => {
+        console.log(images)
+        //const file = new File([images[0]], "profile_image.jpg",{type: 'image/jpg', lastModified:new Date().getTime()})
+        // const fileName='profile_img.jpg'
+        // const theBlob = images[0]
+        // const file = new File([theBlob], fileName, { lastModified: new Date().getTime(), type: theBlob.type })
+        //const file = images[0]
+        //console.log(file)
+        const formData = new FormData()
+        formData.append('userId', userInfo._id);
+        formData.append('photos', images[0])    // image sa vola i v backend
+        setUploading(true)
+
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+
+            console.log(formData)
+
+            const { data } = await axios.post(`/api/upload/photos`, formData, config)
+            console.log(data)
             setUploading(false)
         } catch (error) {
             console.error(error)
@@ -102,6 +137,10 @@ const ProductCreateScreen = ({ history }) => {
     const submitHandler = (e) => {
         e.preventDefault()
 
+        console.log(images)
+
+        uploadFiles()
+
         const newProduct = {
             name, description, price,
             classification, condition, moreProperties: propsList,
@@ -109,14 +148,14 @@ const ProductCreateScreen = ({ history }) => {
         }
         //console.log(newProduct)
         // DISPATCH CREATE PRODUCT
-        dispatch(createProduct(newProduct))
+        //dispatch(createProduct(newProduct))
     }
 
     return (
         <FormContainer>
             <Form onSubmit={submitHandler}>
 
-                <UploadMultipleImages />
+                <UploadMultipleImages onUpload={(val) => setImages(val)}  />
 
                 <Form.Group controlId='image'>
                     <Form.Label>Image</Form.Label>
