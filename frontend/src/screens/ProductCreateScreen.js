@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer'
@@ -6,6 +7,7 @@ import { createProduct } from '../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 import ReactSelect from '../components/ReactSelect'
 import { categoryOptions } from '../utils/options'
+import Loader from '../components/Loader'
 
 const ProductCreateScreen = ({ history }) => {
 
@@ -24,12 +26,40 @@ const ProductCreateScreen = ({ history }) => {
     const [condition, setCondition] = useState('')
     const [propsList, setPropsList] = useState([])  // moreProperties
 
+    const [image, setImage] = useState('')
+    const [uploading, setUploading] = useState(false)
+
     // Global state
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
     const productCreate = useSelector(state => state.productCreate)
     const { loading, error: errorCreate, success: successCreate } = productCreate
+
+    const uploadFileHandler = async (e) => {
+        const file = e.target.files[0]  // can upload multiple files
+        const formData = new FormData()
+        formData.append('userId', userInfo._id);
+        formData.append('avatar', file)    // image sa vola i v backend
+        setUploading(true)
+
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+
+            console.log(formData)
+
+            const { data } = await axios.post(`/api/upload/profile`, formData, config)
+            setImage(data)
+            setUploading(false)
+        } catch (error) {
+            console.error(error)
+            setUploading(false)
+        }
+    }
 
     // Handle input change
     const handleInputChange = (e, index) => {
@@ -84,6 +114,15 @@ const ProductCreateScreen = ({ history }) => {
     return (
         <FormContainer>
             <Form onSubmit={submitHandler}>
+
+                <Form.Group controlId='image'>
+                    <Form.Label>Image</Form.Label>
+                    <Form.Control type='text' placeholder='Enter image url' value={image}
+                        onChange={(e) => setImage(e.target.value)} ></Form.Control>
+                    <Form.File id='image-file' label='Choose File' custom
+                        onChange={uploadFileHandler}></Form.File>
+                    {uploading && <Loader />}
+                </Form.Group>
 
                 <Form.Group controlId="category">
                     <Form.Label>Kategória</Form.Label>
