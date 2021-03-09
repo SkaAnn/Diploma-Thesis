@@ -77,7 +77,7 @@ const ProductCreateScreen = ({ history }) => {
         const formData = new FormData()
         formData.append('userId', userInfo._id);
         formData.append('photos', images)    // image sa vola i v backend
-
+        // https://stackoverflow.com/questions/65496648/cant-upload-multiple-files-by-using-multer-on-react
         for (var i = 0; i < images.length; i++) {
             formData.append('photos', images[i])
         }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Table, Button, Form } from 'react-bootstrap'
+import { Row, Col, Table, Button, Form, Image } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import ProductItem from '../components/ProductItem'
 import Message from '../components/Message'
@@ -84,6 +84,11 @@ const UserProfileScreen = ({ history }) => {
                         : (
                             <>
                                 <Form onSubmit={submitHandler}>
+                                    <Form.Group controlId='profile-img' className='text-center'>
+                                        <Image src="/images/sample-profile.svg" roundedCircle fluid
+                                            style={{ maxHeight: '150px' }} className='mx-auto' />
+                                    </Form.Group>
+
                                     <Form.Group controlId='name'>
                                         <Form.Label>Name</Form.Label>
                                         <Form.Control type='name' placeholder='Enter name' value={name}

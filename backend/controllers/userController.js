@@ -27,17 +27,30 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body
+    const { name, email, password,
+        phoneNumber, profileImage, profileType,
+        locality, profileInfo, marketPolicy,
+        favoriteProducts } = req.body
 
-    const userExist = await User.findOne({ email })
+    const nameExist = await User.findOne({ name })
 
-    if (userExist) {
+    if (nameExist) {
         res.status(400)
-        throw new Error('User already exists')
+        throw new Error('User with same name already exists')
+    }
+
+    const emailExist = await User.findOne({ email })
+
+    if (emailExist) {
+        res.status(400)
+        throw new Error('User with same email already exists')
     }
 
     const user = await User.create({
         name, email, password,
+        phoneNumber, profileImage, profileType,
+        locality, profileInfo, marketPolicy,
+        favoriteProducts
     })
 
     if (user) {
