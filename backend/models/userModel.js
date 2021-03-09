@@ -13,9 +13,9 @@ const userSchema = mongoose.Schema({
 
     profileImage: { type: String },
 
-    profileType: { type: String },  // 2 options: user, company
+    profileType: { type: String, required: true },  // 2 options: user, company
 
-    locality: { type: String },
+    locality: { type: String, required: true },
 
     profileInfo: { type: String },
 

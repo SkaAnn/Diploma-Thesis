@@ -153,7 +153,7 @@ const ProductCreateScreen = ({ history }) => {
         }
         //console.log(newProduct)
         // DISPATCH CREATE PRODUCT
-        //dispatch(createProduct(newProduct))
+        dispatch(createProduct(newProduct))
     }
 
     return (
