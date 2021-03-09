@@ -62,13 +62,17 @@ const getProductById = asyncHandler(async (req, res) => {
 // @route   POST /api/products
 // @access  Private
 const createProduct = asyncHandler(async (req, res) => {
-    const { name, description, price, condition,
-        classification, moreProperties } = req.body
+    const { name, description, category, active,
+        price, condition, classification, countInStock,
+        origin, brand, images, size, weight,
+        subscribers, shipping, moreProperties } = req.body
 
     const data = {
         user: req.user._id,
-        name, description, price,
-        condition, classification, moreProperties
+        name, description, category, active,
+        price, condition, classification, countInStock,
+        origin, brand, images, size, weight,
+        subscribers, shipping, moreProperties
     }
 
     const product = new Product(data)
