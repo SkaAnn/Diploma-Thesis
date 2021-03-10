@@ -10,6 +10,12 @@ import { categoryOptions } from '../utils/options'
 import Loader from '../components/Loader'
 import UploadMultipleImages from '../components/UploadMultipleImages'
 
+// TODO
+// shipping dorobit
+// osetrit aby sa do propList nezaratavali prazdne polozky
+// len Number vstupy
+// osetrit proti evil input (zamedzit moznost vkladania skriptov)
+
 const ProductCreateScreen = ({ history }) => {
     const dispatch = useDispatch()
 
@@ -104,20 +110,19 @@ const ProductCreateScreen = ({ history }) => {
 
     }, [dispatch, userInfo, history, successCreate])
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault()
 
         console.log(images)
 
         // UPLOAD IMAGES
-        const imagesArr = uploadFiles()
+        const imagesArr = await uploadFiles()
         console.log(imagesArr)
 
-        // TODO: images upload >> images: imagesArr
         const newProduct = {
             name, description, category, price,
             active: true, classification, condition,
-            countInStock, origin,
+            countInStock, origin, images: imagesArr,
             moreProperties: propsList,
 
         }
@@ -249,7 +254,8 @@ const ProductCreateScreen = ({ history }) => {
                 </Form.Group>
 
                 <Form.Group controlId="moreProperties">
-                    <Form.Label>Pridaj ďalšie vlastnosti</Form.Label>
+                    <Form.Label>Ďalšie vlastnosti</Form.Label>
+                    <Form.Text id="propBlock" muted> napr. autor, pocet stran, farba, material... bude sa to menit podla kategorie </Form.Text>
                 </Form.Group>
 
                 {/* https://www.cluemediator.com/add-or-remove-input-fields-dynamically-with-reactjs */}
@@ -259,7 +265,7 @@ const ProductCreateScreen = ({ history }) => {
                     propsList.map((x, i) => {
                         return (
                             <Row key={i}>
-                                <Col sm='6'>
+                                <Col sm='5' className='pad-r1'>
                                     <Form.Control
                                         type='text'
                                         name='key'
@@ -269,7 +275,7 @@ const ProductCreateScreen = ({ history }) => {
                                     />
                                 </Col>
 
-                                <Col sm='6'>
+                                <Col sm='5' className='pad-l0'>
                                     <Form.Control
                                         type='text'
                                         // className="ml10"
@@ -280,22 +286,25 @@ const ProductCreateScreen = ({ history }) => {
                                     />
                                 </Col>
 
-                                <div className="btn-box">
-                                    {propsList.length >= 1 &&
-                                        <Button type='button' className="mr10" onClick={() => handleRemoveClick(i)}>
-                                            <i className="fas fa-trash" /></Button>
-                                    }
-                                    {propsList.length - 1 === i &&
-                                        <Button type='button' onClick={handleAddClick} className="btn btn-outline-primary">
-                                            <i className="fas fa-plus-circle" /></Button>}
-                                </div>
+                                <Col sm='2' className='pad-l0'>
+                                    <div className="btn-box">
+                                        {propsList.length >= 1 &&
+                                            <Button type='button' className="p-1 mr10 " onClick={() => handleRemoveClick(i)}>
+                                                <i className="fas fa-trash" /></Button>
+                                        }
+                                        {propsList.length - 1 === i &&
+                                            <Button type='button' onClick={handleAddClick} className="p-1 btn btn-outline-primary">
+                                                <i className="fas fa-plus-circle" /></Button>}
+                                    </div>
+                                </Col>
                             </Row>
                         );
                     })}
 
-                <div style={{ marginTop: 20 }}>{JSON.stringify(propsList)}</div>
+                {/* <div style={{ marginTop: 20 }}>{JSON.stringify(propsList)}</div> */}
 
-                <Button type='submit' variant='indigo' style={{ width: '100%' }}>ULOŽIŤ</Button>
+                <Button type='submit' variant='indigo' className='w-100 mt-4'>ULOŽIŤ</Button>
+
             </Form>
         </FormContainer>
     )

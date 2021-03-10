@@ -18,3 +18,14 @@ main {
 .w-5r{
     width: 5rem !important;
 }
+
+/*media 576 */
+@media only screen and (min-width: 576px) {
+    .pad-r1{
+        padding-right: 1px !important;
+    }
+
+    .pad-l0{
+        padding-left: 0px !important;
+    }
+}
