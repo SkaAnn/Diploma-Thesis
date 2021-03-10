@@ -65,7 +65,7 @@ export default class UploadMultipleImages extends Component {
 
     render() {
         return (
-            <form>
+            <>
                 <div className="form-group multi-preview">
                     {(this.fileArray || []).map((url, index) => (
                         <img src={url} alt={index} key={index} onClick={(e) => { this.deleteImage(e, index) }} />
@@ -73,10 +73,10 @@ export default class UploadMultipleImages extends Component {
                 </div>
 
                 <div className="form-group">
-                    <input type="file" name='photos' className="form-control" onChange={this.uploadMultipleFiles} multiple />
+                    <input type="file" name='photos' className="form-control pb-5" onChange={this.uploadMultipleFiles} multiple />
                 </div>
-                <button type="button" className="btn btn-danger btn-block" onClick={this.uploadFiles}>Upload</button>
-            </form >
+                {/* <button type="button" className="btn btn-danger btn-block" onClick={this.uploadFiles}>Upload</button> */}
+            </ >
         )
     }
 }

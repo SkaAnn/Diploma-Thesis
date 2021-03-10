@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Table, Button, Form, Image } from 'react-bootstrap'
@@ -16,6 +17,9 @@ const UserProfileScreen = ({ history }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+
+    const [image, setImage] = useState('')
+    const [uploading, setUploading] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -64,6 +68,32 @@ const UserProfileScreen = ({ history }) => {
         // }
     }
 
+    const uploadFileHandler = async (e) => {
+        const file = e.target.files[0]  // can upload multiple files
+        console.log(file)
+        const formData = new FormData()
+        formData.append('userId', userInfo._id);
+        formData.append('avatar', file)    // image sa vola i v backend
+        setUploading(true)
+
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+
+            console.log(formData)
+
+            const { data } = await axios.post(`/api/upload/profile`, formData, config)
+            setImage(data)
+            setUploading(false)
+        } catch (error) {
+            console.error(error)
+            setUploading(false)
+        }
+    }
+
     const submitHandler = (e) => {
         e.preventDefault()
 
@@ -84,6 +114,16 @@ const UserProfileScreen = ({ history }) => {
                         : (
                             <>
                                 <Form onSubmit={submitHandler}>
+
+                                    <Form.Group controlId='image'>
+                                        <Form.Label>Image</Form.Label>
+                                        <Form.Control type='text' placeholder='Enter image url' value={image}
+                                            onChange={(e) => setImage(e.target.value)} ></Form.Control>
+                                        <Form.File id='image-file' label='Choose File' custom
+                                            onChange={uploadFileHandler}></Form.File>
+                                        {uploading && <Loader />}
+                                    </Form.Group>
+
                                     <Form.Group controlId='profile-img' className='text-center'>
                                         <Image src="/images/sample-profile.svg" roundedCircle fluid
                                             style={{ maxHeight: '150px' }} className='mx-auto' />

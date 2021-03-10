@@ -10,3 +10,11 @@ main {
     max-width: 100px;
     padding: 5px;
   }
+
+.pad-control{
+    padding: .375rem .75rem !important;
+}
+
+.w-5r{
+    width: 5rem !important;
+}
