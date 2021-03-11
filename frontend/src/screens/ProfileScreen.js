@@ -162,20 +162,20 @@ const UserProfileScreen = ({ history }) => {
                         : (<Table striped bordered responsive className='table-sm'>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>NAME</th>
-                                    <th>PRICE</th>
-                                    {/* <th>EMAIL</th> */}
-                                    {/* <th>ADMIN</th> */}
+                                    <th>Názov</th>
+                                    <th>Kategória</th>
+                                    <th>Cena</th>
+                                    <th>Dátum pridania</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {products.map(product => (
                                     <tr key={product._id}>
-                                        <td>{product._id}</td>
                                         <td>{product.name}</td>
+                                        <td>{product.category}</td>
                                         <td>{product.price}</td>
+                                        <td>{product.createdAt.substring(0, 10)}</td>
                                         {/* <td><a href={`mailto:${user.email}`}>{user.email}</a></td> */}
                                         {/* <td>{user.isAdmin ?
                                             (<i className='fas fa-check' style={{ color: 'green' }} />)

@@ -95,13 +95,20 @@ const updateProduct = asyncHandler(async (req, res) => {
 
     if (product) {
         // TODO - Update params
+        // active is true
         product.name = body.name
         product.description = body.description
+        product.category = body.category
         product.price = body.price
         product.condition = body.condition
         product.classification = body.classification
+        product.countInStock = body.countInStock
+        product.images = body.images
+        product.origin = body.origin
+        // brand, size, weight,
+        // todo shipping
         product.moreProperties = body.moreProperties
-
+        
         const updatedProduct = await product.save()
         res.json(updatedProduct)
     } else {

@@ -56,7 +56,7 @@ const upload = multer({
 router.route('/photos').post(upload.array('photos', 10), function (req, res) {
     const arr = []
     for (var i = 0; i < req.files.length; i++) {
-        arr.push(req.files[i].filename)
+        arr.push(`/uploads/${req.body.userId}/${req.files[i].filename}`)
     }
     console.log(arr)
     res.send(arr)
