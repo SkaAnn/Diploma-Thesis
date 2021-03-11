@@ -33,10 +33,10 @@ const getProducts = asyncHandler(async (req, res) => {
     }
 
     // Count all products
-    const count = await Product.countDocuments()
+    const count = await Product.countDocuments({ active: true })
 
     const products = await Product
-        .find({})
+        .find({ active: true })
         .populate('user', 'id name')
         .sort(mysort)
         .limit(pageSize)
@@ -45,6 +45,7 @@ const getProducts = asyncHandler(async (req, res) => {
     res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
+// TODO nezobrazovat ked uz bude deaktivovany!
 // @desc    Fetch single product
 // @route   GET /api/products/:id
 // @access  Public
@@ -108,7 +109,7 @@ const updateProduct = asyncHandler(async (req, res) => {
         // brand, size, weight,
         // todo shipping
         product.moreProperties = body.moreProperties
-        
+
         const updatedProduct = await product.save()
         res.json(updatedProduct)
     } else {
@@ -124,7 +125,8 @@ const updateProduct = asyncHandler(async (req, res) => {
 const deleteProduct = asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id)
     if (product) {
-        await product.remove()
+        product.active = false
+        await product.save()
         res.json({ message: 'Product removed' })
     } else {
         res.status(404)
@@ -139,7 +141,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // @route   GET /api/products/my
 // @access  Private
 const getMyProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find({ user: req.user._id })
+    const products = await Product.find({ user: req.user._id, active: true })
     res.json(products)
 })
 
@@ -148,7 +150,7 @@ const getMyProducts = asyncHandler(async (req, res) => {
 // @route   GET /api/products/user/:id
 // @access  Public
 const getProductsByUser = asyncHandler(async (req, res) => {
-    const products = await Product.find({ user: req.params.id })
+    const products = await Product.find({ user: req.params.id, active: true })
     res.json(products)
 })
 
