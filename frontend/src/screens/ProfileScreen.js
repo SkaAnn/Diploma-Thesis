@@ -6,10 +6,10 @@ import { LinkContainer } from 'react-router-bootstrap'
 import ProductItem from '../components/ProductItem'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listMyProducts } from '../actions/productActions'
+import { listMyProducts, deleteProduct } from '../actions/productActions'
 import { getUserProfile, listUserDetails, updateUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
-import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
+import { PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants'
 
 const UserProfileScreen = ({ history }) => {
     // Component level state
@@ -43,12 +43,17 @@ const UserProfileScreen = ({ history }) => {
     const productUpdate = useSelector((state) => state.productUpdate)
     const { success: productUpdateSuccess } = productUpdate
 
+    // deleted product
+    const productDelete = useSelector(state => state.productDelete)
+    const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
+
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            if (!user || !user.name || success || productUpdateSuccess) {
+            if (!user || !user.name || success || productUpdateSuccess || successDelete) {
                 dispatch({ type: PRODUCT_UPDATE_RESET })
+                dispatch({ type: PRODUCT_DELETE_RESET })
                 dispatch({ type: USER_UPDATE_PROFILE_RESET })
                 // DISPATCH USER DETAILS
                 dispatch(getUserProfile())
@@ -59,14 +64,7 @@ const UserProfileScreen = ({ history }) => {
                 setEmail(user.email)
             }
         }
-    }, [dispatch, userInfo, user, success, productUpdateSuccess, history])
-
-    const deleteHandler = (id) => {
-        console.log('Delete...')
-        // if(window.confirm('Are you sure')){
-        // dispatch(deleteUser(id))
-        // }
-    }
+    }, [dispatch, userInfo, user, success, productUpdateSuccess, successDelete, history])
 
     const uploadFileHandler = async (e) => {
         const file = e.target.files[0]  // can upload multiple files
@@ -91,6 +89,13 @@ const UserProfileScreen = ({ history }) => {
         } catch (error) {
             console.error(error)
             setUploading(false)
+        }
+    }
+
+    const deleteHandler = (id) => {
+        if (window.confirm('Táto operácia je nezvratná. Naozaj chcete odstrániť produkt?')) {
+            // DELETE PRODUCTS
+            dispatch(deleteProduct(id))
         }
     }
 

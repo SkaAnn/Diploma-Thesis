@@ -18,7 +18,7 @@ router.route('/user/:id').get(getProductsByUser)
 
 router.route('/:id')
     .put(protect, updateProduct)
-    .delete(deleteProduct)
+    .delete(protect, deleteProduct)
     .get(getProductById)
 
 export default router
