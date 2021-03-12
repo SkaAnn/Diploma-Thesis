@@ -9,9 +9,10 @@ const ImageCarousel = ({ images }) => {
         <Carousel>
 
             {images && images.map((url) => (
-                <div>
-                    <img src={url} key={url}/>
-                    <p className="legend">{url}</p>
+                <div className='carousel-div-size' key={url} style={{backgroundColor: 'gainsboro'}}>
+
+                    <img className='img-fluid carousel-center-img carousel-img-size' src={url} alt={url} />
+                    {/* <p className="legend">{url}</p> */}
                 </div>
             ))}
 

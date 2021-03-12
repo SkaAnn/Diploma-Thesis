@@ -29,3 +29,43 @@ main {
         padding-left: 0px !important;
     }
 }
+
+/* //////////////////////////// PRODUCT DETAIL CAROUSEL //////////////////////////// */
+
+@media only screen and (max-width: 600px) {
+    .carousel .thumbs-wrapper {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .slide .carousel-div-size {
+        height: 25rem;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .slide .carousel-img-size {
+        height: 100%;
+        width: auto !important;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .slide .carousel-div-size {
+        height: 30rem;
+    }
+}
+
+.carousel .thumb {
+    height: 80px !important;
+}
+
+.slide .carousel-center-img {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* -ms-transform: translate(-50%, -50%); */
+    transform: translate(-50%, -50%);
+}
