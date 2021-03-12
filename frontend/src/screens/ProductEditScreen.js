@@ -34,6 +34,7 @@ const ProductEditScreen = ({ match, history }) => {
     const [condition, setCondition] = useState('')
     // More
     // const [imageFiles, setImageFiles] = useState([])
+    const [reload, setReload] = useState(false)
 
     // Global states
     const productDetails = useSelector(state => state.productDetails)
@@ -117,7 +118,7 @@ const ProductEditScreen = ({ match, history }) => {
                     setCondition(product.condition)
                     setImages(product.images)
                     console.log('updatovane ', images)
-
+                    setReload(true)
                     setBrand(product.brand)
                     setOrigin(product.origin)
                     setSize(product.size)
@@ -179,10 +180,10 @@ const ProductEditScreen = ({ match, history }) => {
         // DISPATCH UPDATE PRODUCT
         // ak nie su undefined tak ich treba pushnut
         const newProduct = {
-            _id: productId,  name, description, category, price,
+            _id: productId, name, description, category, price,
             classification, condition,
             countInStock, origin, images: imagesArr,
-            moreProperties: propsList, 
+            moreProperties: propsList,
             // todo doplnit ostatne properties
         }
 
@@ -208,12 +209,12 @@ const ProductEditScreen = ({ match, history }) => {
                                         {/* {product._id} */}
                                         {/* <img src='/uploads/60475bbaaead2a9cd8ee114a/photos-1615390190415.jpg'/> */}
 
-
-                                        <Form.Group controlId='images'>
-                                            <Form.Label>Fotky</Form.Label>
-                                            {/* <Form.Control type='text' value={images} onChange={(e) => setImages(e.target.value)} /> */}
-                                            <UploadMultipleImages2 images={product.images} userId={userInfo._id} onLoad={(val) => setImages(val)} onUpload={(val) => setImages(val)} />
-                                        </Form.Group>
+                                        {reload &&
+                                            <Form.Group controlId='images'>
+                                                <Form.Label>Fotky</Form.Label>
+                                                {/* <Form.Control type='text' value={images} onChange={(e) => setImages(e.target.value)} /> */}
+                                                <UploadMultipleImages2 images={product.images} userId={userInfo._id} onLoad={(val) => setImages(val)} onUpload={(val) => setImages(val)} />
+                                            </Form.Group>}
 
                                         <Form.Group as={Row} controlId='name'>
                                             <Form.Label column sm="2">Názov</Form.Label>
@@ -339,7 +340,7 @@ const ProductEditScreen = ({ match, history }) => {
                                     </Col>
                                 </Row>
                             </Form>
-                            // 
+                            //
                             //     <Form.Group controlId='name'>
                             //         <Form.Label>Name</Form.Label>
                             //         <Form.Control type='text' placeholder='Enter name' value={name}

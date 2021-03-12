@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Card } from 'react-bootstrap'
+import { MDBBadge } from 'mdbreact'
 import Tabs from '../components/Tabs'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProductDetails } from '../actions/productActions'
-
+import ImageCarousel from '../components/ImageCarousel'
 
 const ProductScreen = ({ match }) => {
     const dispatch = useDispatch()
 
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
-
-    console.log(product)
 
     useEffect(() => {
         dispatch(listProductDetails(match.params.id))
@@ -27,38 +26,34 @@ const ProductScreen = ({ match }) => {
                         <>
                             <Row>
                                 <Col md='6'>
-                                    <Row>
-                                        <Col size='6'><i className="far fa-star" ></i> Ulož</Col>
-                                        <Col size='6' style={{ textAlign: 'right' }}>PONUKA</Col>
-                                    </Row>
+                                    PONUKA / Elektronika / Bezdrotove sluchadla
                                 </Col>
                             </Row>
 
                             <Row>
                                 {/* LAVA CAST OBRAZOVKY */}
-                                <Col md='6'>
-                                    <Card className='my-3 p-3 rounded'>
-                                        <img src='/images/sample.jpg' alt='obrazok produktu ' />
-                                    </Card>
+                                <Col md='6' className='mb-2'>
+                                    <ImageCarousel images={product.images} />
                                 </Col>
 
                                 {/* PRAVA CAST OBRAZOVKY */}
-                                <Col md='6' style={{ marginTop: '1rem' }}>
-                                    <p>{product.user.name}</p>
-                                    <h2>{product.name}</h2>
-                                    <h3>{product.price}</h3>
-                                    <p>{product.condition}</p>
-                                    <p>Bratislava</p>
+                                <Col md='6' >
+                                    <div className='border px-4'>
+                                        <p> <i className="fas fa-user"></i> {product.user.name}  <i className="fas fa-clock"></i> 22/01/2020 </p>
+                                        <h2>{product.name}  <i className="far fa-star" ></i></h2>
+                                        <h3>{product.price} € <MDBBadge className='ml-3' color="primary">{product.condition}</MDBBadge></h3>
+                                        <p>dostupne: 1 ks</p>
+                                        <p> <i className="fas fa-map-marker-alt"></i> Bratislava</p>
+                                    </div>
+
+                                    <Tabs />
+
                                 </Col>
                             </Row>
 
-                            <Row>
-                                <Col md='6'>
-                                    <Tabs />
-                                </Col>
-                            </Row>
                         </>
-                    )}
+                    )
+            }
         </>
     )
 }
