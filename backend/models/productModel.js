@@ -36,7 +36,7 @@ const productSchema = new mongoose.Schema(
 
         weight: { type: String },
 
-        subscribers: [{
+        followers: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
         }],

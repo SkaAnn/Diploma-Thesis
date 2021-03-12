@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Button, Row, Col } from 'react-bootstrap'
 import { translateCondition, translateClassification } from '../utils/translate'
 
 const ProductItem = ({ product }) => {
+
+    const [isFavorite, setIsFavorite] = useState(false)
 
     const badgeType = (condition) => {
         switch (condition) {
@@ -29,7 +31,11 @@ const ProductItem = ({ product }) => {
                 <Row>
                     <Col size='6'> {translateClassification(product.classification)} </Col>
                     <Col size='6' style={{ textAlign: 'right' }}>
-                        <i className="far fa-star" ></i>
+                        <span id="grid" onClick={() => setIsFavorite(!isFavorite)}>
+                            {isFavorite ?
+                                <i className="fas fa-star"></i>
+                                : <i className="far fa-star" ></i>}
+                        </span>
                     </Col>
                 </Row>
             </Card.Header>

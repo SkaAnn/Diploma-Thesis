@@ -66,14 +66,14 @@ const createProduct = asyncHandler(async (req, res) => {
     const { name, description, category, active,
         price, condition, classification, countInStock,
         origin, brand, images, size, weight,
-        subscribers, shipping, moreProperties } = req.body
+        followers, shipping, moreProperties } = req.body
 
     const data = {
         user: req.user._id,
         name, description, category, active,
         price, condition, classification, countInStock,
         origin, brand, images, size, weight,
-        subscribers, shipping, moreProperties
+        followers, shipping, moreProperties
     }
 
     const product = new Product(data)
@@ -154,6 +154,58 @@ const getProductsByUser = asyncHandler(async (req, res) => {
     res.json(products)
 })
 
+// @desc    Add follower for product
+// @route   POST /api/products/:id/follow
+// @access  Private
+const addProductFollower = asyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id)
+    if (product) {
+
+        const alreadyFollowed = product.followers.find(r => r.toString() === req.user._id.toString())
+        if (alreadyFollowed) {
+            res.status(400)
+            throw new Error('Product is already followed by this user')
+        }
+
+        product.followers.push(req.user._id)
+        await product.save()
+        res.status(201).json({ message: 'Follower added!' })
+    } else {
+        res.status(404)
+        throw new Error('Product not found')
+    }
+})
+
+// @desc    Remove product follower
+// @route   PUT /api/products/:id/follow
+// @access  Private
+const removeProductFollower = asyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id)
+    if (product) {
+
+        const updatedFollowers = product.followers
+        console.log('Pred: ', updatedFollowers)
+        updatedFollowers.pull(req.user._id)
+        console.log('Po: ', updatedFollowers)
+        product.followers = updatedFollowers
+        await product.save()
+
+        res.status(201).json({ message: 'Follower removed!' })
+        //res.json(product)
+    } else {
+        res.status(404)
+        throw new Error('Product not found')
+    }
+})
+
+// @desc    Get users favorite products
+// @route   GET /api/products/favorite
+// @access  Private
+const getMyFavoriteProducts = asyncHandler(async (req, res) => {
+    const products = await Product.find({ followers: req.user._id, active: true }).select('-followers')
+    res.json(products)
+})
+
 export {
     getProducts,
     getProductById,
@@ -161,5 +213,8 @@ export {
     updateProduct,
     deleteProduct,
     getMyProducts,
-    getProductsByUser
+    getProductsByUser,
+    addProductFollower,
+    removeProductFollower,
+    getMyFavoriteProducts
 }

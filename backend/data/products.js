@@ -15,7 +15,7 @@ const products = [
         images: [],
         size: 'cca 20cm',
         weight: '0.6 kg',
-        subscribers: [],
+        followers: [],
         shipping: [
             { typ: 'Slovenská pošta', price: '4.5e' },
             { typ: 'Zásielkovňa', price: '2e' }
@@ -45,7 +45,7 @@ export default products
 //     "images": [],
 //     "size": "cca 20cm",
 //     "weight": "0.6kg",
-//     "subscribers": [],
+//     "followers": [],
 //     "shipping": [
 //         {
 //             "typ": "Slovenská pošta",
