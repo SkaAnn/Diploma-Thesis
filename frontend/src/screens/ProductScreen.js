@@ -5,7 +5,7 @@ import Tabs from '../components/Tabs'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProductDetails } from '../actions/productActions'
-
+import ImageCarousel from '../components/ImageCarousel'
 
 const ProductScreen = ({ match }) => {
     const dispatch = useDispatch()
@@ -37,9 +37,10 @@ const ProductScreen = ({ match }) => {
                             <Row>
                                 {/* LAVA CAST OBRAZOVKY */}
                                 <Col md='6'>
-                                    <Card className='my-3 p-3 rounded'>
+                                    {/* <Card className='my-3 p-3 rounded'>
                                         <img src='/images/sample.jpg' alt='obrazok produktu ' />
-                                    </Card>
+                                    </Card> */}
+                                    <ImageCarousel images={product.images} />
                                 </Col>
 
                                 {/* PRAVA CAST OBRAZOVKY */}
