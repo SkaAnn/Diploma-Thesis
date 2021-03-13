@@ -202,7 +202,7 @@ const removeProductFollower = asyncHandler(async (req, res) => {
 // @route   GET /api/products/favorite
 // @access  Private
 const getMyFavoriteProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find({ followers: req.user._id, active: true }).select('-followers')
+    const products = await Product.find({ followers: req.user._id, active: true }).populate('user', 'id name').select('-followers')
     res.json(products)
 })
 

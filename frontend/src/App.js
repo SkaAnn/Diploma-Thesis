@@ -12,6 +12,7 @@ import ProductScreen from './screens/ProductScreen'
 import ProductCreateScreen from './screens/ProductCreateScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import FavoriteProductsScreen from './screens/FavoriteProductsScreen'
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='/register' component={RegisterScreen} />
           <Route path='/products/user/:id' component={UserProductsScreen} />
           <Route path='/product/:id' component={ProductScreen} />
+          <Route path='/user/my/favorites' component={FavoriteProductsScreen} />
           <Route path='/user/my/profile' component={ProfileScreen} />
           <Route path='/user/my/product/create' component={ProductCreateScreen} />
           <Route path='/user/product/:id/edit' component={ProductEditScreen} />

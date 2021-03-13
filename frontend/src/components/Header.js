@@ -35,6 +35,9 @@ const Header = () => {
                                     <LinkContainer to='/user/my/product/create'>
                                         <Nav.Link>Pridaj produkt</Nav.Link>
                                     </LinkContainer>
+                                    <LinkContainer to='/user/my/favorites'>
+                                        <Nav.Link>Obľúbené produkty</Nav.Link>
+                                    </LinkContainer>
                                     <NavDropdown title={userInfo.name} id='username'>
                                         <LinkContainer to={`/user/my/profile`}>
                                             <NavDropdown.Item>Profil</NavDropdown.Item>

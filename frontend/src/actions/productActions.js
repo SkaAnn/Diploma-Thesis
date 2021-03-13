@@ -8,7 +8,8 @@ import {
     PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS,
     PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_FAIL,
     PRODUCT_ADD_FOLLOWER_REQUEST, PRODUCT_ADD_FOLLOWER_SUCCESS, PRODUCT_ADD_FOLLOWER_FAIL, 
-    PRODUCT_REMOVE_FOLLOWER_REQUEST, PRODUCT_REMOVE_FOLLOWER_SUCCESS, PRODUCT_REMOVE_FOLLOWER_FAIL,
+    PRODUCT_REMOVE_FOLLOWER_REQUEST, PRODUCT_REMOVE_FOLLOWER_SUCCESS, PRODUCT_REMOVE_FOLLOWER_FAIL, 
+    PRODUCT_LIST_FAVORITE_FAIL, PRODUCT_LIST_FAVORITE_SUCCESS, PRODUCT_LIST_FAVORITE_REQUEST,
 }
     from '../constants/productConstants'
 
@@ -247,6 +248,36 @@ export const unfollowProduct = (id) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: PRODUCT_REMOVE_FOLLOWER_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message : error.message,
+        })
+    }
+}
+
+// @ Fetching my favorite products
+export const listFavoriteProducts = () => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PRODUCT_LIST_FAVORITE_REQUEST,
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get('/api/products/favorite', config)
+
+        dispatch({
+            type: PRODUCT_LIST_FAVORITE_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_LIST_FAVORITE_FAIL,
             payload: error.response && error.response.data.message
                 ? error.response.data.message : error.message,
         })
