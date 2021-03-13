@@ -6,7 +6,9 @@ import {
     PRODUCT_LIST_MY_FAIL, PRODUCT_LIST_MY_REQUEST, PRODUCT_LIST_MY_SUCCESS,
     PRODUCT_LIST_USER_FAIL, PRODUCT_LIST_USER_REQUEST, PRODUCT_LIST_USER_SUCCESS,
     PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS,
-    PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_FAIL
+    PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_FAIL,
+    PRODUCT_ADD_FOLLOWER_REQUEST, PRODUCT_ADD_FOLLOWER_SUCCESS, PRODUCT_ADD_FOLLOWER_FAIL, 
+    PRODUCT_REMOVE_FOLLOWER_REQUEST, PRODUCT_REMOVE_FOLLOWER_SUCCESS, PRODUCT_REMOVE_FOLLOWER_FAIL,
 }
     from '../constants/productConstants'
 
@@ -187,6 +189,64 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: PRODUCT_DELETE_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message : error.message,
+        })
+    }
+}
+
+// @ Add follower to product 
+export const followProduct = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PRODUCT_ADD_FOLLOWER_REQUEST,
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        await axios.post(`/api/products/${id}/follow`, {} ,config)
+
+        dispatch({
+            type: PRODUCT_ADD_FOLLOWER_SUCCESS,
+        })
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_ADD_FOLLOWER_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message : error.message,
+        })
+    }
+}
+
+// @ Remove follower of product 
+export const unfollowProduct = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PRODUCT_REMOVE_FOLLOWER_REQUEST,
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        await axios.put(`/api/products/${id}/follow`, {}, config)
+
+        dispatch({
+            type: PRODUCT_REMOVE_FOLLOWER_SUCCESS,
+        })
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_REMOVE_FOLLOWER_FAIL,
             payload: error.response && error.response.data.message
                 ? error.response.data.message : error.message,
         })

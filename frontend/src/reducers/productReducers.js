@@ -4,8 +4,10 @@ import {
     PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS,
     PRODUCT_LIST_MY_FAIL, PRODUCT_LIST_MY_REQUEST, PRODUCT_LIST_MY_RESET, PRODUCT_LIST_MY_SUCCESS,
     PRODUCT_LIST_USER_FAIL, PRODUCT_LIST_USER_REQUEST, PRODUCT_LIST_USER_SUCCESS,
-    PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_RESET, PRODUCT_UPDATE_SUCCESS, 
-    PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_DELETE_RESET
+    PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_RESET, PRODUCT_UPDATE_SUCCESS,
+    PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_DELETE_RESET,
+    PRODUCT_ADD_FOLLOWER_REQUEST, PRODUCT_ADD_FOLLOWER_SUCCESS, PRODUCT_ADD_FOLLOWER_FAIL,
+    PRODUCT_REMOVE_FOLLOWER_REQUEST, PRODUCT_REMOVE_FOLLOWER_SUCCESS, PRODUCT_REMOVE_FOLLOWER_FAIL
 } from '../constants/productConstants'
 
 // Fetch all products
@@ -109,7 +111,6 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
 }
 
 export const productDeleteReducer = (state = {}, action) => {
-
     switch (action.type) {
         case PRODUCT_DELETE_REQUEST:
             return { loading: true }
@@ -119,6 +120,32 @@ export const productDeleteReducer = (state = {}, action) => {
             return { loading: false, error: action.payload }
         case PRODUCT_DELETE_RESET:
             return {}
+        default:
+            return state
+    }
+}
+
+export const productAddFollowerReducer = (state = {}, action) => {
+    switch (action.type) {
+        case PRODUCT_ADD_FOLLOWER_REQUEST:
+            return { loading: true }
+        case PRODUCT_ADD_FOLLOWER_SUCCESS:
+            return { loading: false, success: true }
+        case PRODUCT_ADD_FOLLOWER_FAIL:
+            return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+
+export const productRemoveFollowerReducer = (state = {}, action) => {
+    switch (action.type) {
+        case PRODUCT_REMOVE_FOLLOWER_REQUEST:
+            return { loading: true }
+        case PRODUCT_REMOVE_FOLLOWER_SUCCESS:
+            return { loading: false, success: true }
+        case PRODUCT_REMOVE_FOLLOWER_FAIL:
+            return { loading: false, error: action.payload }
         default:
             return state
     }
