@@ -12,6 +12,7 @@ import ProductScreen from './screens/ProductScreen'
 import ProductCreateScreen from './screens/ProductCreateScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import ProfileUpdateScreen from './screens/ProfileUpdateScreen'
 import FavoriteProductsScreen from './screens/FavoriteProductsScreen'
 
 const App = () => {
@@ -25,7 +26,8 @@ const App = () => {
           <Route path='/products/user/:id' component={UserProductsScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/user/my/favorites' component={FavoriteProductsScreen} />
-          <Route path='/user/my/profile' component={ProfileScreen} />
+          <Route path='/user/my/profile' component={ProfileScreen} exact/>
+          <Route path='/user/my/profile/update' component={ProfileUpdateScreen}  exact/>
           <Route path='/user/my/product/create' component={ProductCreateScreen} />
           <Route path='/user/product/:id/edit' component={ProductEditScreen} />
           <Route path='/sort/:sortKey' component={HomeScreen} exact />

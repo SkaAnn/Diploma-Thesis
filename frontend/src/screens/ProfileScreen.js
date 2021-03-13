@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Table, Button, Form, Image } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import { Link } from 'react-router-dom'
 import ProductItem from '../components/ProductItem'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -119,6 +120,8 @@ const UserProfileScreen = ({ history }) => {
                         : (
                             <>
                                 <Form onSubmit={submitHandler}>
+
+                                <Link to={'/user/my/profile/update'}> Update Profil </Link>
 
                                     <Form.Group controlId='image'>
                                         <Form.Label>Image</Form.Label>

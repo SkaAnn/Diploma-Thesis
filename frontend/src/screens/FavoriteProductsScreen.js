@@ -6,17 +6,22 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listFavoriteProducts } from '../actions/productActions'
 
-const FavoriteProductsScreen = () => {
+const FavoriteProductsScreen = ({ history }) => {
     const dispatch = useDispatch()
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
 
     const productListFavorite = useSelector(state => state.productListFavorite)
     const { loading, error, products } = productListFavorite
 
     useEffect(() => {
-        // @GET all products from db
-        // FIRE OFF the action listProducts action
+        // user must be login
+        if (!userInfo) {
+            history.push('/login')
+        }
         dispatch(listFavoriteProducts())
-    }, [dispatch])
+    }, [dispatch, userInfo, history])
 
     return (
         <Row>

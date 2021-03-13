@@ -21,11 +21,6 @@ const userSchema = mongoose.Schema({
 
     marketPolicy: { type: String },
 
-    favoriteProducts: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product',
-    }]
-
 }, { timestamps: true })
 
 // Check if passwords match

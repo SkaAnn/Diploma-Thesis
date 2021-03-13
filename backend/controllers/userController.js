@@ -87,14 +87,9 @@ const getUserById = asyncHandler(async (req, res) => {
 // @route   GET /api/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id)
+    const user = await User.findById(req.user._id).select('-password')
     if (user) {
-        res.json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            isAdmin: user.isAdmin,
-        })
+        res.json(user)
     } else {
         res.status(404)
         throw new Error('User not found')
@@ -109,6 +104,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name
         user.email = req.body.email || user.email
+        user.phoneNumber = req.body.phoneNumber || user.phoneNumber
+        user.profileImage = req.body.profileImage || user.profileImage
+        user.profileInfo = req.body.profileInfo || user.profileInfo
+        user.marketPolicy = req.body.marketPolicy || user.marketPolicy
+
         if (req.body.password) {
             user.password = req.body.password
         }

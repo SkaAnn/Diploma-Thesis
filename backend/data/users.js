@@ -14,7 +14,6 @@ const users = [
         locality: 'Bratislava, Slovenská republika',
         profileInfo: '',
         marketPolicy: '', 
-        favoriteProducts: []
     },
     {
         name: 'TestCompany',
@@ -26,7 +25,6 @@ const users = [
         locality: 'Viedeň, Rakúsko',
         profileInfo: 'Sme skvelá firma ktorá predáva len tie najlepšie produkty. Založený sme boli 01.01.2021 kvôli účelom tejto diplomovej práce. Vitajte v našom obchode!',
         marketPolicy: 'V Rakúsku a okolí Bratislavy je rozvoz zdarma. Ďalej +0.10e za každých 10km. Každý piatok zľava 20% na určitý tovar.', 
-        favoriteProducts: []
     },
     {
         name: 'user123',
@@ -38,7 +36,6 @@ const users = [
         locality: 'Uganda, Afrika',
         profileInfo: '',
         marketPolicy: 'Dovážame tovar len raz mesačne podľa aktuálnej situácie. Poštovné +10e', 
-        favoriteProducts: []
     },
 ]
 
@@ -54,6 +51,5 @@ export default users
 //     "profileType": "user",
 //     "locality": "Bratislava, Slovenská republika",
 //     "profileInfo": "",
-//     "marketPolicy": "",
-//     "favoriteProducts": []
+//     "marketPolicy": ""
 // }
