@@ -7,6 +7,8 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProductDetails } from '../actions/productActions'
 import ImageCarousel from '../components/ImageCarousel'
+import FeedbackForm from '../components/FeedbackForm'
+import { env } from '../config'
 
 const ProductScreen = ({ match }) => {
     const dispatch = useDispatch()
@@ -47,6 +49,9 @@ const ProductScreen = ({ match }) => {
                                     </div>
 
                                     <Tabs />
+
+                                    <FeedbackForm env={env} />
+                                    {/* <FeedbackForm env={process.env} /> */}
 
                                 </Col>
                             </Row>
