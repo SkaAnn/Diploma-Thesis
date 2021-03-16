@@ -9,6 +9,7 @@ import { listProductDetails } from '../actions/productActions'
 import ImageCarousel from '../components/ImageCarousel'
 import FeedbackForm from '../components/FeedbackForm'
 import { env } from '../config'
+import SMTPEmail from '../components/SMTPEmail'
 
 const ProductScreen = ({ match }) => {
     const dispatch = useDispatch()
@@ -49,8 +50,9 @@ const ProductScreen = ({ match }) => {
                                     </div>
 
                                     <Tabs />
-
-                                    <FeedbackForm env={env} />
+                                    
+                                    <SMTPEmail />
+                                    {/* <FeedbackForm env={env} /> */}
                                     {/* <FeedbackForm env={process.env} /> */}
 
                                 </Col>
