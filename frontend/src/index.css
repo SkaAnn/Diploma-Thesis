@@ -1,3 +1,7 @@
+#root{
+    --black-color: #4a4a4a;
+}
+
 body{
     font-weight: 400 !important;
 }
@@ -68,4 +72,104 @@ main {
     left: 50%;
     /* -ms-transform: translate(-50%, -50%); */
     transform: translate(-50%, -50%);
+}
+
+/***** CSS from https://mailtrap.io/ ******/
+
+.header-button {
+    width: 115px;
+    color: var(--black-color) !important;
+    --border-color: var(--black-color);
+    --button-bg-color: #fff;
+    --button-bg-color-hover: #9ff5df;
+    --button-bg-color-active: #78f5d6;
+    display: -webkit-inline-box;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: 2px solid var(--border-color);
+    border-radius: 30px;
+    padding: 9px 20px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    /* line-height: 1.17; */
+    background-color: var(--button-bg-color);
+    /* box-shadow: inset 1px 1px 0 1px #fff; */
+    -webkit-transition: all .25s ease;
+    transition: all .25s ease;
+    white-space: pre-wrap;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.header-button:hover{
+    background-color: var(--button-bg-color-hover);
+}
+
+.header-button:focus { 
+    outline: none; 
+}
+
+.nav-link.active{ 
+    background-color: var(--button-bg-color-active);
+}
+
+.header-link {
+    color: var(--black-color) !important;
+    --link-bg-color-hover: #9ff5df;
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -.09px;
+    color: inherit;
+    text-transform: uppercase;
+    transition: color .3s;
+}
+
+.header-link:hover{
+    background-color: var(--link-bg-color-hover);
+}
+
+.search-box{
+    --search-bg-color-hover: #9ff5df;
+    border: none !important;
+    border-bottom: 1px solid #ced4da !important;
+    border-radius: 0 !important;
+}
+
+.form-control:focus {
+    /* change shadow text control */
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%) !important;
+  }
+
+
+@media only screen and (max-width: 576px) {
+    .navbar-nav {   
+        text-align: center;
+    }
+
+    .dropdown-menu{
+        text-align: center !important;
+        width: 100%;
+    }
+}
+
+.navbar-nav .nav-link {
+    margin-top: 0.9rem;
+    margin-bottom: 0.9rem;
+}
+
+.pad-9px{
+    padding-top: 9px !important;
+    padding-bottom: 9px !important;
+}
+
+@media only screen and (max-width: 991px) {
+    .mt-1rem {
+        margin-top: 0.7rem;
+    }
 }
