@@ -14,6 +14,7 @@ import ControlPanel from '../components/ControlPanel'
 import TitleImage from '../components/TitleImage'
 
 import { listProducts } from '../actions/productActions'
+import ProductCardNew from '../components/ProductCardNew'
 
 const HomeScreen = ({ match }) => {
     const sortKey = match.params.sortKey
@@ -36,7 +37,7 @@ const HomeScreen = ({ match }) => {
 
     return (
         <>
-            {page === 1 && <TitleImage />}
+            {/* {page === 1 && <TitleImage />} */}
             {   loading ? (<Loader />)
                 : error ? (<Container className='mt-5'><Message>{error}</Message> </Container>)
                     :
@@ -51,7 +52,7 @@ const HomeScreen = ({ match }) => {
                                 {products.map(product => (
                                     <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                                         {/* <ProductItem key={product._id} product={product} /> */}
-                                        <ProductCard key={product._id} product={product} />
+                                        <ProductCardNew key={product._id} product={product} />
                                     </Col>))}
                             </Row>
                             <Paginate pages={pages} page={page} sortKey={sortKey ? sortKey : ''} />

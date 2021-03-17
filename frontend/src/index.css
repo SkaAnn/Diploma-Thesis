@@ -65,3 +65,28 @@ main {
 .vert-align-mid{
     vertical-align: middle;
 }
+
+.w-10rem{
+    height: 10rem !important;
+}
+
+.max-h-10rem{
+    max-height: 10rem !important;
+}
+
+.fixed-right-bottom {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+/* https://www.html-code-generator.com/css/triangle-generator */
+.triangle{
+	width: 0;
+	height: 0;
+	border-width: 0 0 50px 50px;
+	border-color: transparent transparent #e59bdf transparent;
+	border-style: solid;
+    z-index: 1;
+}
+
