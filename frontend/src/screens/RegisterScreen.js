@@ -113,7 +113,7 @@ const RegisterScreen = ({ location, history }) => {
                 </Form.Group>
 
                 <Form.Group controlId='profileInfo'>
-                    <Form.Label>Informácie o {profileType && profileType == 'company' ? 'nás' : 'mne'}</Form.Label>
+                    <Form.Label>Informácie o {profileType && profileType === 'company' ? 'nás' : 'mne'}</Form.Label>
                     <Form.Control as="textarea" value={profileInfo} onChange={(e) => setProfileInfo(e.target.value)}
                         placeholder='' rows={3} />
                 </Form.Group>

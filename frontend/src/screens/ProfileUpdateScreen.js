@@ -1,13 +1,12 @@
 import axios from 'axios'
 import React, { useState, useEffect, useReducer } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Table, Button, Form, Image } from 'react-bootstrap'
+import { Button, Form, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { getUserProfile, listUserDetails, updateUserProfile } from '../actions/userActions'
-import { set } from 'mongoose'
+import { getUserProfile, updateUserProfile } from '../actions/userActions'
 
 const ProfileUpdateScreen = ({ history }) => {
     const dispatch = useDispatch()
@@ -117,7 +116,7 @@ const ProfileUpdateScreen = ({ history }) => {
 
         let imgUrl
         console.log('Toto je image ', image)
-        if (image == user.profileImage) {
+        if (image === user.profileImage) {
             imgUrl = image
         }
         else {
@@ -174,7 +173,7 @@ const ProfileUpdateScreen = ({ history }) => {
                     </Form.Group>
 
                     <Form.Group controlId='profileInfo'>
-                        <Form.Label>Informácie o {profileType && profileType == 'company' ? 'nás' : 'mne'}</Form.Label>
+                        <Form.Label>Informácie o {profileType && profileType === 'company' ? 'nás' : 'mne'}</Form.Label>
                         <Form.Control as="textarea" value={profileInfo} onChange={(e) => setProfileInfo(e.target.value)}
                             placeholder='' rows={3} />
                     </Form.Group>

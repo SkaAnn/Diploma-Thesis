@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import { listUserDetails } from '../actions/userActions'
@@ -23,7 +23,7 @@ const UserProductsScreen = ({ match }) => {
         dispatch(listUserDetails(match.params.id))
         // DISPATCH USER PRODUCTS
         dispatch(listUserProducts(match.params.id))
-    }, [dispatch])
+    }, [dispatch, match.params.id])
 
     return (
         <Row>

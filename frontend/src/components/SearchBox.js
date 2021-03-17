@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 
 const SearchBox = ({ history }) => {
     // component state keyword

@@ -7,7 +7,6 @@ import { createProduct } from '../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 import ReactSelect from '../components/ReactSelect'
 import { categoryOptions } from '../utils/options'
-import Loader from '../components/Loader'
 import UploadMultipleImages from '../components/UploadMultipleImages'
 
 // TODO

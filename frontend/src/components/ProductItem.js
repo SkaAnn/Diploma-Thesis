@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Card, Button, Row, Col } from 'react-bootstrap'
+import { Card, Row, Col } from 'react-bootstrap'
 import { translateCondition, translateClassification } from '../utils/translate'
 import { followProduct, unfollowProduct } from '../actions/productActions'
 

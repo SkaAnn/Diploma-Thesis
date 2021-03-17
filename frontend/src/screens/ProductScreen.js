@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Card } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import { MDBBadge } from 'mdbreact'
 import Tabs from '../components/Tabs'
 import Message from '../components/Message'
@@ -18,7 +18,7 @@ const ProductScreen = ({ match }) => {
 
     useEffect(() => {
         dispatch(listProductDetails(match.params.id))
-    }, [dispatch])
+    }, [dispatch, match.params.id])
 
     return (
         <>
