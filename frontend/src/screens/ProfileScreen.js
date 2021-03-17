@@ -8,7 +8,7 @@ import Loader from '../components/Loader'
 import { listMyProducts, deleteProduct } from '../actions/productActions'
 import { getUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
-import { PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants'
+import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants'
 import UserInfoPanel from '../components/UserInfoPanel'
 
 const UserProfileScreen = ({ history }) => {
@@ -31,6 +31,10 @@ const UserProfileScreen = ({ history }) => {
     const productListMy = useSelector(state => state.productListMy)
     const { loading: loadingProducts, error: errorProducts, products } = productListMy
 
+    // create product from CreateProductScreen
+    const productCreate = useSelector((state) => state.productCreate)
+    const { success: productCreateSuccess } = productCreate
+
     // updated product from EditProductScreen
     const productUpdate = useSelector((state) => state.productUpdate)
     const { success: productUpdateSuccess } = productUpdate
@@ -43,7 +47,8 @@ const UserProfileScreen = ({ history }) => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            if (!user || !user.name || success || productUpdateSuccess || successDelete) {
+            if (!user || !user.name || success || productCreateSuccess || productUpdateSuccess || successDelete) {
+                dispatch({ type: PRODUCT_CREATE_RESET })
                 dispatch({ type: PRODUCT_UPDATE_RESET })
                 dispatch({ type: PRODUCT_DELETE_RESET })
                 dispatch({ type: USER_UPDATE_PROFILE_RESET })
@@ -53,7 +58,7 @@ const UserProfileScreen = ({ history }) => {
                 dispatch(listMyProducts())
             }
         }
-    }, [dispatch, userInfo, user, success, productUpdateSuccess, successDelete, history])
+    }, [dispatch, userInfo, user, success, productCreateSuccess, productUpdateSuccess, successDelete, history])
 
     const deleteHandler = (id) => {
         if (window.confirm('Táto operácia je nezvratná. Naozaj chcete odstrániť produkt?')) {

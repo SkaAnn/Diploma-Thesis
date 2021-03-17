@@ -96,15 +96,13 @@ const ProductCreateScreen = ({ history }) => {
     };
 
     useEffect(() => {
-        dispatch({ type: PRODUCT_CREATE_RESET })
-
         if (!userInfo) {
             history.push('/login')
         }
 
         if (successCreate) {
             // TODO prepnut na zoznam mojich produktov a vypisat uspesnu hlasku
-            history.push(`/`)
+            history.push('/user/my/profile')
         }
 
     }, [dispatch, userInfo, history, successCreate])
