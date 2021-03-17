@@ -267,3 +267,39 @@ main {
 .lh-15{
     line-height: 1.5;
 }
+
+
+/****** PRODUCT CARD **********/
+.card-pad{
+    padding: 1rem 1.25rem 0.6rem 1.25rem !important;
+}
+
+/* .view{
+    background-color: rgba(0,0,0,.03);
+} */
+
+.fixed-right-bottom {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.fixed-right-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.curs-pointer {
+    cursor: pointer !important;
+}
+
+/* https://www.html-code-generator.com/css/triangle-generator */
+.triangle{
+	width: 0;
+	height: 0;
+	border-width: 0 0 50px 50px;
+	border-color: transparent transparent #e59bdf transparent;
+	border-style: solid;
+    z-index: 1;
+}

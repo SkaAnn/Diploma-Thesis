@@ -150,7 +150,7 @@ const getMyProducts = asyncHandler(async (req, res) => {
 // @route   GET /api/products/user/:id
 // @access  Public
 const getProductsByUser = asyncHandler(async (req, res) => {
-    const products = await Product.find({ user: req.params.id, active: true })
+    const products = await Product.find({ user: req.params.id, active: true }).populate('user', 'id name')
     res.json(products)
 })
 

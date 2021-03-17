@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listUserProducts } from '../actions/productActions'
 import UserInfoPanel from '../components/UserInfoPanel'
+import ProductCard from '../components/ProductCard'
 
 const UserProductsScreen = ({ match }) => {
 
@@ -53,12 +54,16 @@ const UserProductsScreen = ({ match }) => {
                 {loadingProducts ? <Loader />
                     : errorProducts ? <Message>{error}</Message>
                         : (
+                            <>
+                            <h2 className='text-uppercase fw-400 mb-2'>Produkty</h2>
                             <Row>
                                 {products.map(product => (
                                     <Col key={product._id} lg={4} md={6}>
-                                        <ProductItem key={product._id} product={product} />
+                                        {/* <ProductItem key={product._id} product={product} /> */}
+                                        <ProductCard key={product._id} product={product} />
                                     </Col>))}
                             </Row>
+                            </>
                         )}
             </Col>
         </Row>
