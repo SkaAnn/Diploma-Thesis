@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listFavoriteProducts } from '../actions/productActions'
+import { getCategoryName } from '../utils/translate'
 
 const FavoriteProductsScreen = ({ history }) => {
     const dispatch = useDispatch()
@@ -47,7 +48,7 @@ const FavoriteProductsScreen = ({ history }) => {
                                         <tr key={product._id} >
                                             <td className='vert-align-midd'> <Image src={product.images[0]} alt={product.name} fluid rounded style={{ maxWidth: '80px' }} /></td>
                                             <td className='vert-align-midd fw-600 pl-table-td'><Link to={`/product/${product._id}`}>{product.name}</Link></td>
-                                            <td className='vert-align-midd'>{product.category}</td>
+                                            <td className='vert-align-midd'>{getCategoryName(product.category)}</td>
                                             <td className='vert-align-midd'>{product.price}</td>
                                             <td className='vert-align-midd'>{product.createdAt.substring(0, 10)}</td>
                                             <td className='vert-align-midd'><Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link></td>

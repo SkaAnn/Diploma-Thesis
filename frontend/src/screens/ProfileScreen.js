@@ -10,6 +10,7 @@ import { getUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants'
 import UserInfoPanel from '../components/UserInfoPanel'
+import { translateClassification } from '../utils/translate'
 
 const UserProfileScreen = ({ history }) => {
     const dispatch = useDispatch()
@@ -105,7 +106,7 @@ const UserProfileScreen = ({ history }) => {
                                         <tr key={product._id}>
                                             <td className='vert-align-midd text-center'><Image src={product.images[0]} alt={product.name} fluid rounded style={{ maxWidth: '70px' }} /></td>
                                             <td className='vert-align-midd fw-600 pl-small-table-td' >{product.name}</td>
-                                            <td className='vert-align-midd'>{product.classification}</td>
+                                            <td className='vert-align-midd'>{translateClassification(product.classification)}</td>
                                             <td className='vert-align-midd'>{product.price}</td>
                                             <td className='vert-align-midd text-center'>{product.createdAt.substring(0, 10)}</td>
                                             <td className='vert-align-midd text-center'>

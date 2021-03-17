@@ -6,6 +6,7 @@ import {
     MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardImage,
     MDBCardTitle, MDBCardHeader, MDBCardFooter, MDBView, MDBMask
 } from 'mdbreact';
+import { triangleColor, translateClassification } from '../utils/translate'
 import { followProduct, unfollowProduct } from '../actions/productActions'
 
 const ProductCard = ({ product }) => {
@@ -66,13 +67,13 @@ const ProductCard = ({ product }) => {
                     src={product.images[0]}
                     className="mx-auto img-fluid"
                     alt={product.name}
-                    style={{ maxHeight: '13rem' }}
+                    style={{  minHeight: '12rem', maxHeight: '12rem' }}
                 />
 
                 <MDBMask
                     // pattern={1}
                     className="flex-top mt-2 px-3">
-                    <span className="badge bg-primary">{product.classification}</span>
+                    <span className="badge bg-primary text-uppercase">{translateClassification(product.classification)}</span>
 
                     {/* <span style={{ float: 'right', zIndex: '100' }} onClick={addOrRemoveHandler} className='card-wrapper'>
                             {isFavorite ?
@@ -83,7 +84,7 @@ const ProductCard = ({ product }) => {
                 <MDBMask
                     // pattern={1}
                     className="flex">
-                    <div className="fixed-right-bottom triangle" >
+                    <div className="fixed-right-bottom triangle" style={{ borderColor: ` transparent transparent ${triangleColor(product.condition)}  transparent` }} >
                         {/* <span className='text-uppercase' style={{ zIndex: '2' }}>Novy</span> */}
                     </div>
                 </MDBMask>
