@@ -121,7 +121,7 @@ const UserProfileScreen = ({ history }) => {
                             <>
                                 <Form onSubmit={submitHandler}>
 
-                                <Link to={'/user/my/profile/update'}> Update Profil </Link>
+                                    <Link to={'/user/my/profile/update'}> Update Profil </Link>
 
                                     <Form.Group controlId='image'>
                                         <Form.Label>Image</Form.Label>
@@ -165,38 +165,44 @@ const UserProfileScreen = ({ history }) => {
                             </>)}
             </Col>
             <Col lg={9}>
+                <h2>Moje Produkty</h2>
                 {loadingProducts ? <Loader />
                     : errorProducts ? <Message>{error}</Message>
                         : (<Table striped bordered responsive className='table-sm'>
                             <thead>
-                                <tr>
-                                    <th>Názov</th>
-                                    <th>Kategória</th>
-                                    <th>Cena</th>
-                                    <th>Dátum pridania</th>
-                                    <th></th>
+                                <tr className='text-uppercase'>
+                                    <th className='fw-600 vert-align-midd ' style={{ width: '8%' }}></th>
+                                    <th className='fw-600 vert-align-midd  pl-small-table-td' style={{ width: '25%' }}>Názov</th>
+                                    {/* <th className='fw-600' style={{ width: '20%' }}>Kategória</th> */}
+                                    <th className='fw-600 vert-align-midd ' style={{ width: '10%' }}>Typ</th>
+                                    <th className='fw-600 vert-align-midd ' style={{ width: '15%' }}>Cena</th>
+                                    <th className='fw-600 vert-align-midd  text-center' style={{ width: '17%' }}>Dátum pridania</th>
+                                    <th className='fw-600 vert-align-midd ' style={{ width: '25%' }}></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {products.map(product => (
                                     <tr key={product._id}>
-                                        <td>{product.name}</td>
-                                        <td>{product.category}</td>
-                                        <td>{product.price}</td>
-                                        <td>{product.createdAt.substring(0, 10)}</td>
+                                        <td className='vert-align-midd text-center'><Image src={product.images[0]} alt={product.name} fluid rounded style={{ maxWidth: '70px' }} /></td>
+                                        <td className='vert-align-midd fw-600 pl-small-table-td' >{product.name}</td>
+                                        {/* <td>{product.category}</td> */}
+                                        <td className='vert-align-midd'>{product.classification}</td>
+                                        <td className='vert-align-midd'>{product.price}</td>
+                                        <td className='vert-align-midd text-center'>{product.createdAt.substring(0, 10)}</td>
                                         {/* <td><a href={`mailto:${user.email}`}>{user.email}</a></td> */}
                                         {/* <td>{user.isAdmin ?
                                             (<i className='fas fa-check' style={{ color: 'green' }} />)
                                             : (<i className='fas fa-times' style={{ color: 'red' }} />)}</td> */}
-                                        <td>
+                                        <td className='vert-align-midd text-center'>
                                             <LinkContainer to={`/user/product/${product._id}/edit`}>
-                                                <Button variant='light' className='btn-sm'>
-                                                    <i className='fas fa-edit'></i>
-                                                </Button>
+                                                <button className='my-btn-small' >
+                                                    {/* w-100px'> */}
+                                                    <i className='fas fa-edit'></i> Upraviť
+                                                </button>
                                             </LinkContainer>
-                                            <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(product._id)}>
-                                                <i className='fas fa-trash'></i>
-                                            </Button>
+                                            <button className='my-btn-small' onClick={() => deleteHandler(product._id)}>
+                                                <i className='fas fa-trash'></i> Zmazať
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}

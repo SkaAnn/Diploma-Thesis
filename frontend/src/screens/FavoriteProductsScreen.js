@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Table } from 'react-bootstrap'
+import { Row, Col, Table, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -26,27 +26,30 @@ const FavoriteProductsScreen = ({ history }) => {
     return (
         <Row>
             <Col>
-                <h2>My favorite products ({products.length})</h2>
+                <h2 className='fw-400 text-uppercase mb-4'> <i className="far fa-heart mr-1" style={{ color: 'pink' }}></i> Obľúbené ({products.length})</h2>
                 {loading ? <Loader />
                     : error ? <Message>{error}</Message>
-                        : (<Table striped bordered responsive className='table-sm'>
+                        : (<Table responsive className='table-sm'>
                             <thead>
-                                <tr>
-                                    <th>Názov</th>
-                                    <th>Kategória</th>
-                                    <th>Cena</th>
-                                    <th>Dátum pridania</th>
-                                    <th>Vlastník</th>
+                                <tr className='text-uppercase'>
+                                    {/* https://stackoverflow.com/questions/15115052/how-to-set-up-fixed-width-for-td */}
+                                    <th className='fw-600' style={{ width: '9%' }}></th>
+                                    <th className='fw-600 pl-table-td' style={{ width: '24%' }}>Názov</th>
+                                    <th className='fw-600' style={{ width: '24%' }}>Kategória</th>
+                                    <th className='fw-600' style={{ width: '12%' }}>Cena</th>
+                                    <th className='fw-600' style={{ width: '14%' }}>Dátum pridania</th>
+                                    <th className='fw-600' style={{ width: '17%' }} >Vlastník</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {products.map(product => (
-                                    <tr key={product._id}>
-                                        <td><Link to={`/product/${product._id}`}>{product.name}</Link></td>
-                                        <td>{product.category}</td>
-                                        <td>{product.price}</td>
-                                        <td>{product.createdAt.substring(0, 10)}</td>
-                                        <td><Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link></td>
+                                    <tr key={product._id} >
+                                        <td className='vert-align-midd'> <Image src={product.images[0]} alt={product.name} fluid rounded style={{ maxWidth: '80px' }} /></td>
+                                        <td className='vert-align-midd fw-600 pl-table-td'><Link to={`/product/${product._id}`}>{product.name}</Link></td>
+                                        <td className='vert-align-midd'>{product.category}</td>
+                                        <td className='vert-align-midd'>{product.price}</td>
+                                        <td className='vert-align-midd'>{product.createdAt.substring(0, 10)}</td>
+                                        <td className='vert-align-midd'><Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link></td>
                                     </tr>
                                 ))}
                             </tbody>
