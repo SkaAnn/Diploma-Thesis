@@ -76,6 +76,11 @@ const getUserById = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            phoneNumber: user.phoneNumber,
+            locality: user.locality,
+            profileImage: user.profileImage,
+            profileInfo: user.profileInfo,
+            marketPolicy: user.marketPolicy,
         })
     } else {
         res.status(404)

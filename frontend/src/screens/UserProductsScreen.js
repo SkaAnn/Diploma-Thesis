@@ -6,6 +6,7 @@ import ProductItem from '../components/ProductItem'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listUserProducts } from '../actions/productActions'
+import UserInfoPanel from '../components/UserInfoPanel'
 
 const UserProductsScreen = ({ match }) => {
 
@@ -26,27 +27,37 @@ const UserProductsScreen = ({ match }) => {
 
     return (
         <Row>
-            <Col md={3}>
-                <h2>User Profile</h2>
+            <Col lg={3}>
+
 
                 {loading ? <Loader />
                     : error ? <Message>{error}</Message>
-                        : (
+                        : user && (
                             <>
-                                <p>{user._id}</p>
-                                <p>{user.name}</p>
-                                <p>{user.email}</p>
-                            </>)}
+                                <h4 className='fw-400 text-center lh-15'><span className='text-uppercase'>Profil užívateľa </span>
+                                    {/* <br /> <span className='fw-600'> {user.name} </span> */}
+                                </h4>
+                                <div style={{ border: '0', boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)' }}>
+                                    <UserInfoPanel user={user} />
+                                </div>
+                            </>
+                            // <>
+                            //     <p>{user._id}</p>
+                            //     <p>{user.name}</p>
+                            //     <p>{user.email}</p>
+                            // </>
+
+                        )}
             </Col>
-            <Col md={9}>
+            <Col lg={9}>
                 {loadingProducts ? <Loader />
                     : errorProducts ? <Message>{error}</Message>
                         : (
                             <Row>
-                            {products.map(product => (
-                                <Col key={product._id} lg={4} md={6}>
-                                    <ProductItem key={product._id} product={product} />
-                                </Col>))}
+                                {products.map(product => (
+                                    <Col key={product._id} lg={4} md={6}>
+                                        <ProductItem key={product._id} product={product} />
+                                    </Col>))}
                             </Row>
                         )}
             </Col>

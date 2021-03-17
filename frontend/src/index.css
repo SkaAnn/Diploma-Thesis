@@ -250,3 +250,20 @@ main {
 .my-btn-small:focus { 
     outline: none; 
 }
+
+.fs-14px{
+    font-size: 14px;
+}
+
+.fs-13px{
+    font-size: 13px;
+}
+
+
+.lh-2{
+    line-height: 2.2;
+}
+
+.lh-15{
+    line-height: 1.5;
+}

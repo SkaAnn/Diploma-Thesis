@@ -11,6 +11,7 @@ import { listMyProducts, deleteProduct } from '../actions/productActions'
 import { getUserProfile, listUserDetails, updateUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants'
+import UserInfoPanel from '../components/UserInfoPanel'
 
 const UserProfileScreen = ({ history }) => {
     // Component level state
@@ -112,60 +113,56 @@ const UserProfileScreen = ({ history }) => {
 
     return (
         <Row>
-            <Col lg={3}>
-                <h2>User Profile</h2>
+            <Col lg={3} className='my-3'>
 
+                <h2 className='text-uppercase fw-400 text-center mb-3'>Môj profil</h2>
                 {loading ? <Loader />
                     : error ? <Message>{error}</Message>
-                        : (
-                            <>
-                                <Form onSubmit={submitHandler}>
+                        : user && (
+                            <div style={{ border: '0', boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)' }}>
+                                <UserInfoPanel user={user} />
+                                <div className='px-2'>
+                                    <span className='my-btn-small my-3' style={{ width: '100%' }}> <i className='fas fa-edit'></i> <Link to={'/user/my/profile/update'}> Aktualizovať </Link> </span>
+                                </div>
+                            </div>
+                            // <>
+                            //     <Form onSubmit={submitHandler}>
 
-                                    <Link to={'/user/my/profile/update'}> Update Profil </Link>
+                            //         <Link to={'/user/my/profile/update'}> Update Profil </Link>
 
-                                    <Form.Group controlId='image'>
-                                        <Form.Label>Image</Form.Label>
-                                        <Form.Control type='text' placeholder='Enter image url' value={image}
-                                            onChange={(e) => setImage(e.target.value)} ></Form.Control>
-                                        <Form.File id='image-file' label='Choose File' custom
-                                            onChange={uploadFileHandler}></Form.File>
-                                        {uploading && <Loader />}
-                                    </Form.Group>
+                            //         <Form.Group controlId='image'>
+                            //             <Form.Label>Image</Form.Label>
+                            //             <Form.Control type='text' placeholder='Enter image url' value={image}
+                            //                 onChange={(e) => setImage(e.target.value)} ></Form.Control>
+                            //             <Form.File id='image-file' label='Choose File' custom
+                            //                 onChange={uploadFileHandler}></Form.File>
+                            //             {uploading && <Loader />}
+                            //         </Form.Group>
 
-                                    <Form.Group controlId='profile-img' className='text-center'>
-                                        <Image src="/images/sample-profile.svg" roundedCircle fluid
-                                            style={{ maxHeight: '150px' }} className='mx-auto' />
-                                    </Form.Group>
+                            //         <Form.Group controlId='profile-img' className='text-center'>
+                            //             <Image src="/images/sample-profile.svg" roundedCircle fluid
+                            //                 style={{ maxHeight: '150px' }} className='mx-auto' />
+                            //         </Form.Group>
 
-                                    <Form.Group controlId='name'>
-                                        <Form.Label>Name</Form.Label>
-                                        <Form.Control type='name' placeholder='Enter name' value={name}
-                                            onChange={(e) => setName(e.target.value)} ></Form.Control>
-                                    </Form.Group>
+                            //         <Form.Group controlId='name'>
+                            //             <Form.Label>Name</Form.Label>
+                            //             <Form.Control type='name' placeholder='Enter name' value={name}
+                            //                 onChange={(e) => setName(e.target.value)} ></Form.Control>
+                            //         </Form.Group>
 
-                                    <Form.Group controlId='email'>
-                                        <Form.Label>Email Address</Form.Label>
-                                        <Form.Control type='email' placeholder='Enter email' value={email}
-                                            onChange={(e) => setEmail(e.target.value)} ></Form.Control>
-                                    </Form.Group>
+                            //         <Form.Group controlId='email'>
+                            //             <Form.Label>Email Address</Form.Label>
+                            //             <Form.Control type='email' placeholder='Enter email' value={email}
+                            //                 onChange={(e) => setEmail(e.target.value)} ></Form.Control>
+                            //         </Form.Group>
 
-                                    {/* <Form.Group controlId='password'>
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control type='password' placeholder='Enter password' value={password}
-                                            onChange={(e) => setPassword(e.target.value)} ></Form.Control>
-                                    </Form.Group>
-
-                                    <Form.Group controlId='confirmPassword'>
-                                        <Form.Label>Confirm Password</Form.Label>
-                                        <Form.Control type='password' placeholder='Confirn password' value={confirmPassword}
-                                            onChange={(e) => setConfirmPassword(e.target.value)} ></Form.Control>
-                                    </Form.Group> */}
-                                    <Button type='submit' variant='primary'>Update</Button>
-                                </Form>
-                            </>)}
+                            //         <Button type='submit' variant='primary'>Update</Button>
+                            //     </Form>
+                            // </>
+                        )}
             </Col>
-            <Col lg={9}>
-                <h2>Moje Produkty</h2>
+            <Col lg={9} className='my-3'>
+                <h2 className='text-uppercase fw-400 mb-3'>Moje produkty</h2>
                 {loadingProducts ? <Loader />
                     : errorProducts ? <Message>{error}</Message>
                         : (<Table striped bordered responsive className='table-sm'>
