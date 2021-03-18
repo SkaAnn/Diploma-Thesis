@@ -4,8 +4,8 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import FormContainer from '../components/FormContainer'
-import { login } from '../actions/userActions'   
+import { login } from '../actions/userActions'
+import FormContainerSmall from '../components/FormContainerSmall'
 
 const LoginScreen = ({ location, history }) => {
     // Component level state
@@ -35,27 +35,33 @@ const LoginScreen = ({ location, history }) => {
     }
 
     return (
-        <FormContainer>
-            <h1>Prihlásenie</h1>
-            { error && <Message>{error}</Message>}
-            { loading && <Loader />}
-            <Form onSubmit={submitHandler}>
-                <Form.Group controlId='email'>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type='email' placeholder='Zadajte email' value={email}
-                        onChange={(e) => setEmail(e.target.value)} ></Form.Control>
-                </Form.Group>
-                <Form.Group controlId='password'>
-                    <Form.Label>Heslo</Form.Label>
-                    <Form.Control type='password' placeholder='Zadajte heslo' value={password}
-                        onChange={(e) => setPassword(e.target.value)} ></Form.Control>
-                </Form.Group>
-                <Button type='submit' variant='primary'>Prihlásiť!</Button>
-                <Row className='py-3'>
-                    <Col> Ešte nemáte konto? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Zaregistrujte sa u nás!</Link></Col>
+        <FormContainerSmall>
+            <div className='mid-align'>
+                <h2 className='text-uppercase fw-500 text-center mb-3'>Prihlásenie</h2>
+                {error && <Message>{error}</Message>}
+                {loading && <Loader />}
+                <Form onSubmit={submitHandler} className='form-pad'>
+
+                    <Form.Group controlId='email'>
+                        {/* <Form.Label>Email</Form.Label> */}
+                        <Form.Control type='email' className="mainLoginInput login-control" placeholder="&#x40; EMAIL" value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            style={{ marginBottom: '2rem' }}></Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='password'>
+                        {/* <Form.Label>Heslo</Form.Label> */}
+                        <Form.Control type='password' className="mainLoginInput login-control" placeholder="&#61475;  HESLO" value={password}
+                            onChange={(e) => setPassword(e.target.value)} ></Form.Control>
+                    </Form.Group>
+                    {/* <Button  variant='primary'>Prihlásiť!</Button> */}
+                    <button type='submit' className='my-btn-big my-3 text-uppercase' style={{ width: '100%' }}> Prihlásiť! </button>
+                </Form>
+                <Row className='pb-3 pt-2'>
+                    <Col className='text-center fs-14px'> Ešte nemáte konto? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Zaregistrujte sa u nás!</Link></Col>
                 </Row>
-            </Form>
-        </FormContainer>
+            </div>
+        </FormContainerSmall>
     )
 }
 

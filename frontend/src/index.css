@@ -158,6 +158,11 @@ main {
     box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%) !important;
   }
 
+@media only screen and (min-width: 576px) {
+    .form-pad{
+        padding: 1rem 3rem;
+    }
+}
 
 @media only screen and (max-width: 576px) {
     .navbar-nav {   
@@ -172,6 +177,10 @@ main {
     .mlr-auto{
         margin-left: auto !important;
         margin-right: auto !important;
+    }
+
+    .form-pad{
+        padding: 1rem 1.5rem;
     }
 }
 
@@ -201,6 +210,10 @@ main {
 
 .fw-400{
     font-weight: 400 !important;
+}
+
+.fw-500{
+    font-weight: 500 !important;
 }
 
 .vert-align-midd{
@@ -248,6 +261,45 @@ main {
 }
 
 .my-btn-small:focus { 
+    outline: none; 
+}
+
+/***** BIG BUTTON ********/
+.my-btn-big{
+    width: 90px;
+    color: var(--black-color) !important;
+    --border-color: var(--black-color);
+    --button-bg-color: #fff;
+    --button-bg-color-hover: #9ff5df;
+    --button-bg-color-active: #78f5d6;
+    display: -webkit-inline-box;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: 2px solid var(--border-color);
+    border-radius: 30px;
+    padding: 9px 0px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    /* line-height: 1.17; */
+    background-color: var(--button-bg-color);
+    /* box-shadow: inset 1px 1px 0 1px #fff; */
+    -webkit-transition: all .25s ease;
+    transition: all .25s ease;
+    white-space: pre-wrap;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.my-btn-big:hover{
+    background-color: var(--button-bg-color-hover);
+}
+
+.my-btn-big:focus { 
     outline: none; 
 }
 
@@ -302,4 +354,66 @@ main {
 	/* border-color: transparent transparent #e59bdf transparent; */
 	border-style: solid;
     z-index: 1;
+}
+
+.card-style{
+    border: 0;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+/*https://codepen.io/cihadturhan/pen/BfGov */
+/************* PLACEHOLDER ICON *******************/
+@import "//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css";
+
+.mainLoginInput{
+  height: 40px;
+  padding: 0px;
+  font-size: 30px;
+  margin: 5px 0;
+}
+
+.mainLoginInput::-webkit-input-placeholder { 
+font-family: FontAwesome, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+font-weight: normal;
+overflow: visible;
+vertical-align: top;
+display: inline-block !important;
+padding-left: 5px;
+padding-top: 2px;
+/* color: hsl(9, 40%, 60%); */
+}
+
+.mainLoginInput::-moz-placeholder  { 
+font-family: FontAwesome, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+font-weight: normal;
+overflow: visible;
+vertical-align: top;
+display: inline-block !important;
+padding-left: 5px;
+padding-top: 2px;
+/* color: hsl(9, 40%, 60%); */
+}
+
+.mainLoginInput:-ms-input-placeholder  { 
+font-family: FontAwesome, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+font-weight: normal;
+overflow: visible;
+vertical-align: top;
+display: inline-block !important;
+padding-left: 5px;
+padding-top: 2px;
+/* color: hsl(9, 40%, 60%); */
+}
+
+.login-control{
+    background-color: #EEEEEE !important;
+    padding-top: 1.3rem !important;
+    padding-bottom: 1.3rem !important;
+}
+
+.mid-align{
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
 }
