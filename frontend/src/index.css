@@ -65,6 +65,10 @@ main {
     .mr-2rem{
         margin-right: 2rem !important;
     }
+
+    .disp-block{
+        display: inline !important;
+    }
 }
 
 @media only screen and (min-width: 768px) {
@@ -201,6 +205,10 @@ main {
 
     .pl-table-td{
         padding-left: 0.5rem !important;
+    }
+
+    .disp-block{
+        display: block !important;
     }
 }
 

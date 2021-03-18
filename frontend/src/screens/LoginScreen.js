@@ -35,7 +35,7 @@ const LoginScreen = ({ location, history }) => {
     }
 
     return (
-        <FormContainerSmall>
+        <FormContainerSmall myHeight='30rem'>
             <div className='mid-align'>
                 <h2 className='text-uppercase fw-500 text-center mb-3'>Prihlásenie</h2>
                 {error && <Message>{error}</Message>}

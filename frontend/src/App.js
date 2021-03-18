@@ -14,6 +14,7 @@ import ProductEditScreen from './screens/ProductEditScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import ProfileUpdateScreen from './screens/ProfileUpdateScreen'
 import FavoriteProductsScreen from './screens/FavoriteProductsScreen'
+import RegisterScreenNew from './screens/RegisterScreenNew'
 
 const App = () => {
   return (
@@ -22,7 +23,7 @@ const App = () => {
       <main className='py-3'>
         <Container>
           <Route path='/login' component={LoginScreen} />
-          <Route path='/register' component={RegisterScreen} />
+          <Route path='/register' component={RegisterScreenNew} />
           <Route path='/products/user/:id' component={UserProductsScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/user/my/favorites' component={FavoriteProductsScreen} />
