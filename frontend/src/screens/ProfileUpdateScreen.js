@@ -1,7 +1,7 @@
 import axios from 'axios'
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Form, Image } from 'react-bootstrap'
+import { Button, Form, Image, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -151,26 +151,35 @@ const ProfileUpdateScreen = ({ history }) => {
                         {uploading && <Loader />}
                     </Form.Group>
 
+                    <Row>
 
-                    <Form.Group controlId='name'>
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control type='text' placeholder='Enter name' value={name}
-                            onChange={(e) => setName(e.target.value)} ></Form.Control>
-                    </Form.Group>
+                        <Col sm={4}>
+                            <Form.Group controlId='name'>
+                                <Form.Label className='fs-14px'>Užívateľské meno</Form.Label>
+                                <Form.Control type='text' placeholder='Enter name' value={name}
+                                    onChange={(e) => setName(e.target.value)} ></Form.Control>
+                            </Form.Group>
+                        </Col>
 
-                    <Form.Group controlId='email'>
-                        <Form.Label>Email Address</Form.Label>
-                        <Form.Control plaintext readOnly value={email} />
-                        {/* <Form.Control type='email' placeholder='Enter email' value={email}
+                        <Col sm={4}>
+                            <Form.Group controlId='email'>
+                                <Form.Label className='fs-14px'>Email </Form.Label>
+                                <Form.Control plaintext readOnly value={email} />
+                                {/* <Form.Control type='email' placeholder='Enter email' value={email}
                             onChange={(e) => setEmail(e.target.value)} ></Form.Control> */}
-                    </Form.Group>
+                            </Form.Group>
+                        </Col>
 
-                    <Form.Group controlId='phoneNumber'>
-                        <Form.Label>Telefónne číslo</Form.Label>
-                        {/* TODO: valid only digits onKeyPress */}
-                        <Form.Control type='text' value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)} ></Form.Control>
-                    </Form.Group>
+                        <Col sm={4}>
+                            <Form.Group controlId='phoneNumber'>
+                                <Form.Label className='fs-14px'>Telefónne číslo</Form.Label>
+                                {/* TODO: valid only digits onKeyPress */}
+                                <Form.Control type='text' value={phoneNumber}
+                                    onChange={(e) => setPhoneNumber(e.target.value)} ></Form.Control>
+                            </Form.Group>
+                        </Col>
+
+                    </Row>
 
                     <Form.Group controlId='profileInfo'>
                         <Form.Label>Informácie o {profileType && profileType === 'company' ? 'nás' : 'mne'}</Form.Label>
@@ -195,7 +204,9 @@ const ProfileUpdateScreen = ({ history }) => {
                                         <Form.Control type='password' placeholder='Confirn password' value={confirmPassword}
                                             onChange={(e) => setConfirmPassword(e.target.value)} ></Form.Control>
                                     </Form.Group> */}
-                    <Button type='submit' variant='primary'>Update</Button>
+                    
+                    <button type='submit' className='my-btn-big my-3 text-uppercase' style={{ width: '100%' }}> Aktualizuj! </button>
+                    {/* <Button type='submit' variant='primary'>Update</Button> */}
                 </Form>
             </FormContainer>
         </>
