@@ -5,9 +5,10 @@ const UserInfoPanel = ({ user }) => {
     return (
 
         <ListGroup variant='flush'>
-            <ListGroup.Item key='1' className='text-center' style={{backgroundColor: 'pink'}}>
-                <Image src={user.profileImage} roundedCircle fluid
-                    style={{ maxHeight: '130px' }} className='mx-auto' />
+            <ListGroup.Item key='1' className='text-center' style={{backgroundColor: 'pink', padding: '30px'}}>
+                {/* <Image src={user.profileImage} roundedCircle fluid
+                    style={{ maxHeight: '130px' }} className='mx-auto' /> */}
+                    <img src={user.profileImage}  className='profile-pic mx-auto' />
             </ListGroup.Item>
             <ListGroup.Item key='2'>
                 <Row className='fs-14px lh-2'>

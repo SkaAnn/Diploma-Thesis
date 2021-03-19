@@ -101,6 +101,23 @@ const ProfileUpdateScreenNew = ({ history }) => {
         }
     }
 
+    const authorizeUser = async (e) => {
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+
+            const { data } = await axios.post('/api/users/auth', { email, password }, config)
+            return true
+        } catch (error) {
+            console.error(error)
+            return false
+        }
+    }
+
+
     const handleImage = (e) => setImage(e.target.files[0])
     const handlePhoto = (e) => setProfileImage(URL.createObjectURL(e.target.files[0]))
 
@@ -118,15 +135,45 @@ const ProfileUpdateScreenNew = ({ history }) => {
     const submitHandler = async (e) => {
         e.preventDefault()
 
-        if (newPassword !== confirmNewPassword) {
-            setMessage('Nové heslá sa nezhodujú!')
-        } else {
+        // Chcem menit heslo 
+        if (newPassword && confirmNewPassword) {
+            console.log('Chcem menit heslo')
 
-            // ak je nove heslo aj potvrdene tak zisti ci sa zhoduje stare heslo...
-            if(newPassword && confirmNewPassword){
+            if (newPassword !== confirmNewPassword) {
+                setMessage('Nové heslá sa nezhodujú!')
+            } else {
                 // zisti ci je spravne aktualne heslo
-            }
+                // ak je nove heslo aj potvrdene tak zisti ci sa zhoduje stare heslo...
+                const isCorrectPassword = await authorizeUser()
 
+                console.log(isCorrectPassword)
+
+                if (isCorrectPassword) {
+
+                    let imgUrl
+                    console.log('Toto je image ', image)
+                    if (image === user.profileImage) {
+                        imgUrl = image
+                    }
+                    else {
+                        imgUrl = await uploadFileHandler()
+                    }
+
+                    const updatedUser = {
+                        id: user._id, name, email,
+                        phoneNumber, profileInfo, marketPolicy,
+                        profileImage: imgUrl, password: newPassword
+                    }
+
+                    // DISPATCH UPDATE PROFILE
+                    dispatch(updateUserProfile(updatedUser))
+                    console.log('UPDATE PROFILE')
+                }else{
+                    setMessage('Nezadali ste spravne aktualne heslo!')
+                }
+            }
+        } else {
+            // Nechcem menit heslo
             let imgUrl
             console.log('Toto je image ', image)
             if (image === user.profileImage) {
@@ -139,7 +186,7 @@ const ProfileUpdateScreenNew = ({ history }) => {
             const updatedUser = {
                 id: user._id, name, email,
                 phoneNumber, profileInfo, marketPolicy,
-                password, profileImage: imgUrl
+                profileImage: imgUrl
             }
 
             console.log(updatedUser)
@@ -152,7 +199,7 @@ const ProfileUpdateScreenNew = ({ history }) => {
 
     return (
         <div>
-            
+
             {error && <Message>{error}</Message>}
 
             <Container style={{ border: '1px solid rgba(0,0,0,.125)', borderRadius: '0.25rem' }}>
@@ -160,7 +207,7 @@ const ProfileUpdateScreenNew = ({ history }) => {
                     <Row>
 
                         <Col sm={5} className='px-5 py-5' style={{ backgroundColor: '#EEEEEE' }}>
-                            <h2 className='fw-500 text-uppercase' style={{marginBottom: '2.2rem'}}> Môj profil</h2>
+                            <h2 className='fw-500 text-uppercase' style={{ marginBottom: '2.2rem' }}> Môj profil</h2>
 
                             {/* <Form.Group controlId="profileTypeBox ">
                             <Form.Label className='fs-14px form-check-inline'>Typ profilu</Form.Label>
@@ -169,7 +216,7 @@ const ProfileUpdateScreenNew = ({ history }) => {
                         </Form.Group> */}
 
                             <Form.Group controlId='profile-image' className='mt-4 mb-4'>
-                                <div  style={{marginBottom: '2.2rem'}}>
+                                <div style={{ marginBottom: '2.2rem' }}>
                                     <img src={profileImage} className='profile-pic mx-auto' />
                                 </div>
 
