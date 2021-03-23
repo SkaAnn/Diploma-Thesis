@@ -22,7 +22,9 @@ const Header = () => {
 
     return (
         <header>
-            <Navbar className='navbar-light' expand="lg" collapseOnSelect>
+            <Navbar className='navbar-light blue' fixed='top' expand="lg" collapseOnSelect
+            style={{minHeight: '5rem'}}
+            >
                 <Container>
                     <LinkContainer to='/'>
                         <Navbar.Brand>DP-2021</Navbar.Brand>

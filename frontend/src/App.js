@@ -22,7 +22,7 @@ const App = () => {
     <Router>
       <Header />
       <main className='py-3'>
-        <Container>
+        {/* <Container> */}
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreenNew} />
           <Route path='/products/user/:id' component={UserProductsScreen} />
@@ -36,7 +36,7 @@ const App = () => {
           <Route path='/page/:pageNumber' component={HomeScreen} exact />
           <Route path='/sort/:sortKey/page/:pageNumber' component={HomeScreen} exact />
           <Route path='/' component={HomeScreen} exact />
-        </Container>
+        {/* </Container> */}
       </main>
       <Footer />
     </Router>

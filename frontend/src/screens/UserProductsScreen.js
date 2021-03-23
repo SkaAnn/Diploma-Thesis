@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import { listUserDetails } from '../actions/userActions'
 import ProductItem from '../components/ProductItem'
 import Message from '../components/Message'
@@ -27,46 +27,48 @@ const UserProductsScreen = ({ match }) => {
     }, [dispatch, match.params.id])
 
     return (
-        <Row>
-            <Col lg={3}>
+        <Container className='mt-5rem'>
+            <Row>
+                <Col lg={3}>
 
 
-                {loading ? <Loader />
-                    : error ? <Message>{error}</Message>
-                        : user && (
-                            <>
-                                <h4 className='fw-400 text-center lh-15'><span className='text-uppercase'>Profil užívateľa </span>
-                                    {/* <br /> <span className='fw-600'> {user.name} </span> */}
-                                </h4>
-                                <div style={{ border: '0', boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)' }}>
-                                    <UserInfoPanel user={user} />
-                                </div>
-                            </>
-                            // <>
-                            //     <p>{user._id}</p>
-                            //     <p>{user.name}</p>
-                            //     <p>{user.email}</p>
-                            // </>
+                    {loading ? <Loader />
+                        : error ? <Message>{error}</Message>
+                            : user && (
+                                <>
+                                    <h4 className='fw-400 text-center lh-15'><span className='text-uppercase'>Profil užívateľa </span>
+                                        {/* <br /> <span className='fw-600'> {user.name} </span> */}
+                                    </h4>
+                                    <div style={{ border: '0', boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)' }}>
+                                        <UserInfoPanel user={user} />
+                                    </div>
+                                </>
+                                // <>
+                                //     <p>{user._id}</p>
+                                //     <p>{user.name}</p>
+                                //     <p>{user.email}</p>
+                                // </>
 
-                        )}
-            </Col>
-            <Col lg={9}>
-                {loadingProducts ? <Loader />
-                    : errorProducts ? <Message>{error}</Message>
-                        : (
-                            <>
-                            <h2 className='text-uppercase fw-400 mb-2'>Produkty</h2>
-                            <Row>
-                                {products.map(product => (
-                                    <Col key={product._id} lg={4} md={6}>
-                                        {/* <ProductItem key={product._id} product={product} /> */}
-                                        <ProductCard key={product._id} product={product} />
-                                    </Col>))}
-                            </Row>
-                            </>
-                        )}
-            </Col>
-        </Row>
+                            )}
+                </Col>
+                <Col lg={9}>
+                    {loadingProducts ? <Loader />
+                        : errorProducts ? <Message>{error}</Message>
+                            : (
+                                <>
+                                    <h2 className='text-uppercase fw-400 mb-2'>Produkty</h2>
+                                    <Row>
+                                        {products.map(product => (
+                                            <Col key={product._id} lg={4} md={6}>
+                                                {/* <ProductItem key={product._id} product={product} /> */}
+                                                <ProductCard key={product._id} product={product} />
+                                            </Col>))}
+                                    </Row>
+                                </>
+                            )}
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

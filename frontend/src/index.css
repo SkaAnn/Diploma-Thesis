@@ -319,6 +319,9 @@ main {
     font-size: 13px;
 }
 
+.fs-12px{
+    font-size: 12px;
+}
 
 .lh-2{
     line-height: 2.2;
@@ -465,4 +468,9 @@ padding-top: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Sticky header Container - 5rem*/
+.mt-5rem{
+    margin-top: 5rem;
 }

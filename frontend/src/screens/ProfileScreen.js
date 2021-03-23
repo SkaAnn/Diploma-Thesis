@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Table, Image } from 'react-bootstrap'
+import { Container, Row, Col, Table, Image } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom'
 import Message from '../components/Message'
@@ -69,62 +69,64 @@ const UserProfileScreen = ({ history }) => {
     }
 
     return (
-        <Row>
-            <Col lg={3} className='my-3'>
+        <Container className='mt-5rem'>
+            <Row>
+                <Col lg={3} className='my-3'>
 
-                <h2 className='text-uppercase fw-400 text-center mb-3'>Môj profil</h2>
-                {loading ? <Loader />
-                    : error ? <Message>{error}</Message>
-                        : user && (
-                            <div style={{ border: '0', boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)' }}>
-                                <UserInfoPanel user={user} />
-                                <div className='px-2'>
-                                    <span className='my-btn-small my-3' style={{ width: '100%' }}> <i className='fas fa-edit'></i> <Link to={'/user/my/profile/update'}> Aktualizovať </Link> </span>
+                    <h2 className='text-uppercase fw-400 text-center mb-3'>Môj profil</h2>
+                    {loading ? <Loader />
+                        : error ? <Message>{error}</Message>
+                            : user && (
+                                <div style={{ border: '0', boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)' }}>
+                                    <UserInfoPanel user={user} />
+                                    <div className='px-2'>
+                                        <span className='my-btn-small my-3' style={{ width: '100%' }}> <i className='fas fa-edit'></i> <Link to={'/user/my/profile/update'}> Aktualizovať </Link> </span>
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-            </Col>
-            <Col lg={9} className='my-3'>
-                <h2 className='text-uppercase fw-400 mb-3'>Moje produkty</h2>
-                {loadingProducts ? <Loader />
-                    : errorProducts ? <Message>{error}</Message>
-                        : products.length === 0 ? <Message variant='info'>Zatiaľ ste nepridali žiadne produkty</Message>
-                            :
-                            (<Table striped bordered responsive className='table-sm'>
-                                <thead>
-                                    <tr className='text-uppercase'>
-                                        <th className='fw-600 vert-align-midd ' style={{ width: '8%' }}></th>
-                                        <th className='fw-600 vert-align-midd  pl-small-table-td' style={{ width: '25%' }}>Názov</th>
-                                        <th className='fw-600 vert-align-midd ' style={{ width: '10%' }}>Typ</th>
-                                        <th className='fw-600 vert-align-midd ' style={{ width: '15%' }}>Cena</th>
-                                        <th className='fw-600 vert-align-midd  text-center' style={{ width: '17%' }}>Dátum pridania</th>
-                                        <th className='fw-600 vert-align-midd ' style={{ width: '25%' }}></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {products.map(product => (
-                                        <tr key={product._id}>
-                                            <td className='vert-align-midd text-center'><Image src={product.images[0]} alt={product.name} fluid rounded style={{ maxWidth: '70px' }} /></td>
-                                            <td className='vert-align-midd fw-600 pl-small-table-td' >{product.name}</td>
-                                            <td className='vert-align-midd'>{translateClassification(product.classification)}</td>
-                                            <td className='vert-align-midd'>{product.price}</td>
-                                            <td className='vert-align-midd text-center'>{product.createdAt.substring(0, 10)}</td>
-                                            <td className='vert-align-midd text-center'>
-                                                <LinkContainer to={`/user/product/${product._id}/edit`}>
-                                                    <button className='my-btn-small' >
-                                                        <i className='fas fa-edit'></i> Upraviť
-                                                </button>
-                                                </LinkContainer>
-                                                <button className='my-btn-small' onClick={() => deleteHandler(product._id)}>
-                                                    <i className='fas fa-trash'></i> Zmazať
-                                            </button>
-                                            </td>
+                            )}
+                </Col>
+                <Col lg={9} className='my-3'>
+                    <h2 className='text-uppercase fw-400 mb-3'>Moje produkty</h2>
+                    {loadingProducts ? <Loader />
+                        : errorProducts ? <Message>{error}</Message>
+                            : products.length === 0 ? <Message variant='info'>Zatiaľ ste nepridali žiadne produkty</Message>
+                                :
+                                (<Table striped bordered responsive className='table-sm'>
+                                    <thead>
+                                        <tr className='text-uppercase'>
+                                            <th className='fw-600 vert-align-midd ' style={{ width: '8%' }}></th>
+                                            <th className='fw-600 vert-align-midd  pl-small-table-td' style={{ width: '25%' }}>Názov</th>
+                                            <th className='fw-600 vert-align-midd ' style={{ width: '10%' }}>Typ</th>
+                                            <th className='fw-600 vert-align-midd ' style={{ width: '15%' }}>Cena</th>
+                                            <th className='fw-600 vert-align-midd  text-center' style={{ width: '17%' }}>Dátum pridania</th>
+                                            <th className='fw-600 vert-align-midd ' style={{ width: '25%' }}></th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </Table>)}
-            </Col>
-        </Row>
+                                    </thead>
+                                    <tbody>
+                                        {products.map(product => (
+                                            <tr key={product._id}>
+                                                <td className='vert-align-midd text-center'><Image src={product.images[0]} alt={product.name} fluid rounded style={{ maxWidth: '70px' }} /></td>
+                                                <td className='vert-align-midd fw-600 pl-small-table-td' >{product.name}</td>
+                                                <td className='vert-align-midd'>{translateClassification(product.classification)}</td>
+                                                <td className='vert-align-midd'>{product.price}</td>
+                                                <td className='vert-align-midd text-center'>{product.createdAt.substring(0, 10)}</td>
+                                                <td className='vert-align-midd text-center'>
+                                                    <LinkContainer to={`/user/product/${product._id}/edit`}>
+                                                        <button className='my-btn-small' >
+                                                            <i className='fas fa-edit'></i> Upraviť
+                                                </button>
+                                                    </LinkContainer>
+                                                    <button className='my-btn-small' onClick={() => deleteHandler(product._id)}>
+                                                        <i className='fas fa-trash'></i> Zmazať
+                                            </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </Table>)}
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

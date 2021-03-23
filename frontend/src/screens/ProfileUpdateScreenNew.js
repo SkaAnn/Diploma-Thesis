@@ -168,7 +168,7 @@ const ProfileUpdateScreenNew = ({ history }) => {
                     // DISPATCH UPDATE PROFILE
                     dispatch(updateUserProfile(updatedUser))
                     console.log('UPDATE PROFILE')
-                }else{
+                } else {
                     setMessage('Nezadali ste spravne aktualne heslo!')
                 }
             }
@@ -198,140 +198,135 @@ const ProfileUpdateScreenNew = ({ history }) => {
 
 
     return (
-        <div>
+        <Container className='mt-5rem'>
+            <div>
 
-            {error && <Message>{error}</Message>}
+                {error && <Message>{error}</Message>}
 
-            <Container style={{ border: '1px solid rgba(0,0,0,.125)', borderRadius: '0.25rem' }}>
-                <Form onSubmit={submitHandler}>
-                    <Row>
+                <Container style={{
+                    border: '1px solid rgba(0,0,0,.125)', borderRadius: '0.25rem'
+                }} className='card-style'>
+                    <Form onSubmit={submitHandler}>
+                        <Row>
 
-                        <Col sm={5} className='px-5 py-5' style={{ backgroundColor: '#EEEEEE' }}>
-                            <h2 className='fw-500 text-uppercase' style={{ marginBottom: '2.2rem' }}> Môj profil</h2>
+                            <Col sm={5} className='px-5 py-5' style={{ backgroundColor: '#EEEEEE' }}>
+                                <h2 className='fw-500 text-uppercase text-center' style={{ marginBottom: '2.2rem' }}> Môj profil</h2>
 
-                            {/* <Form.Group controlId="profileTypeBox ">
+                                {/* <Form.Group controlId="profileTypeBox ">
                             <Form.Label className='fs-14px form-check-inline'>Typ profilu</Form.Label>
                             <Form.Control className='form-check-inline ml-2' style={{ width: '130px' }}
                                 plaintext readOnly value={profileType === 'user' ? 'fyzická osoba' : 'organizácia'} />
                         </Form.Group> */}
 
-                            <Form.Group controlId='profile-image' className='mt-4 mb-4'>
-                                <div style={{ marginBottom: '2.2rem' }}>
-                                    <img src={profileImage} className='profile-pic mx-auto' />
-                                </div>
+                                <Form.Group controlId='profile-image' className='mt-4 mb-4'>
+                                    <div style={{ marginBottom: '2.2rem' }}>
+                                        <img src={profileImage} className='profile-pic mx-auto' />
+                                    </div>
 
-                                <Row className='mt-4'>
-                                    <Col lg={4}>
-                                        <Form.Label className='fs-14px'>Profilová fotka</Form.Label>
+                                    <Row className='mt-4'>
+                                        <Col lg={4}>
+                                            <Form.Label className='fs-14px'>Profilová fotka</Form.Label>
+                                        </Col>
+                                        <Col lg={8}>
+                                            <Form.File className='mx-auto text-left' style={{ maxWidth: '17rem' }} id='image-file'
+                                                label='Vyberte fotografiu' custom onChange={imageChangeHandler}></Form.File>
+                                        </Col>
+                                    </Row>
+                                    {/* <Form.Control type='text' placeholder='Enter image url' value={image}></Form.Control> */}
+                                    {uploading && <Loader />}
+                                </Form.Group>
+
+                                <Form.Group controlId='profileInfo'>
+                                    <Form.Label className='fs-14px'>Informácie o {profileType && profileType === 'company' ? 'nás' : 'mne'}</Form.Label>
+                                    <Form.Control as="textarea" value={profileInfo} onChange={(e) => setProfileInfo(e.target.value)}
+                                        placeholder='' rows={4} />
+                                </Form.Group>
+                            </Col>
+
+
+                            <Col sm={7} className='px-5 py-5'>
+                                <Row>
+                                    <Col sm={4}>
+                                        <Form.Group controlId='name'>
+                                            <Form.Label className='fs-14px'>Užívateľské meno</Form.Label>
+                                            <Form.Control type='text' placeholder='Enter name' value={name}
+                                                onChange={(e) => setName(e.target.value)} ></Form.Control>
+                                        </Form.Group>
                                     </Col>
-                                    <Col lg={8}>
-                                        <Form.File className='mx-auto text-left' style={{ maxWidth: '17rem' }} id='image-file'
-                                            label='Vyberte fotografiu' custom onChange={imageChangeHandler}></Form.File>
+
+                                    <Col sm={4}>
+                                        <Form.Group controlId='email'>
+                                            <Form.Label className='fs-14px'>Email </Form.Label>
+                                            <Form.Control plaintext readOnly value={email} />
+                                        </Form.Group>
                                     </Col>
+
+                                    <Col sm={4}>
+                                        <Form.Group controlId='phoneNumber'>
+                                            <Form.Label className='fs-14px'>Telefónne číslo</Form.Label>
+                                            {/* TODO: valid only digits onKeyPress */}
+                                            <Form.Control type='text' value={phoneNumber}
+                                                onChange={(e) => setPhoneNumber(e.target.value)} ></Form.Control>
+                                        </Form.Group>
+                                    </Col>
+
                                 </Row>
-                                {/* <Form.Control type='text' placeholder='Enter image url' value={image}></Form.Control> */}
-                                {uploading && <Loader />}
-                            </Form.Group>
 
-                            <Form.Group controlId='profileInfo'>
-                                <Form.Label className='fs-14px'>Informácie o {profileType && profileType === 'company' ? 'nás' : 'mne'}</Form.Label>
-                                <Form.Control as="textarea" value={profileInfo} onChange={(e) => setProfileInfo(e.target.value)}
-                                    placeholder='' rows={4} />
-                            </Form.Group>
-                        </Col>
+                                <Form.Group controlId='locality'>
+                                    <Form.Label className=" form-check-inline fs-14px mr-3">Lokalita </Form.Label>
+                                    <Form.Control className='form-check-inline' plaintext readOnly value={locality} style={{ width: '80%' }} />
+                                </Form.Group>
 
-
-                        <Col sm={7} className='px-5 py-5'>
-                            <Row>
-                                <Col sm={4}>
-                                    <Form.Group controlId='name'>
-                                        <Form.Label className='fs-14px'>Užívateľské meno</Form.Label>
-                                        <Form.Control type='text' placeholder='Enter name' value={name}
-                                            onChange={(e) => setName(e.target.value)} ></Form.Control>
-                                    </Form.Group>
-                                </Col>
-
-                                <Col sm={4}>
-                                    <Form.Group controlId='email'>
-                                        <Form.Label className='fs-14px'>Email </Form.Label>
-                                        <Form.Control plaintext readOnly value={email} />
-                                    </Form.Group>
-                                </Col>
-
-                                <Col sm={4}>
-                                    <Form.Group controlId='phoneNumber'>
-                                        <Form.Label className='fs-14px'>Telefónne číslo</Form.Label>
-                                        {/* TODO: valid only digits onKeyPress */}
-                                        <Form.Control type='text' value={phoneNumber}
-                                            onChange={(e) => setPhoneNumber(e.target.value)} ></Form.Control>
-                                    </Form.Group>
-                                </Col>
-
-                            </Row>
-
-                            <Form.Group controlId='locality'>
-                                <Form.Label className=" form-check-inline fs-14px mr-3">Lokalita </Form.Label>
-                                <Form.Control className='form-check-inline' plaintext readOnly value={locality} style={{ width: '80%' }} />
-                            </Form.Group>
-
-                            {/* <Form.Group controlId='profileInfo'>
+                                {/* <Form.Group controlId='profileInfo'>
                             <Form.Label className='fs-14px'>Informácie o {profileType && profileType === 'company' ? 'nás' : 'mne'}</Form.Label>
                             <Form.Control as="textarea" value={profileInfo} onChange={(e) => setProfileInfo(e.target.value)}
                                 placeholder='' rows={4} />
                         </Form.Group> */}
 
-                            <Form.Group controlId='marketPolicy'>
-                                <Form.Label className='fs-14px'>Podmienky predaja/kúpy/daru</Form.Label>
-                                <Form.Control as="textarea" value={marketPolicy} onChange={(e) => setMarketPolicy(e.target.value)}
-                                    placeholder='' rows={4} />
-                            </Form.Group>
-
-                            <Form.Label className='fs-14px mb-3'>Zmeniť heslo</Form.Label>
-                            {message && <Message>{message}</Message>}
-
-                            {/* <div style={{visibility: 'hidden'}}> */}
-                            <div>
-                                <Form.Group controlId='password'>
-                                    <Row>
-                                        <Col md={3} className='pr-0'>
-                                            <Form.Label className='fs-14px font-italic' style={{ display: 'inline-flex' }}>Aktuálne heslo</Form.Label>
-                                        </Col>
-                                        <Col md={4} >
-                                            <Form.Control className='w-100' type='password' placeholder='STARÉ HESLO' value={password}
-                                                onChange={(e) => setPassword(e.target.value)}
-                                                style={{ display: 'inline-flex' }}></Form.Control>
-                                        </Col>
-                                    </Row>
+                                <Form.Group controlId='marketPolicy'>
+                                    <Form.Label className='fs-14px'>Podmienky predaja/kúpy/daru</Form.Label>
+                                    <Form.Control as="textarea" value={marketPolicy} onChange={(e) => setMarketPolicy(e.target.value)}
+                                        placeholder='' rows={4} />
                                 </Form.Group>
 
-                                <Form.Group controlId='newPassword'>
-                                    <Row>
-                                        <Col lg={3} className='pr-0'>
-                                            <Form.Label className='fs-14px font-italic' style={{ display: 'inline-flex' }}>Nové heslo</Form.Label>
-                                        </Col>
-                                        <Col lg={4} className='text-center w-100'>
-                                            <Form.Control className='' type='password' placeholder='NOVÉ HESLO' value={newPassword}
-                                                onChange={(e) => setNewPassword(e.target.value)}
-                                                style={{ display: 'inline-flex' }}></Form.Control>
-                                        </Col>
-                                        <Col lg={4} className='text-center w-100'>
-                                            <Form.Control className='' type='password' placeholder='POTVRDIŤ NOVÉ HESLO' value={confirmNewPassword}
-                                                onChange={(e) => setConfirmNewPassword(e.target.value)}
-                                                style={{ display: 'inline-flex' }}></Form.Control>
-                                        </Col>
-                                    </Row>
-                                </Form.Group>
-                            </div>
+                                <Form.Label className='fs-14px mb-3'>Zmeniť heslo</Form.Label>
+                                {message && <Message>{message}</Message>}
 
-                            <div className='text-center'>
-                                <button type='submit' className='my-btn-big mb-1 mt-4 text-uppercase' style={{ width: '70%' }}> Aktualizovať! </button>
-                            </div>
-                        </Col>
-                    </Row>
-                </Form>
+                                {/* <div style={{visibility: 'hidden'}}> */}
+                                <Row>
+                                    <Col md={4} className='text-center'>
+                                        <Form.Group controlId='password'>
+                                            <Form.Control className='mainLoginInput mb-0' type='password' placeholder='&#61475;  heslo' value={password}
+                                                onChange={(e) => setPassword(e.target.value)}></Form.Control>
+                                            <Form.Label className='fs-12px text-muted'>Aktuálne heslo</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={4} className='text-center'>
+                                        <Form.Group controlId='newPassword'>
+                                            <Form.Control className='mainLoginInput mb-0' type='password' placeholder='&#61475;  nové heslo' value={newPassword}
+                                                onChange={(e) => setNewPassword(e.target.value)}></Form.Control>
+                                            <Form.Label className='fs-12px text-muted'>Nové heslo</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={4} className='text-center'>
+                                        <Form.Group controlId='confirmNewPassword'>
+                                            <Form.Control className='mainLoginInput mb-0' type='password' placeholder='&#61475;  nové heslo' value={confirmNewPassword}
+                                                onChange={(e) => setConfirmNewPassword(e.target.value)}></Form.Control>
+                                            <Form.Label className='fs-12px text-muted'>Potvrdiť nové heslo</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
 
-            </Container>
-        </div>
+                                <div className='text-center'>
+                                    <button type='submit' className='my-btn-big mb-1 mt-4 text-uppercase' style={{ width: '70%' }}> Aktualizovať! </button>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Form>
+
+                </Container>
+            </div >
+        </Container>
     )
 }
 

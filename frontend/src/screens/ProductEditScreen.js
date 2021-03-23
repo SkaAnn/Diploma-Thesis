@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Container, Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -191,7 +191,7 @@ const ProductEditScreen = ({ match, history }) => {
     }
 
     return (
-        <>
+        <Container className='mt-5rem'>
             <Link to='/user/my/profile' className='btn btn-light my-3'>Go Back</Link>
 
             <div>
@@ -404,7 +404,7 @@ const ProductEditScreen = ({ match, history }) => {
                         )}
 
             </div>
-        </>
+        </Container>
     )
 }
 

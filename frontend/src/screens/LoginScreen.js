@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Form, Button, Row, Col, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -35,6 +35,7 @@ const LoginScreen = ({ location, history }) => {
     }
 
     return (
+        <Container className='mt-5rem'>
         <FormContainerSmall myHeight='30rem'>
             <div className='mid-align'>
                 <h2 className='text-uppercase fw-500 text-center mb-3'>Prihlásenie</h2>
@@ -62,6 +63,7 @@ const LoginScreen = ({ location, history }) => {
                 </Row>
             </div>
         </FormContainerSmall>
+        </Container>
     )
 }
 

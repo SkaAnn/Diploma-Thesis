@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import { MDBBadge } from 'mdbreact'
 import Tabs from '../components/Tabs'
 import Message from '../components/Message'
@@ -21,7 +21,7 @@ const ProductScreen = ({ match }) => {
     }, [dispatch, match.params.id])
 
     return (
-        <>
+        <Container className='mt-5rem'>
             { loading ? <Loader />
                 : error ? <Message>{error}</Message>
                     : (
@@ -59,7 +59,7 @@ const ProductScreen = ({ match }) => {
                         </>
                     )
             }
-        </>
+        </Container>
     )
 }
 

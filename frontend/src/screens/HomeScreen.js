@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Route } from 'react-router-dom'
-import { Row, Col } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ProductItem from '../components/ProductItem'
@@ -32,7 +32,7 @@ const HomeScreen = ({ match }) => {
     }, [dispatch, sortKey, pageNumber])
 
     return (
-        <>
+        <Container className='mt-5rem'>
             {   loading ? (<Loader />)
                 : error ? (<Message>{error}</Message>)
                     :
@@ -48,7 +48,7 @@ const HomeScreen = ({ match }) => {
                         <Paginate pages={pages} page={page} sortKey={sortKey ? sortKey : ''} />
                     </>)
             }
-        </>
+         </Container>
     )
 }
 
