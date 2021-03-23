@@ -7,8 +7,8 @@ import {
     PRODUCT_LIST_USER_FAIL, PRODUCT_LIST_USER_REQUEST, PRODUCT_LIST_USER_SUCCESS,
     PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS,
     PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_FAIL,
-    PRODUCT_ADD_FOLLOWER_REQUEST, PRODUCT_ADD_FOLLOWER_SUCCESS, PRODUCT_ADD_FOLLOWER_FAIL, 
-    PRODUCT_REMOVE_FOLLOWER_REQUEST, PRODUCT_REMOVE_FOLLOWER_SUCCESS, PRODUCT_REMOVE_FOLLOWER_FAIL, 
+    PRODUCT_ADD_FOLLOWER_REQUEST, PRODUCT_ADD_FOLLOWER_SUCCESS, PRODUCT_ADD_FOLLOWER_FAIL,
+    PRODUCT_REMOVE_FOLLOWER_REQUEST, PRODUCT_REMOVE_FOLLOWER_SUCCESS, PRODUCT_REMOVE_FOLLOWER_FAIL,
     PRODUCT_LIST_FAVORITE_FAIL, PRODUCT_LIST_FAVORITE_SUCCESS, PRODUCT_LIST_FAVORITE_REQUEST,
 }
     from '../constants/productConstants'
@@ -52,11 +52,11 @@ export const listProductDetails = (id) => async (dispatch) => {
 }
 
 // @ Fetching products by user
-export const listUserProducts = (id) => async (dispatch) => {
+export const listUserProducts = (id, pageNumber = '') => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_USER_REQUEST })
 
-        const { data } = await axios.get(`/api/products/user/${id}`)
+        const { data } = await axios.get(`/api/products/user/${id}?pageNumber=${pageNumber}`)
 
         dispatch({ type: PRODUCT_LIST_USER_SUCCESS, payload: data })
 
@@ -70,7 +70,7 @@ export const listUserProducts = (id) => async (dispatch) => {
 }
 
 // @ Fetching MY products
-export const listMyProducts = () => async (dispatch, getState) => {
+export const listMyProducts = (pageNumber = '') => async (dispatch, getState) => {
     try {
         dispatch({
             type: PRODUCT_LIST_MY_REQUEST,
@@ -84,7 +84,7 @@ export const listMyProducts = () => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get('/api/products/my', config)
+        const { data } = await axios.get(`/api/products/my?pageNumber=${pageNumber}`, config)
 
         dispatch({
             type: PRODUCT_LIST_MY_SUCCESS,
@@ -211,7 +211,7 @@ export const followProduct = (id) => async (dispatch, getState) => {
             }
         }
 
-        await axios.post(`/api/products/${id}/follow`, {} ,config)
+        await axios.post(`/api/products/${id}/follow`, {}, config)
 
         dispatch({
             type: PRODUCT_ADD_FOLLOWER_SUCCESS,
@@ -255,7 +255,7 @@ export const unfollowProduct = (id) => async (dispatch, getState) => {
 }
 
 // @ Fetching my favorite products
-export const listFavoriteProducts = () => async (dispatch, getState) => {
+export const listFavoriteProducts = (pageNumber = '') => async (dispatch, getState) => {
     try {
         dispatch({
             type: PRODUCT_LIST_FAVORITE_REQUEST,
@@ -269,7 +269,7 @@ export const listFavoriteProducts = () => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get('/api/products/favorite', config)
+        const { data } = await axios.get(`/api/products/favorite?pageNumber=${pageNumber}`, config)
 
         dispatch({
             type: PRODUCT_LIST_FAVORITE_SUCCESS,

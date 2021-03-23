@@ -154,8 +154,18 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // @route   GET /api/products/my
 // @access  Private
 const getMyProducts = asyncHandler(async (req, res) => {
+    // Pagination
+    const pageSize = 2 // TODO: 10
+    const page = Number(req.query.pageNumber) || 1
+    // Count all products
+    const count = await Product.countDocuments({ user: req.user._id, active: true })
+
     const products = await Product.find({ user: req.user._id, active: true })
-    res.json(products)
+        .limit(pageSize)
+        .skip(pageSize * (page - 1))
+
+    res.json({ products, page, pages: Math.ceil(count / pageSize) })
+    //  res.json(products)
 })
 
 
@@ -163,8 +173,17 @@ const getMyProducts = asyncHandler(async (req, res) => {
 // @route   GET /api/products/user/:id
 // @access  Public
 const getProductsByUser = asyncHandler(async (req, res) => {
+    const pageSize = 2 // TODO: 10
+    const page = Number(req.query.pageNumber) || 1
+    // Count all products
+    const count = await Product.countDocuments({ user: req.params.id, active: true })
+
     const products = await Product.find({ user: req.params.id, active: true }).populate('user', 'id name')
-    res.json(products)
+        .limit(pageSize)
+        .skip(pageSize * (page - 1))
+
+    res.json({ products, count, page, pages: Math.ceil(count / pageSize) })
+    // res.json(products)
 })
 
 // @desc    Add follower for product
@@ -215,8 +234,17 @@ const removeProductFollower = asyncHandler(async (req, res) => {
 // @route   GET /api/products/favorite
 // @access  Private
 const getMyFavoriteProducts = asyncHandler(async (req, res) => {
+    const pageSize = 2 // TODO: 10
+    const page = Number(req.query.pageNumber) || 1
+    // Count all products
+    const count = await Product.countDocuments({ followers: req.user._id, active: true })
+
     const products = await Product.find({ followers: req.user._id, active: true }).populate('user', 'id name').select('-followers')
-    res.json(products)
+        .limit(pageSize)
+        .skip(pageSize * (page - 1))
+
+    res.json({ products, count, page, pages: Math.ceil(count / pageSize) })
+    //res.json(products)
 })
 
 export {

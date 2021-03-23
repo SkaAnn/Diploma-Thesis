@@ -6,29 +6,33 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listFavoriteProducts } from '../actions/productActions'
 import { getCategoryName } from '../utils/translate'
+import TablePaginate from '../components/TablePaginate'
 
-const FavoriteProductsScreen = ({ history }) => {
+const FavoriteProductsScreen = ({ history, match }) => {
+
+    const pageNumber = match.params.pageNumber || 1
+
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
     const productListFavorite = useSelector(state => state.productListFavorite)
-    const { loading, error, products } = productListFavorite
+    const { loading, error, products, count, pages, page } = productListFavorite
 
     useEffect(() => {
         // user must be login
         if (!userInfo) {
             history.push('/login')
         }
-        dispatch(listFavoriteProducts())
-    }, [dispatch, userInfo, history])
+        dispatch(listFavoriteProducts(pageNumber))
+    }, [dispatch, userInfo, history, pageNumber])
 
     return (
         <Container className='mt-5rem'>
             <Row>
                 <Col>
-                    <h2 className='fw-400 text-uppercase mb-4'> <i className="far fa-heart mr-1" style={{ color: 'pink' }}></i> Obľúbené ({products.length})</h2>
+                    <h2 className='fw-400 text-uppercase mb-4'> <i className="far fa-heart mr-1" style={{ color: 'pink' }}></i> Obľúbené ({count})</h2>
                     {loading ? <Loader />
                         : error ? <Message>{error}</Message>
                             : products.length === 0 ? <Message variant='info'>Zatiaľ nemáte pridané žiadne produkty medzi obľúbenými</Message>
@@ -57,6 +61,7 @@ const FavoriteProductsScreen = ({ history }) => {
                                         ))}
                                     </tbody>
                                 </Table>)}
+                    <TablePaginate pages={pages} page={page} screen={2} />
                 </Col>
             </Row>
         </Container>

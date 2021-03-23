@@ -7,7 +7,8 @@ import {
     PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_RESET, PRODUCT_UPDATE_SUCCESS,
     PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_DELETE_RESET,
     PRODUCT_ADD_FOLLOWER_REQUEST, PRODUCT_ADD_FOLLOWER_SUCCESS, PRODUCT_ADD_FOLLOWER_FAIL,
-    PRODUCT_REMOVE_FOLLOWER_REQUEST, PRODUCT_REMOVE_FOLLOWER_SUCCESS, PRODUCT_REMOVE_FOLLOWER_FAIL, PRODUCT_LIST_FAVORITE_REQUEST, PRODUCT_LIST_FAVORITE_SUCCESS, PRODUCT_LIST_FAVORITE_FAIL
+    PRODUCT_REMOVE_FOLLOWER_REQUEST, PRODUCT_REMOVE_FOLLOWER_SUCCESS, PRODUCT_REMOVE_FOLLOWER_FAIL, 
+    PRODUCT_LIST_FAVORITE_REQUEST, PRODUCT_LIST_FAVORITE_SUCCESS, PRODUCT_LIST_FAVORITE_FAIL
 } from '../constants/productConstants'
 
 // Fetch all products
@@ -56,7 +57,12 @@ export const productListUserReducer = (state = { products: [] }, action) => {
         case PRODUCT_LIST_USER_REQUEST:
             return { loading: true, products: [] }
         case PRODUCT_LIST_USER_SUCCESS:
-            return { loading: false, products: action.payload }
+            return {
+                loading: false,
+                products: action.payload.products,
+                pages: action.payload.pages,
+                page: action.payload.page
+            }
         case PRODUCT_LIST_USER_FAIL:
             return { loading: false, error: action.payload }
         default:
@@ -70,7 +76,12 @@ export const productListMyReducer = (state = { products: [] }, action) => {
         case PRODUCT_LIST_MY_REQUEST:
             return { loading: true, products: [] }
         case PRODUCT_LIST_MY_SUCCESS:
-            return { loading: false, products: action.payload }
+            return {
+                loading: false,
+                products: action.payload.products,
+                pages: action.payload.pages,
+                page: action.payload.page
+            }
         case PRODUCT_LIST_MY_FAIL:
             return { loading: false, error: action.payload }
         case PRODUCT_LIST_MY_RESET:
@@ -154,12 +165,18 @@ export const productRemoveFollowerReducer = (state = {}, action) => {
 // Fetch favorite products from user
 export const productListFavoriteReducer = (state = { products: [] }, action) => {
     switch (action.type) {
-        case PRODUCT_LIST_FAVORITE_REQUEST: 
-            return { loading: true, products: [] }   
+        case PRODUCT_LIST_FAVORITE_REQUEST:
+            return { loading: true, products: [] }
         case PRODUCT_LIST_FAVORITE_SUCCESS:
-            return { loading: false, products: action.payload }
+            return {
+                loading: false,
+                products: action.payload.products,
+                count: action.payload.count,
+                pages: action.payload.pages,
+                page: action.payload.page
+            }
         case PRODUCT_LIST_FAVORITE_FAIL:
-            return { loading: false, error: action.payload }   
+            return { loading: false, error: action.payload }
         default:
             return state
     }
