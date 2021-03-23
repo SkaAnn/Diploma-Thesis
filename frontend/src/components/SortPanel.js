@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Row, Form, Button } from 'react-bootstrap'
 
-const SortPanel = ({ history }) => {
+const SortPanel = ({ history, keyword }) => {
     const [sortKey, setSortKey] = useState()
 
     // console.log(`init sortKey: ${sortKey}`)
@@ -9,11 +9,31 @@ const SortPanel = ({ history }) => {
     const submitHandler = (e) => {
         e.preventDefault()
         // console.log(`sortKey: ${sortKey}`)
-        if (sortKey === '') {
-            history.push('/')
-        }else{
-            history.push(`/sort/${sortKey}`)
+
+        if (keyword) {
+            if (sortKey === '') {
+                history.push(`/sort/time_asc/search/${keyword}/page/1`)
+            } else {
+                history.push(`/sort/${sortKey}/search/${keyword}/page/1`)
+            }
+        } else {
+            if (sortKey === '') {
+                history.push('/')
+            }
+            else {
+                history.push(`/sort/${sortKey}`)
+            }
         }
+
+        // if (sortKey === '') {
+        //     history.push('/')
+        // } else {
+        //     if (keyword) {
+        //         history.push(`/sort/${sortKey}/search/${keyword}/page/1`)
+        //     } else {
+        //         history.push(`/sort/${sortKey}`)
+        //     }
+        // }
     }
 
     return (

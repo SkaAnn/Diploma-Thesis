@@ -9,11 +9,15 @@ const getProducts = asyncHandler(async (req, res) => {
     // console.log(req.query.sortKey)
 
     // Pagination
-    const pageSize = 6
+    const pageSize = 2 // TODO: 12 alebo 20
     const page = Number(req.query.pageNumber) || 1
 
     // Sorting products criterium
     switch (req.query.sortKey) {
+        case 'time_asc': {
+            mysort = { createdAt: -1 }
+            break
+        }
         case 'time_desc': {
             mysort = { createdAt: 1 }
             break
@@ -32,11 +36,20 @@ const getProducts = asyncHandler(async (req, res) => {
         }
     }
 
+    // Search functionality
+    const keyword = req.query.keyword ? { // query strings za ? v url
+        name: {
+            $regex: req.query.keyword,
+            $options: 'i'     // case insensitive
+        }
+    } : {}
+
+
     // Count all products
-    const count = await Product.countDocuments({ active: true })
+    const count = await Product.countDocuments({ ...keyword, active: true })
 
     const products = await Product
-        .find({ active: true })
+        .find({ ...keyword, active: true })
         .populate('user', 'id name')
         .sort(mysort)
         .limit(pageSize)

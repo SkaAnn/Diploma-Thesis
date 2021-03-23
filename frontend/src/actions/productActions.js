@@ -14,12 +14,12 @@ import {
     from '../constants/productConstants'
 
 // @ Fetching all products
-export const listProducts = (sortKey = '', pageNumber = '') => async (dispatch) => {
+export const listProducts = (sortKey = '', keyword = '', pageNumber = '') => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
 
         console.log(`GET /api/products?sortKey=${sortKey}&pageNumber=${pageNumber}`)
-        const { data } = await axios.get(`/api/products?sortKey=${sortKey}&pageNumber=${pageNumber}`)
+        const { data } = await axios.get(`/api/products?sortKey=${sortKey}&keyword=${keyword}&pageNumber=${pageNumber}`)
 
         dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
 
