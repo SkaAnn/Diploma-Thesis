@@ -32,7 +32,7 @@ const App = () => {
         <Route path='/user/my/favorites/:pageNumber' component={FavoriteProductsScreen} exact />
         <Route path='/user/my/profile' component={ProfileScreen} exact />
         <Route path='/user/my/profile/update' component={ProfileUpdateScreenNew} exact />
-        <Route path='/user/my/profile/:pageNumber' component={ProfileScreen} exact />
+        <Route path='/user/my/profile/page/:pageNumber' component={ProfileScreen} exact />
         <Route path='/user/my/product/create' component={ProductCreateScreen} />
         <Route path='/user/product/:id/edit' component={ProductEditScreen} />
         <Route path='/sort/:sortKey' component={HomeScreen} exact />

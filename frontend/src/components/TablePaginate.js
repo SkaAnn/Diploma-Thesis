@@ -11,7 +11,7 @@ const TablePaginate = ({ pages, page, screen, id }) => {
                     to={
                         screen == 2 ? `/user/my/favorites/${x + 1}`
                             : screen == 3 ? `/products/user/${id}/${x + 1}`
-                                : `/user/my/profile/${x + 1}`}>
+                                : `/user/my/profile/page/${x + 1}`}>
                     <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
                 </LinkContainer>
             ))}

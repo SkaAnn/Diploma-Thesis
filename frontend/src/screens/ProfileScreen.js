@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Table, Image } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -11,8 +11,13 @@ import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants'
 import UserInfoPanel from '../components/UserInfoPanel'
 import { translateClassification } from '../utils/translate'
+import TablePaginate from '../components/TablePaginate'
 
-const UserProfileScreen = ({ history }) => {
+const UserProfileScreen = ({ history, match, prevProps }) => {
+    const pageNumber = match.params.pageNumber || 1
+    // ked nastavim useState na 1, tak sa nebude nacitavat pri Moj profil(lenze to i zosatne na poslednej prezeranej strane...)
+    const [newPageNumber, setNewPageNumber] = useState(0)   // TODO: rename oldPage
+
     const dispatch = useDispatch()
 
     // Global level state
@@ -30,7 +35,7 @@ const UserProfileScreen = ({ history }) => {
 
     // get products from logged user
     const productListMy = useSelector(state => state.productListMy)
-    const { loading: loadingProducts, error: errorProducts, products } = productListMy
+    const { loading: loadingProducts, error: errorProducts, products, pages, page } = productListMy
 
     // create product from CreateProductScreen
     const productCreate = useSelector((state) => state.productCreate)
@@ -44,22 +49,58 @@ const UserProfileScreen = ({ history }) => {
     const productDelete = useSelector(state => state.productDelete)
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
 
+    const componentDidUpdate = (prevProps) => {
+        console.log("zmenil sa ", pageNumber, newPageNumber)
+        if (newPageNumber !== pageNumber){//match.params.pageNumber) {
+          setNewPageNumber(pageNumber)//match.params.pageNumber);
+          dispatch(listMyProducts(pageNumber))
+        }
+      }
+
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            if (!user || !user.name || success || productCreateSuccess || productUpdateSuccess || successDelete) {
-                dispatch({ type: PRODUCT_CREATE_RESET })
-                dispatch({ type: PRODUCT_UPDATE_RESET })
-                dispatch({ type: PRODUCT_DELETE_RESET })
+            if (!user || !user.name) {
+                // DISPATCH USER DETAILS
+                dispatch(getUserProfile())
+                // DISPATCH MY PRODUCTS
+                dispatch(listMyProducts(pageNumber))
+                setNewPageNumber(pageNumber)
+            }
+
+            if (success) {   // success profile update
                 dispatch({ type: USER_UPDATE_PROFILE_RESET })
                 // DISPATCH USER DETAILS
                 dispatch(getUserProfile())
-                // DISPATCH USER PRODUCTS
-                dispatch(listMyProducts())
             }
+
+            if (productCreateSuccess || productUpdateSuccess || successDelete) {
+                dispatch({ type: PRODUCT_CREATE_RESET })
+                dispatch({ type: PRODUCT_UPDATE_RESET })
+                dispatch({ type: PRODUCT_DELETE_RESET })
+                // DISPATCH MY PRODUCTS
+                dispatch(listMyProducts(pageNumber))
+            }
+
+            componentDidUpdate(prevProps)
+
+            // if (pageNumber){
+            //     console.log("som v pagenumber")
+            // }
+
+            // if (!user || !user.name || success || productCreateSuccess || productUpdateSuccess || successDelete) {
+            //     dispatch({ type: PRODUCT_CREATE_RESET })
+            //     dispatch({ type: PRODUCT_UPDATE_RESET })
+            //     dispatch({ type: PRODUCT_DELETE_RESET })
+            //     dispatch({ type: USER_UPDATE_PROFILE_RESET })
+            //     // DISPATCH USER DETAILS
+            //     dispatch(getUserProfile())
+            //     // DISPATCH USER PRODUCTS
+            //     dispatch(listMyProducts())
+            // }
         }
-    }, [dispatch, userInfo, user, success, productCreateSuccess, productUpdateSuccess, successDelete, history])
+    }, [dispatch, userInfo, user, success, productCreateSuccess, productUpdateSuccess, successDelete, pageNumber, history])
 
     const deleteHandler = (id) => {
         if (window.confirm('Táto operácia je nezvratná. Naozaj chcete odstrániť produkt?')) {
@@ -124,6 +165,7 @@ const UserProfileScreen = ({ history }) => {
                                         ))}
                                     </tbody>
                                 </Table>)}
+                    < TablePaginate pages={pages} page={page} screen={1} />
                 </Col>
             </Row>
         </Container>
