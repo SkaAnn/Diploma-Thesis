@@ -474,3 +474,101 @@ padding-top: 2px;
 .mt-5rem{
     margin-top: 5rem;
 }
+
+
+
+
+/******** PRODUCT CREATE SCREEN ***************/
+@media only screen and (max-width: 768px) {
+    .my-form-section {
+        padding: 0.9rem 0.5rem !important;
+    }
+
+    .my-form-body {
+        padding: 2rem 1.3rem !important;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .my-form-body{
+        padding: 2rem 3rem !important;
+    }
+}
+
+.my-form-section {
+    cursor: pointer;
+    
+    padding: 2rem 0.5rem;
+    /* color: var(--black-color) !important; */
+    /* display: block; */
+    --my-form-section-bg-color: yellow;
+    --my-form-section-bg-color-hover: #9ff5df;
+    background-color: var(--my-form-section-bg-color);
+    font-size: 15px;
+    /* font-weight: 600; */
+    letter-spacing: -.09px;
+    color: inherit;
+    text-transform: uppercase;
+    transition: color .3s;
+}
+
+.my-form-section:hover{
+    background-color: var(--my-form-section-bg-color-hover);
+}
+
+
+.my-form-label {
+    /* color: var(--black-color) !important; */
+    /* display: block; */
+    font-size: 14px !important;
+    font-weight: 600;
+    letter-spacing: -.09px;
+    color: inherit;
+    text-transform: uppercase;
+
+    transition: color .3s;
+}
+
+.inline-block-middle{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* .my-form-body{
+    padding: 2rem 3rem !important;
+} */
+
+.my-form-checkout-btn{
+    width: 200px;
+    color: var(--black-color) !important;
+    --button-bg-color: #fff;
+    --button-bg-color-hover: #9ff5df;
+    --button-bg-color-active: #78f5d6;
+    display: -webkit-inline-box;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 15px 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    /* line-height: 1.17; */
+    background-color: aliceblue;
+    border: none;
+    /* box-shadow: inset 1px 1px 0 1px #fff; */
+    /* -webkit-transition: all .25s ease;
+    transition: all .25s ease; */
+    white-space: pre-wrap;
+    text-transform: none;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.my-form-checkout-btn:hover{
+    background-color: var(--button-bg-color-hover);
+}
+
+
+
