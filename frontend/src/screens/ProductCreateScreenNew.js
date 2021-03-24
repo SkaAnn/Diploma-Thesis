@@ -13,6 +13,7 @@ const ProductCreateScreenNew = ({ history }) => {
     const dispatch = useDispatch()
 
     const [message, setMessage] = useState('')
+    const [message2, setMessage2] = useState('')
     const [errors, setErrors] = useState({})
     const [form, setForm] = useState({})
     const [images, setImages] = useState([])
@@ -23,6 +24,7 @@ const ProductCreateScreenNew = ({ history }) => {
         weight: ''
     })
     const [propsList, setPropsList] = useState([])  // moreProperties
+    const [shippingList, setShippingList] = useState([])
 
     const [part, setPart] = useState(1)
     const [step1, setStep1] = useState(true)
@@ -100,6 +102,28 @@ const ProductCreateScreenNew = ({ history }) => {
         setPropsList([...propsList, { key: '', val: '' }]);
     };
     ////////////////////////////
+    // MORE SHIPPING FUNCTIONS 
+    // Handle input change
+    const handleInputChangeShipping = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...shippingList];
+        list[index][name] = value;
+        setShippingList(list);
+    };
+
+    // Handle click event of the Remove button
+    const handleRemoveClickShipping = index => {
+        const list = [...shippingList];
+        list.splice(index, 1);
+        setShippingList(list);
+    };
+
+    // Handle click event of the Add button
+    const handleAddClickShipping = () => {
+        setShippingList([...shippingList, { typ: '', price: '' }]);
+    };
+    //////////////////////////////
+
 
     const uploadFiles = async (e) => {
         console.log(images)
@@ -160,16 +184,29 @@ const ProductCreateScreenNew = ({ history }) => {
         return isBlank
     }
 
+    const isBlankShippingList = () => {
+        let isBlank = false
+        shippingList.map((it) => (
+            (it.typ === "" || it.price === "") && (isBlank = true)
+        ))
+        return isBlank
+    }
+
     const submitAllHandler = async (e) => {
         e.preventDefault()
         setMessage('')
+        setMessage2('')
         console.log(images)
 
-        if (isBlankPropList()) {
+        const blankPropList = isBlankPropList()
+        const blankShippingList = isBlankShippingList()
+        if (blankPropList || blankShippingList) {
             console.log("List je prazdny")
-            setMessage('Položky v tejto časti nesmú byť prázdne')
-            // TODO set message
-        } else {
+            console.log(blankShippingList, blankPropList)
+            if (blankShippingList) setMessage('Položky v časti Shipping nesmú byť prázdne')
+            if (blankPropList) setMessage2('Položky v tejto časti nesmú byť prázdne')
+        }
+        else {
 
 
             // UPLOAD IMAGES
@@ -183,9 +220,10 @@ const ProductCreateScreenNew = ({ history }) => {
 
             const newProduct = form
             // https://www.codegrepper.com/code-examples/javascript/javascript+object+can+add+attribute
-            newProduct['active'] = true
+            // newProduct['active'] = true
             newProduct['images'] = imagesArr
             newProduct['measures'] = measures
+            newProduct['shipping'] = shippingList
             newProduct['moreProperties'] = propsList
 
             // const newProduct = {
@@ -356,11 +394,61 @@ const ProductCreateScreenNew = ({ history }) => {
                                 </Row>
                             </Form.Group>
 
+
+                            <Form.Group controlId="shipping">
+                                <Form.Label>Spôsoby doručenia / dopravy</Form.Label>
+                                <Form.Text id="propBlock" muted> Zvoľte spôsob doručenia produktu. Spôsob aj cena napr. osobný odber - Zadarmo, Slovenská pošta - 1.5e </Form.Text>
+                            </Form.Group>
+                            {message && <Message>{message}</Message>}
+                            {shippingList.length === 0
+                                ? <Button type='button' className='btn btn-primary' onClick={handleAddClickShipping}>Pridať</Button>
+                                :
+                                shippingList.map((x, i) => {
+                                    return (
+                                        <Row key={i}>
+                                            <Col sm='5' className='pad-r1'>
+                                                <Form.Control
+                                                    type='text'
+                                                    name='typ'
+                                                    placeholder='Zadajte spôsob doručenia'
+                                                    value={x.key}
+                                                    onChange={e => handleInputChangeShipping(e, i)}
+                                                />
+                                            </Col>
+
+                                            <Col sm='5' className='pad-l0'>
+                                                <Form.Control
+                                                    type='text'
+                                                    // className="ml10"
+                                                    name='price'
+                                                    placeholder='Zadajte cenu doručenia'
+                                                    value={x.val}
+                                                    onChange={e => handleInputChangeShipping(e, i)}
+                                                />
+                                            </Col>
+
+                                            <Col sm='2' className='pad-l0'>
+                                                <div className="btn-box">
+                                                    {shippingList.length >= 1 &&
+                                                        <Button type='button' className="p-1 mr10 " onClick={() => handleRemoveClickShipping(i)}>
+                                                            <i className="fas fa-trash" /></Button>
+                                                    }
+                                                    {shippingList.length - 1 === i &&
+                                                        <Button type='button' onClick={handleAddClickShipping} className="p-1 btn btn-outline-primary">
+                                                            <i className="fas fa-plus-circle" /></Button>}
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    );
+                                })}
+
+
+
                             <Form.Group controlId="moreProperties">
                                 <Form.Label>Ďalšie vlastnosti</Form.Label>
                                 <Form.Text id="propBlock" muted> napr. autor, pocet stran, farba, material... bude sa to menit podla kategorie </Form.Text>
                             </Form.Group>
-                            {message && <Message>{message}</Message>}
+                            {message2 && <Message>{message2}</Message>}
                             {/* https://www.cluemediator.com/add-or-remove-input-fields-dynamically-with-reactjs */}
                             {propsList.length === 0
                                 ? <Button type='button' className='btn btn-primary' onClick={handleAddClick}>Pridať</Button>

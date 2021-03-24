@@ -14,8 +14,8 @@ const productSchema = new mongoose.Schema(
 
         description: { type: String, required: true },
 
-        category: { type: Number, required: true, default: 0},
-        
+        category: { type: Number, required: true, default: 0 },
+
         price: { type: Number, required: true, default: 0 },
 
         active: { type: Boolean, required: true, default: true, },
@@ -25,16 +25,19 @@ const productSchema = new mongoose.Schema(
         condition: { type: String, required: true },   // 3 options: new, used, handmade
 
         countInStock: { type: Number, required: true, default: 1 },
-        
+
         origin: { type: String, required: true },   // vyrobene v
 
         brand: { type: String },    // vyrobca
 
         images: [{ type: String }],
 
-        size: { type: String },
-
-        weight: { type: String },
+        measures: {
+            width: { type: String },
+            height: { type: String },
+            depth: { type: String },
+            weight: { type: String },
+        },
 
         followers: [{
             type: mongoose.Schema.Types.ObjectId,

@@ -76,16 +76,16 @@ const getProductById = asyncHandler(async (req, res) => {
 // @route   POST /api/products
 // @access  Private
 const createProduct = asyncHandler(async (req, res) => {
-    const { name, description, category, active,
+    const { name, description, category,
         price, condition, classification, countInStock,
-        origin, brand, images, size, weight,
+        origin, brand, images, measures,
         followers, shipping, moreProperties } = req.body
 
     const data = {
-        user: req.user._id,
-        name, description, category, active,
+        user: req.user._id, active: true,
+        name, description, category,
         price, condition, classification, countInStock,
-        origin, brand, images, size, weight,
+        origin, brand, images, measures,
         followers, shipping, moreProperties
     }
 
@@ -161,6 +161,7 @@ const getMyProducts = asyncHandler(async (req, res) => {
     const count = await Product.countDocuments({ user: req.user._id, active: true })
 
     const products = await Product.find({ user: req.user._id, active: true })
+        .sort({ createdAt: -1 })
         .limit(pageSize)
         .skip(pageSize * (page - 1))
 
