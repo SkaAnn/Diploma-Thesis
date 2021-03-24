@@ -183,7 +183,7 @@ const ProductCreateScreen = ({ history }) => {
                                 <Form.Control plaintext readOnly value="Zadarmo" />
                                 :
                                 <Form.Control type='number' step={'.01'} min={0}
-                                    value={price} onChange={(e) => setPrice(Number(e.target.value))} />
+                                    value={price != 0 && price} onChange={(e) => setPrice(Number(e.target.value))} />
                             }
                             {/* <Form.Text id="priceBlock" muted> Ak chcete niečo darovať zadajte 0 </Form.Text> */}
                         </Col>
