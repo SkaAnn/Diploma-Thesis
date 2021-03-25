@@ -8,6 +8,7 @@ import SortPanel from '../components/SortPanel'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
+import ControlPanel from '../components/ControlPanel'
 
 import { listProducts } from '../actions/productActions'
 import ProductCard from '../components/ProductCard'
@@ -34,30 +35,38 @@ const HomeScreen = ({ match }) => {
     }, [dispatch, sortKey, keyword, pageNumber])
 
     return (
-        <Container className='mt-5rem'>
-            {   loading ? (<Loader />)
-                : error ? (<Message>{error}</Message>)
-                    :
-                    (<>
-                        <Route render={({ history }) => <SortPanel history={history} keyword={keyword ? keyword : ''} />} />
-                        {!keyword ?
-                                <h2>Všetky produkty</h2>
-                            : <>
-                                <Link to='/' className='btn btn-light'>Go Back</Link>
-                                <h2>Výsledky hľadania slova "<strong>{keyword}</strong>"</h2>
-                            </>}
-                        <Row>
-                            {products.map(product => (
-                                <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                                    {/* <ProductItem key={product._id} product={product} /> */}
-                                    <ProductCard key={product._id} product={product} />
-                                </Col>))}
-                        </Row>
-                        <Paginate pages={pages} page={page} sortKey={sortKey ? sortKey : ''} keyword={keyword ? keyword : ''} />
-                    </>)
-            }
-        </Container>
-    )
+        <>
+
+            <Route render={({ history }) => <ControlPanel history={history} keyword={keyword ? keyword : ''} />} />
+
+            <Container className='mt-3'>
+                {/* <Route render={({ history }) => <SortPanel history={history} keyword={keyword ? keyword : ''} />} /> */}
+                {!keyword ?
+                    <h2>Všetky produkty</h2>
+                    : <>
+                        <Link to='/' className='btn btn-light'>Go Back</Link>
+                        <h2>Výsledky hľadania slova "<strong>{keyword}</strong>"</h2>
+                    </>}
+                {loading ? (<Loader />)
+                    : error ? (<Message>{error}</Message>)
+                        :
+                        (
+                            <>
+                                {products.length === 0 && <div style={{ maxWidth: '40rem' }}><Message>Nenašli sa žiadne produkty</Message></div>}
+                                <Row>
+                                    {products.map(product => (
+                                        <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                                            {/* <ProductItem key={product._id} product={product} /> */}
+                                            <ProductCard key={product._id} product={product} />
+                                        </Col>))}
+                                </Row>
+                                <Paginate pages={pages} page={page} sortKey={sortKey ? sortKey : ''} keyword={keyword ? keyword : ''} />
+
+
+                            </>
+                        )}
+            </Container>
+        </>)
 }
 
 export default HomeScreen

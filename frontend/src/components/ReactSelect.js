@@ -27,8 +27,8 @@ const ReactSelect = (props) => {
     return (
         <>
             {props.req
-                ? <Select value={selectedOption} onChange={handleChange} options={options} placeholder={<span>Vyberte...</span>} required />
-                : <Select value={selectedOption} onChange={handleChange} options={options} placeholder={<span>Vyberte...</span>} />
+                ? <Select value={selectedOption} onChange={handleChange} options={options} placeholder={<span>Vyberte...</span>} styles={props.styles}  required />
+                : <Select value={selectedOption} onChange={handleChange} options={options} placeholder={<span>Vyberte...</span>} styles={props.styles} />
             }
         </>
     )

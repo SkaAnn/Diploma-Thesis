@@ -23,7 +23,7 @@ const Header = () => {
     return (
         <header>
             <Navbar className='navbar-light blue' fixed='top' expand="lg" collapseOnSelect
-            style={{minHeight: '5rem'}}
+            style={{minHeight: '5rem', boxShadow:'none'}}
             >
                 <Container>
                     <LinkContainer to='/'>
@@ -41,7 +41,7 @@ const Header = () => {
                                         <Nav.Link className='header-link mr-3'> <i className="fas fa-plus mr-1"></i> Pridaj produkt</Nav.Link>
                                     </LinkContainer>
                                     <LinkContainer to='/user/my/favorites'>
-                                        <Nav.Link className='header-link mr-3'> <i className="far fa-heart mr-1"></i> Obľúbené produkty</Nav.Link>
+                                        <Nav.Link className='header-link mr-3'> <i className="far fa-heart mr-1"></i> Obľúbené</Nav.Link>
                                     </LinkContainer>
                                     <LinkContainer to={`/user/my/profile`}>
                                         <Nav.Link className='header-link mr-3'> <i className="far fa-smile-beam mr-1"></i> Môj Profil</Nav.Link>

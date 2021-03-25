@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Button } from 'react-bootstrap'
-import { MDBBadge } from 'mdbreact'
-import Tabs from '../components/Tabs'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProductDetails } from '../actions/productActions'
