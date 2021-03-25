@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import { MDBBadge } from 'mdbreact'
 import Tabs from '../components/Tabs'
 import Message from '../components/Message'
@@ -9,9 +9,19 @@ import { listProductDetails } from '../actions/productActions'
 import ImageCarousel from '../components/ImageCarousel'
 import FeedbackForm from '../components/FeedbackForm'
 import { env } from '../config'
+import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
+import { Table } from 'react-bootstrap'
+import { translateClassification, translateCondition } from '../utils/translate'
 
 const ProductScreen = ({ match }) => {
     const dispatch = useDispatch()
+
+    const [activeItem, setActiveItem] = useState('1');
+    const toggle = tab => e => {
+        if (activeItem !== tab) {
+            setActiveItem(tab);
+        }
+    };
 
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
@@ -40,19 +50,136 @@ const ProductScreen = ({ match }) => {
 
                                 {/* PRAVA CAST OBRAZOVKY */}
                                 <Col md='6' >
-                                    <div className='border px-4'>
-                                        <p> <i className="fas fa-user"></i> {product.user.name}  <i className="fas fa-clock"></i> 22/01/2020 </p>
-                                        <h2>{product.name}  <i className="far fa-star" ></i></h2>
-                                        <h3>{product.price} € <MDBBadge className='ml-3' color="primary">{product.condition}</MDBBadge></h3>
-                                        <p>dostupne: 1 ks</p>
-                                        <p> <i className="fas fa-map-marker-alt"></i> Bratislava</p>
+
+                                    <div className='border px-4 py-4'>
+                                        <h3 className=' fw-400 mb-3'>{product.name} </h3>
+
+                                        <Row>
+                                            <Col md={6}>
+                                                <h2 className=' fw-500 mb-3'>
+                                                    {product.price === 0 ? 'Zadarmo' : `${product.price}€ / ks`}
+                                                </h2>
+                                                <span>dostupnosť: {product.countInStock} ks</span>
+                                            </Col>
+                                            <Col md={6}>
+                                                <button className='my-btn-primary mt-4 fw-500' style={{ float: 'right' }}>
+                                                    <i className="far fa-paper-plane mr-1"></i> Mám záujem</button>
+                                            </Col>
+                                        </Row>
+
+
                                     </div>
 
-                                    <Tabs />
+                                    <Row style={{ margin: 'inherit', backgroundColor: 'antiquewhite' }} className='text-center py-2'>
+                                        <Col lg={3} className='py-1 m-auto fs-14px'> <i className="far fa-user mr-1"></i> {product.user.name} </Col>
+                                        <Col lg={3} className='py-1 m-auto fs-14px'> <i className="far fa-clock mr-1"></i> {product.createdAt && product.createdAt.substring(0, 10)} </Col>
+                                        <Col lg={3} className='py-1 m-auto fs-14px fw-500' style={{ letterSpacing: '0' }}> <i className="fas fa-tag mr-1"></i> {translateClassification(product.classification)} </Col>
+                                        <Col lg={3} className='py-1 m-auto fs-14px fw-500' style={{ letterSpacing: '0' }}> <i className="far fa-gem mr-1"></i> {translateCondition(product.condition)} </Col>
+                                    </Row>
 
-                                    <FeedbackForm env={env} />
-                                    {/* <FeedbackForm env={process.env} /> */}
+                                    <div>
+                                        <MDBNav className="nav-tabs mt-5">
+                                            <MDBNavItem>
+                                                <MDBNavLink link to="#" active={activeItem === '1'} onClick={toggle("1")} role="tab" >
+                                                    Popis
+                                            </MDBNavLink>
+                                            </MDBNavItem>
+                                            <MDBNavItem>
+                                                <MDBNavLink link to="#" active={activeItem === '2'} onClick={toggle("2")} role="tab" >
+                                                    Špecifikácia
+                                            </MDBNavLink>
+                                            </MDBNavItem>
+                                            <MDBNavItem>
+                                                <MDBNavLink link to="#" active={activeItem === '3'} onClick={toggle("3")} role="tab" >
+                                                    Doprava a doručenie
+                                                    {/* poštovné */}
+                                                </MDBNavLink>
+                                            </MDBNavItem>
+                                        </MDBNav>
+                                        <MDBTabContent activeItem={activeItem} >
+                                            <MDBTabPane tabId="1" role="tabpanel">
+                                                <p className="mt-3 px-1 text-justify fs-15px">
+                                                    {product.description}
+                                                </p>
+                                            </MDBTabPane>
 
+
+                                            <MDBTabPane tabId="2" role="tabpanel">
+                                                <h6 className='text-uppercase fw-600 mt-3'>Základné vlastnosti</h6>
+                                                <Table striped size='sm' className='mt-2'>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>pôvod</td>
+                                                            <td>{product.origin}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>výrobca</td>
+                                                            <td>{product.brand}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>šírka x výška x hĺbka</td>
+                                                            {product.measures !== undefined &&
+                                                                <td>{product.measures.width} x {product.measures.height} x {product.measures.depth}</td>}
+                                                        </tr>
+                                                        <tr>
+                                                            <td>hmotnosť</td>
+                                                            {product.measures !== undefined && <td>{product.measures.weight}</td> }
+                                                        </tr>
+                                                    </tbody>
+                                                </Table>
+
+                                                <h6 className='text-uppercase fw-600 mt-3'>Ďalšie vlastnosti</h6>
+
+                                                {product.moreProperties !== undefined &&
+                                                    // product.moreProperties.length === 0 ?
+                                                    // <Message variant='info'>Tato cast je prazdna</Message>
+                                                    // :
+                                                    <>
+                                                        {product.moreProperties.length === 0 && <div className='mt-2'><Message variant='info'>Tato cast je prazdna</Message></div>}
+
+                                                        <Table striped size='sm' className='mt-2'>
+                                                            <tbody>
+                                                                {product.moreProperties.map((item, index) =>
+                                                                    <tr key={index}>
+                                                                        <td>{item.key}</td>
+                                                                        <td>{item.val}</td>
+                                                                    </tr>
+                                                                )}
+                                                            </tbody>
+                                                        </Table>
+                                                    </>
+                                                }
+
+                                                {/* } */}
+                                            </MDBTabPane>
+
+
+                                            <MDBTabPane tabId="3" role="tabpanel">
+                                                {product.shipping !== undefined &&
+                                                    // product.moreProperties.length === 0 ?
+                                                    // <Message variant='info'>Tato cast je prazdna</Message>
+                                                    // :
+                                                    <>
+                                                        {product.shipping.length === 0 && <div className='mt-3'><Message variant='info'>Tato cast shipping prazdna</Message></div>}
+
+                                                        <Table striped size='sm' className='mt-3'>
+                                                            <tbody>
+                                                                {product.shipping.map((item, index) =>
+                                                                    <tr key={index}>
+                                                                        <td>{item.typ}</td>
+                                                                        <td>{item.price}</td>
+                                                                    </tr>
+                                                                )}
+                                                            </tbody>
+                                                        </Table>
+                                                    </>
+                                                }
+
+                                            </MDBTabPane>
+                                        </MDBTabContent>
+                                    </div>
+
+                                    {/* <FeedbackForm env={env} /> */}
                                 </Col>
                             </Row>
 

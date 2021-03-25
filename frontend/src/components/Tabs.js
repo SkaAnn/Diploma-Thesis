@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 import { Table } from 'react-bootstrap'
+import Message from '../components/Message'
 
-const TabsDefault = () => {
+const TabsDefault = ({ product }) => {
     const [activeItem, setActiveItem] = useState('1');
 
     const toggle = tab => e => {
@@ -26,24 +27,31 @@ const TabsDefault = () => {
                 </MDBNavItem>
                 <MDBNavItem>
                     <MDBNavLink link to="#" active={activeItem === '3'} onClick={toggle("3")} role="tab" >
-                        Kontakt
-            </MDBNavLink>
+                        Doprava a doručenie
+                        {/* poštovné */}
+                    </MDBNavLink>
                 </MDBNavItem>
             </MDBNav>
             <MDBTabContent activeItem={activeItem} >
                 <MDBTabPane tabId="1" role="tabpanel">
-                    <p className="mt-2">
-                        Elegantné kúpeľňové svietidlo určené nad zrkadlo.
-                        Krytie IP44 zaistí dostatočnú ochranu. Integrovaný
-                        LED zdroj súčasťou s dlhou životnosťou. Farba svetla
-                        je 4000K a svetelný...
-            </p>
+                    <p className="mt-3 px-1 text-justify">
+                        {product.description}
+                    </p>
                 </MDBTabPane>
-                <MDBTabPane tabId="2" role="tabpanel">
 
-                    <Table striped size='sm'>
-                        <tbody>
-                            <tr>
+
+                <MDBTabPane tabId="2" role="tabpanel">
+                    { product.moreProperties.length === 0 ?  <Message variant='info'>Tato cast je prazdna</Message>
+                            :
+                            <Table striped size='sm' className='mt-3'>
+                                <tbody>
+                                    {product.moreProperties.map((item) =>
+                                        <tr>
+                                            <td>{item.key}</td>
+                                            <td>{item.val}</td>
+                                        </tr>
+                                    )}
+                                    {/* <tr>
                                 <td>farba</td>
                                 <td>zelena</td>
                             </tr>
@@ -58,11 +66,13 @@ const TabsDefault = () => {
                             <tr>
                                 <td>rozmery</td>
                                 <td>10x100 cm</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-
+                            </tr> */}
+                                </tbody>
+                            </Table>
+                    }
                 </MDBTabPane>
+
+
                 <MDBTabPane tabId="3" role="tabpanel">
                     <p className="mt-2">
                         Quisquam aperiam, pariatur. Tempora, placeat ratione porro
