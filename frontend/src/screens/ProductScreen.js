@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProductDetails } from '../actions/productActions'
@@ -21,16 +21,126 @@ const ProductScreen = ({ match }) => {
         }
     };
 
+    const [show, setShow] = useState(false)
+    const [feedback, setFeedback] = useState('')
+
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const [formSubmitSuccessful, setFormSubmitSuccessful] = useState(false);
+
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
 
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
     useEffect(() => {
         dispatch(listProductDetails(match.params.id))
-    }, [dispatch, match.params.id])
+    }, [dispatch, match.params.id, userInfo])
 
-    return (
+    const onClickHandler = (e) => {
+        e.preventDefault()
+        console.log("Kontaktuj predajcu")
+        setShow(!show)
+    }
+
+    // Note: this is using default_service, which will map to whatever
+    // default email provider you've set in your EmailJS account.
+    const sendFeedback = ({
+        templateId,
+        senderEmail,
+        receiverEmail,
+        feedback,
+        user,
+    }) => {
+        window.emailjs
+            .send(
+                'default_service',
+                templateId,
+                {
+                    sender_email: senderEmail,
+                    receiver_email: receiverEmail,
+                    sender_name: userInfo.name,
+                    product_name: product.name,
+                    message: feedback,
+                },
+                user
+            )
+            .then((res) => {
+                if (res.status === 200) {
+                    setFormSubmitSuccessful(true);
+                }
+            })
+            // Handle errors here however you like
+            .catch((err) => console.error('Failed to send feedback. Error: ', err));
+    };
+
+
+    const submitHandler = (e) => {
+        e.preventDefault()
+
+        // TODO: receiver (owner of product) and sender (logged user) email
+
+        const {
+            REACT_APP_EMAILJS_RECEIVER: receiverEmail,
+            REACT_APP_EMAILJS_TEMPLATEID: templateId,
+            REACT_APP_EMAILJS_USERID: user,
+        } = env;
+
+        // ale vzdy to tomu uzivatelovi dojde z mojho mailu co mam nastaveny v programe
+        const senderEmail = 'skaann.dev@gmail.com' //userInfo.email// userinfi
+
+        console.log(receiverEmail, templateId, user)
+
+        sendFeedback({
+            templateId,
+            senderEmail,
+            receiverEmail,
+            feedback,
+            user,
+        });
+
+        setFormSubmitted(true);
+    }
+
+
+    if (formSubmitted && formSubmitSuccessful) {
+        console.log('form submitted and succesful')
+        setShow(false)
+        setFormSubmitted(false)
+        // setFormSubmitSuccessful(false)
+    }
+
+
+    return (<>
+
+        < div className="fadeMe" style={{ display: `${show ? 'block' : 'none'}`, verticalAlign: 'middle' }}>
+            <i className="fas fa-times fa-3x"
+                style={{ position: 'absolute', top: '1.5rem', right: '10%', cursor: 'pointer' }}
+                onClick={onClickHandler} />
+            <div style={{ width: '100%', height: '100%', display: 'table' }}>
+                <div className='m-auto' style={{
+                    display: 'table-cell',
+                    // textAlign: 'center', 
+                    verticalAlign: 'middle'
+                }}>
+
+                    <div className='p-4' style={{ backgroundColor: 'white', width: '50%', minHeight: '50%', margin: 'auto', minWidth: '350px' }}>
+                        <h2 className='fw-400 mb-3'>  <i className="far fa-paper-plane mr-2"></i> Správa pre používateľa <span className='fw-800'>{product && product.user.name}</span></h2>
+                        <p className='text-justify'>Ak máte záujem produkt <strong>{product && product.name}</strong>, napíšte správu predajcovi/kupcovi/darcovi. V správe nezabudnite pekné oslovenie. :)</p>
+
+                        <Form onSubmit={submitHandler}>
+                            <Form.Label>Text správy</Form.Label>
+                            <Form.Control as="textarea" onChange={(e) => setFeedback(e.target.value)}
+                                placeholder='Dobrý deň, ...' rows={6} required className='mb-3' />
+                            <div className='text-center'><button type='submit' className='my-btn-primary fw-500 w-100 fs-18px'> Odoslať </button></div>
+                        </Form>
+                    </div>
+                </div>
+            </div>
+        </div >
+
         <Container className='mt-5rem'>
-            { loading ? <Loader />
+            {loading ? <Loader />
                 : error ? <Message>{error}</Message>
                     : (
                         <>
@@ -60,8 +170,11 @@ const ProductScreen = ({ match }) => {
                                                 <span>dostupnosť: {product.countInStock} ks</span>
                                             </Col>
                                             <Col md={6}>
-                                                <button className='my-btn-primary mt-4 fw-500' style={{ float: 'right' }}>
-                                                    <i className="far fa-paper-plane mr-1"></i> Mám záujem</button>
+                                                {formSubmitSuccessful
+                                                    ? <span> Správa bola úspešne odoslaná! </span>
+                                                    :
+                                                    <button className='my-btn-primary mt-4 fw-500' style={{ float: 'right' }} onClick={onClickHandler}>
+                                                        <i className="far fa-paper-plane mr-1"></i> Mám záujem</button>}
                                             </Col>
                                         </Row>
 
@@ -121,7 +234,7 @@ const ProductScreen = ({ match }) => {
                                                         </tr>
                                                         <tr>
                                                             <td>hmotnosť</td>
-                                                            {product.measures !== undefined && <td>{product.measures.weight}</td> }
+                                                            {product.measures !== undefined && <td>{product.measures.weight}</td>}
                                                         </tr>
                                                     </tbody>
                                                 </Table>
@@ -185,6 +298,7 @@ const ProductScreen = ({ match }) => {
                     )
             }
         </Container>
+    </>
     )
 }
 
