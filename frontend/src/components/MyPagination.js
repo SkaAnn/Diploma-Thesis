@@ -5,9 +5,10 @@ import Pagination from "react-js-pagination";
 
 class MyPagination extends Component {
   constructor(props) {
+    console.log('som tu v mypag construcitor')
     super(props);
     this.state = {
-      activePage: this.props.activePage
+      activePage: this.props.activePage || 1
     };
   }
 
@@ -16,9 +17,15 @@ class MyPagination extends Component {
     console.log(`active page is ${pageNumber}`);
     this.setState({ activePage: pageNumber });
 
-
-    this.props.history.push(`/user/my/profile/page/${pageNumber}`)
-
+    if (this.props.screen === 0) {
+      if (this.props.sortKey && this.props.keyword) { this.props.history.push(`/sort/${this.props.sortKey}/search/${this.props.keyword}/page/${pageNumber}`) }
+      else if (this.props.sortKey && !this.props.keyword) { this.props.history.push(`/sort/${this.props.sortKey}/page/${pageNumber}`) }
+      else if (!this.props.sortKey && this.props.keyword) { this.props.history.push(`/search/${this.props.keyword}/page/${pageNumber}`) }
+      else { this.props.history.push(`/page/${pageNumber}`) }
+    }
+    if (this.props.screen === 1) { this.props.history.push(`/user/my/profile/page/${pageNumber}`) }
+    if (this.props.screen === 2) { this.props.history.push(`/user/my/favorites/${pageNumber}`) }
+    if (this.props.screen === 3) { this.props.history.push(`/products/user/${this.props.id}/${pageNumber}`) }
 
     // <LinkContainer key={x + 1}
     //   to={

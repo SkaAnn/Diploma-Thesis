@@ -14,12 +14,12 @@ import {
     from '../constants/productConstants'
 
 // @ Fetching all products
-export const listProducts = (sortKey = '', keyword = '', pageNumber = '') => async (dispatch) => {
+export const listProducts = (sortKey = '', keyword = '', pageNumber = '', pageSize = '') => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
 
-        console.log(`GET /api/products?sortKey=${sortKey}&pageNumber=${pageNumber}`)
-        const { data } = await axios.get(`/api/products?sortKey=${sortKey}&keyword=${keyword}&pageNumber=${pageNumber}`)
+        console.log(`GET /api/products?sortKey=${sortKey}&pageNumber=${pageNumber}&pageSize=${pageSize}`)
+        const { data } = await axios.get(`/api/products?sortKey=${sortKey}&keyword=${keyword}&pageNumber=${pageNumber}&pageSize=${pageSize}`)
 
         dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
 
@@ -52,11 +52,11 @@ export const listProductDetails = (id) => async (dispatch) => {
 }
 
 // @ Fetching products by user
-export const listUserProducts = (id, pageNumber = '') => async (dispatch) => {
+export const listUserProducts = (id, pageNumber = '', pageSize = '') => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_USER_REQUEST })
 
-        const { data } = await axios.get(`/api/products/user/${id}?pageNumber=${pageNumber}`)
+        const { data } = await axios.get(`/api/products/user/${id}?pageNumber=${pageNumber}&pageSize=${pageSize}`)
 
         dispatch({ type: PRODUCT_LIST_USER_SUCCESS, payload: data })
 
@@ -70,7 +70,7 @@ export const listUserProducts = (id, pageNumber = '') => async (dispatch) => {
 }
 
 // @ Fetching MY products
-export const listMyProducts = (pageNumber = '') => async (dispatch, getState) => {
+export const listMyProducts = (pageNumber = '', pageSize = '') => async (dispatch, getState) => {
     try {
         dispatch({
             type: PRODUCT_LIST_MY_REQUEST,
@@ -84,7 +84,7 @@ export const listMyProducts = (pageNumber = '') => async (dispatch, getState) =>
             }
         }
 
-        const { data } = await axios.get(`/api/products/my?pageNumber=${pageNumber}`, config)
+        const { data } = await axios.get(`/api/products/my?pageNumber=${pageNumber}&pageSize=${pageSize}`, config)
 
         dispatch({
             type: PRODUCT_LIST_MY_SUCCESS,
@@ -255,7 +255,7 @@ export const unfollowProduct = (id) => async (dispatch, getState) => {
 }
 
 // @ Fetching my favorite products
-export const listFavoriteProducts = (pageNumber = '') => async (dispatch, getState) => {
+export const listFavoriteProducts = (pageNumber = '', pageSize = '') => async (dispatch, getState) => {
     try {
         dispatch({
             type: PRODUCT_LIST_FAVORITE_REQUEST,
@@ -269,7 +269,7 @@ export const listFavoriteProducts = (pageNumber = '') => async (dispatch, getSta
             }
         }
 
-        const { data } = await axios.get(`/api/products/favorite?pageNumber=${pageNumber}`, config)
+        const { data } = await axios.get(`/api/products/favorite?pageNumber=${pageNumber}&pageSize=${pageSize}`, config)
 
         dispatch({
             type: PRODUCT_LIST_FAVORITE_SUCCESS,

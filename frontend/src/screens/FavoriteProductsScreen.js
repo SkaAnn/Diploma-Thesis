@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Table, Image } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listFavoriteProducts } from '../actions/productActions'
 import { getCategoryName } from '../utils/translate'
 import TablePaginate from '../components/TablePaginate'
+import MyPagination from '../components/MyPagination'
 
 const FavoriteProductsScreen = ({ history, match }) => {
-
+    const pageSize = 3  // TODO 10
     const pageNumber = match.params.pageNumber || 1
 
     const dispatch = useDispatch()
@@ -25,7 +26,7 @@ const FavoriteProductsScreen = ({ history, match }) => {
         if (!userInfo) {
             history.push('/login')
         }
-        dispatch(listFavoriteProducts(pageNumber))
+        dispatch(listFavoriteProducts(pageNumber, pageSize))
     }, [dispatch, userInfo, history, pageNumber])
 
     return (
@@ -61,7 +62,8 @@ const FavoriteProductsScreen = ({ history, match }) => {
                                         ))}
                                     </tbody>
                                 </Table>)}
-                    <TablePaginate pages={pages} page={page} screen={2} />
+                    <Route render={({ history }) => <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={2} />} />
+                    {/* <TablePaginate pages={pages} page={page} screen={2} /> */}
                 </Col>
             </Row>
         </Container>

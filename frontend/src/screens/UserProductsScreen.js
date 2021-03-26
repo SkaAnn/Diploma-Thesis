@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col } from 'react-bootstrap'
 import { listUserDetails } from '../actions/userActions'
+import { Route } from 'react-router-dom'
 import ProductItem from '../components/ProductItem'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -9,8 +10,10 @@ import { listUserProducts } from '../actions/productActions'
 import UserInfoPanel from '../components/UserInfoPanel'
 import ProductCard from '../components/ProductCard'
 import TablePaginate from '../components/TablePaginate'
+import MyPagination from '../components/MyPagination'
 
 const UserProductsScreen = ({ match }) => {
+    const pageSize = 2 // TODO 10
     const pageNumber = match.params.pageNumber || 1
 
     const dispatch = useDispatch()
@@ -19,13 +22,13 @@ const UserProductsScreen = ({ match }) => {
     const { loading, error, user } = userDetails
 
     const productListUser = useSelector(state => state.productListUser)     // get global state (from store.js)
-    const { loading: loadingProducts, error: errorProducts, products, pages, page } = productListUser
+    const { loading: loadingProducts, error: errorProducts, products, count, pages, page } = productListUser
 
     useEffect(() => {
         // DISPATCH USER DETAILS
         dispatch(listUserDetails(match.params.id))
         // DISPATCH USER PRODUCTS
-        dispatch(listUserProducts(match.params.id, pageNumber))
+        dispatch(listUserProducts(match.params.id, pageNumber, pageSize))
     }, [dispatch, match.params.id, pageNumber])
 
     return (
@@ -66,7 +69,8 @@ const UserProductsScreen = ({ match }) => {
                                                 <ProductCard key={product._id} product={product} />
                                             </Col>))}
                                     </Row>
-                                    <TablePaginate pages={pages} page={page} screen={3} id={match.params.id} />
+                                    <Route render={({ history }) => <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={3} id={match.params.id} />} />
+                                    {/* <TablePaginate pages={pages} page={page} screen={3} id={match.params.id} /> */}
                                 </>
                             )}
                 </Col>

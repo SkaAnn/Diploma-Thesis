@@ -15,6 +15,7 @@ import TablePaginate from '../components/TablePaginate'
 import MyPagination from '../components/MyPagination'
 
 const UserProfileScreen = ({ history, match, prevProps }) => {
+    const pageSize = 5  // TODO 10
     const pageNumber = match.params.pageNumber || 1
     // ked nastavim useState na 1, tak sa nebude nacitavat pri Moj profil(lenze to i zosatne na poslednej prezeranej strane...)
     const [newPageNumber, setNewPageNumber] = useState(0)   // TODO: rename oldPage
@@ -54,7 +55,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
         console.log("zmenil sa ", pageNumber, newPageNumber)
         if (newPageNumber !== pageNumber) {//match.params.pageNumber) {
             setNewPageNumber(pageNumber)//match.params.pageNumber);
-            dispatch(listMyProducts(pageNumber))
+            dispatch(listMyProducts(pageNumber, pageSize))
         }
     }
 
@@ -66,7 +67,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                 // DISPATCH USER DETAILS
                 dispatch(getUserProfile())
                 // DISPATCH MY PRODUCTS
-                dispatch(listMyProducts(pageNumber))
+                dispatch(listMyProducts(pageNumber, pageSize))
                 setNewPageNumber(pageNumber)
             }
 
@@ -81,7 +82,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                 dispatch({ type: PRODUCT_UPDATE_RESET })
                 dispatch({ type: PRODUCT_DELETE_RESET })
                 // DISPATCH MY PRODUCTS
-                dispatch(listMyProducts(pageNumber))
+                dispatch(listMyProducts(pageNumber, pageSize))
             }
 
             componentDidUpdate(prevProps)
@@ -168,7 +169,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                                                 ))}
                                             </tbody>
                                         </Table>
-                                        <Route render={({ history }) => <MyPagination itemsCountPerPage={2} totalItemsCount={count} activePage={page} history={history} />} />
+                                        <Route render={({ history }) => <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={1} />} />
                                         {/*  itemsCountPerPage={10} */}
                                         {/* <MyPagination itemsCountPerPage={2} totalItemsCount={count} activePage={page} /> */}
                                     </>
