@@ -18,9 +18,17 @@ class MyPagination extends Component {
     this.setState({ activePage: pageNumber });
 
     if (this.props.screen === 0) {
-      if (this.props.sortKey && this.props.keyword) { this.props.history.push(`/sort/${this.props.sortKey}/search/${this.props.keyword}/page/${pageNumber}`) }
-      else if (this.props.sortKey && !this.props.keyword) { this.props.history.push(`/sort/${this.props.sortKey}/page/${pageNumber}`) }
-      else if (!this.props.sortKey && this.props.keyword) { this.props.history.push(`/search/${this.props.keyword}/page/${pageNumber}`) }
+      // 1 stvorica
+      if (this.props.sortKey && this.props.keyword && this.props.filter) { this.props.history.push(`/sort/${this.props.sortKey}/search/${this.props.keyword}/filter/${this.props.filter}/page/${pageNumber}`) }
+      // 3 trojice (tam kde je page)
+      else if (this.props.sortKey && this.props.keyword && !this.props.filter) { this.props.history.push(`/sort/${this.props.sortKey}/search/${this.props.keyword}/page/${pageNumber}`) }
+      else if (this.props.sortKey && !this.props.keyword && this.props.filter) { this.props.history.push(`/sort/${this.props.sortKey}/filter/${this.props.filter}/page/${pageNumber}`) }
+      else if (!this.props.sortKey && this.props.keyword && this.props.filter) { this.props.history.push(`/search/${this.props.keyword}/filter/${this.props.filter}/page/${pageNumber}`) }
+      // 3 dvojice (tam kde je page)
+      else if (this.props.sortKey && !this.props.keyword && !this.props.filter) { this.props.history.push(`/sort/${this.props.sortKey}/page/${pageNumber}`) }
+      else if (!this.props.sortKey && this.props.keyword && !this.props.filter) { this.props.history.push(`/search/${this.props.keyword}/page/${pageNumber}`) }
+      else if (!this.props.sortKey && !this.props.keyword && this.props.filter) { this.props.history.push(`/filter/${this.props.filter}/page/${pageNumber}`) }
+      // 1 jednoica
       else { this.props.history.push(`/page/${pageNumber}`) }
     }
     if (this.props.screen === 1) { this.props.history.push(`/user/my/profile/page/${pageNumber}`) }

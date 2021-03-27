@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 
-const FilterPanel = () => {
+const FilterPanel = ({ history, keyword, sortKey }) => {
     const [classification, setClassification] = useState({
         'supply': true,
         'demand': true,
@@ -14,8 +14,43 @@ const FilterPanel = () => {
         'handmade': true
     })
 
+    useEffect(() => {
+        console.log('OBNOVIL SA FILTER PANEL')
+        // obnovit hodnoty vo filter panely
+        setClassification({ 'supply': true, 'demand': true, 'donor': true })
+        setCondition({ 'new': true, 'used': true, 'handmade': true })
+    }, [keyword])
+
     const submitHandler = (e) => {
         e.preventDefault()
+
+        let filterStr = ""
+        Object.keys(classification).map((keyName) => (
+            classification[keyName] ? filterStr += "1" : filterStr += "0"
+        ))
+        Object.keys(condition).map((keyName) => (
+            condition[keyName] ? filterStr += "1" : filterStr += "0"
+        ))
+
+        console.log(filterStr)
+
+        let url = ''
+
+        if (sortKey) {
+            url += `/sort/${sortKey}`
+        }
+
+        if (keyword) {
+            url += `/search/${keyword}`
+        }
+
+        if (filterStr !== '111111') {
+            url += `/filter/${filterStr}/page/1`
+            history.push(url)
+        } else {
+            url += '/page/1'
+            history.push(url)
+        }
     }
 
     return (

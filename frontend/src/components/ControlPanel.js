@@ -1,10 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact'
 import SortPanelNew from './SortPanelNew'
 import FilterPanel from './FilterPanel'
 
-const ControlPanel = ({ history, keyword }) => {
+const ControlPanel = ({ history, match, keyword }) => {
     const [show, setShow] = useState(false)
+
+    // tu tahat z url hotnoty sortkey a filter
+    const sortKey = match.params.sortKey
+    const filter = match.params.filter
+
+    // useEffect(() => {
+    //     console.log('OBNOVIL SA')
+    // }, [keyword])
 
     return (
         // pohyblivy div -> vonkajsi div (farba2) -> vnutorny kontajner (farba1)
@@ -21,7 +29,7 @@ const ControlPanel = ({ history, keyword }) => {
 
                                 <MDBCol size='12' className='my-auto'>
                                     <div className={`py-3 ${show ? 'd-block' : 'd-none'}`} >
-                                        <FilterPanel />
+                                        <FilterPanel history={history} keyword={keyword} sortKey={sortKey ? sortKey : ''} />
                                     </div>
                                 </MDBCol>
                             </MDBRow>
@@ -31,7 +39,9 @@ const ControlPanel = ({ history, keyword }) => {
 
                             <MDBRow>
                                 <MDBCol lg='3' className='my-auto'><span className='text-uppercase fw-600 fs-15px'>Zoradiť </span></MDBCol>
-                                <MDBCol lg='9' className='fs-13px fw-500 text-uppercase'> <SortPanelNew history={history} keyword={keyword} /></MDBCol>
+                                <MDBCol lg='9' className='fs-13px fw-500 text-uppercase'>
+                                    <SortPanelNew history={history} keyword={keyword} filter={filter ? filter : ''} />
+                                </MDBCol>
                             </MDBRow>
 
                         </MDBCol>

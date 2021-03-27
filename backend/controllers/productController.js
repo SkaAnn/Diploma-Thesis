@@ -44,12 +44,30 @@ const getProducts = asyncHandler(async (req, res) => {
         }
     } : {}
 
+    // filter 0-2 bude pre classification a 3-5 pre condition
+
+    // Classification filter
+    console.log('filter ', req.query.filter)
+    const classificationArr = []
+    const classificationFilter = req.query.filter.substring(0, 3)
+    if (classificationFilter.charAt(0) === '1') classificationArr.push('supply')
+    if (classificationFilter.charAt(1) === '1') classificationArr.push('demand')
+    if (classificationFilter.charAt(2) === '1') classificationArr.push('donor')
+    // console.log('MyCLASSIF', classificationFilter)
+
+    // Condition filter
+    const conditionArr = []
+    const conditionFilter = req.query.filter.substring(3, 6)
+    if (conditionFilter.charAt(0) === '1') conditionArr.push('new')
+    if (conditionFilter.charAt(1) === '1') conditionArr.push('used')
+    if (conditionFilter.charAt(2) === '1') conditionArr.push('handmade')
+    // console.log('Mycond', conditionFilter)
 
     // Count all products
-    const count = await Product.countDocuments({ ...keyword, active: true })
+    const count = await Product.countDocuments({ ...keyword, active: true, classification: { $in: classificationArr }, condition: { $in: conditionArr } })
 
     const products = await Product
-        .find({ ...keyword, active: true })
+        .find({ ...keyword, active: true, classification: { $in: classificationArr }, condition: { $in: conditionArr } })
         .populate('user', 'id name')
         .sort(mysort)
         .limit(pageSize)

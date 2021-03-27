@@ -17,8 +17,9 @@ import ProductCard from '../components/ProductCard'
 const HomeScreen = ({ match }) => {
     const pageSize = 2
     const keyword = match.params.keyword
-    //console.log('keyword', keyword)
+    console.log('homescreen - keyword ', keyword)
     const sortKey = match.params.sortKey
+    const filter = match.params.filter
 
     const pageNumber = match.params.pageNumber || 1
 
@@ -33,13 +34,13 @@ const HomeScreen = ({ match }) => {
     useEffect(() => {
         // @GET all products from db
         // FIRE OFF the action listProducts action
-        dispatch(listProducts(sortKey, keyword, pageNumber, pageSize))
-    }, [dispatch, sortKey, keyword, pageNumber])
+        dispatch(listProducts(sortKey, keyword, filter, pageNumber, pageSize))
+    }, [dispatch, sortKey, keyword, filter, pageNumber])
 
     return (
         <>
 
-            <Route render={({ history }) => <ControlPanel history={history} keyword={keyword ? keyword : ''} />} />
+            <Route render={({ history, match }) => <ControlPanel history={history} match={match} keyword={keyword ? keyword : ''} />} />
 
             <Container className='mt-3'>
                 {/* <Route render={({ history }) => <SortPanel history={history} keyword={keyword ? keyword : ''} />} /> */}
@@ -63,7 +64,9 @@ const HomeScreen = ({ match }) => {
                                         </Col>))}
                                 </Row>
                                 {/* <Paginate pages={pages} page={page} sortKey={sortKey ? sortKey : ''} keyword={keyword ? keyword : ''} /> */}
-                                <Route render={({ history }) => <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={0} sortKey={sortKey ? sortKey : ''} keyword={keyword ? keyword : ''} />} />
+                                <Route render={({ history }) =>
+                                    <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page}
+                                        history={history} screen={0} sortKey={sortKey ? sortKey : ''} keyword={keyword ? keyword : ''} filter={filter ? filter : ''} />} />
 
                             </>
                         )}
