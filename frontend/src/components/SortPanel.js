@@ -1,54 +1,98 @@
-import React, { useState } from 'react'
-import { Row, Form, Button } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
+import Select from 'react-select';
 
-const SortPanel = ({ history, keyword }) => {
+const SortPanel = ({ history, keyword, filter, prevProps }) => {
     const [sortKey, setSortKey] = useState()
+    const [oldKeyword, setOldKeyword] = useState('')
 
-    // console.log(`init sortKey: ${sortKey}`)
+    const customStyles = {
+        control: base => ({
+            ...base,
+            height: 20,
+            minHeight: 35
+        })
+    };
 
-    const submitHandler = (e) => {
-        e.preventDefault()
-        // console.log(`sortKey: ${sortKey}`)
+    const [state, setState] = useState({})
 
-        if (keyword) {
-            if (sortKey === '') {
-                history.push(`/sort/time_asc/search/${keyword}/page/1`)
+    const handleChange = (selectedOption) => {
+        setState({ selectedOption });
+        setSortKey(selectedOption.value)
+        console.log(`Option selected:`, selectedOption);
+    };
+
+    const { selectedOption } = state;
+
+    const sortOptions = [
+        { label: 'najnovšie', value: 'time_asc' },
+        { label: 'najstaršie', value: 'time_desc' },
+        { label: 'najlacnejšie', value: 'price_asc' },
+        { label: 'najdrahšie', value: 'price_desc' },
+    ]
+
+    const componentDidUpdate = (prevProps) => {
+        console.log("porovnanie ", keyword, oldKeyword)
+        if (oldKeyword !== keyword) {//match.params.pageNumber) {
+            console.log("zmenil sa ", keyword, oldKeyword)
+            setOldKeyword(keyword)//match.params.pageNumber);
+            // vynulovat
+            setSortKey('')
+            setState({ selectedOption: '' })
+            return true
+        }
+        return false
+    }
+
+    useEffect(() => {
+        // console.log('OBNOVIL SA SORT PANEL')
+        // console.log('sortkey', sortKey)
+
+        const reload = componentDidUpdate(prevProps)
+
+        // console.log('upravit linku')
+        // console.log('sortkey', sortKey)
+
+        if (sortKey && !reload) {
+            console.log('som tu')
+            if (keyword || filter) {
+                let url = ''
+                if (sortKey === 'time_asc') {
+                    url += '/sort/time_asc'
+                    // history.push(`/sort/time_asc/search/${keyword}/page/1`)
+                } else {
+                    url += `/sort/${sortKey}`
+                    // history.push(`/sort/${sortKey}/search/${keyword}/page/1`)
+                }
+
+                if (keyword) url += `/search/${keyword}`
+
+                if (filter) url += `/filter/${filter}`
+
+                url += '/page/1'
+                history.push(url)
+
             } else {
-                history.push(`/sort/${sortKey}/search/${keyword}/page/1`)
-            }
-        } else {
-            if (sortKey === '') {
-                history.push('/')
-            }
-            else {
-                history.push(`/sort/${sortKey}`)
+                if (sortKey === 'time_asc') {
+                    history.push('/')
+                }
+                else {
+                    history.push(`/sort/${sortKey}`)
+                }
             }
         }
 
-        // if (sortKey === '') {
-        //     history.push('/')
-        // } else {
-        //     if (keyword) {
-        //         history.push(`/sort/${sortKey}/search/${keyword}/page/1`)
-        //     } else {
-        //         history.push(`/sort/${sortKey}`)
-        //     }
-        // }
-    }
+    }, [sortKey, keyword])
+
 
     return (
-        <Row>
-            <Form onSubmit={submitHandler} inline>
-                <Button type='submit' onClick={(e) => setSortKey('')} variant='outline-success' className='p-2'>
-                    Najnovšie</Button>
-                <Button type='submit' onClick={(e) => setSortKey('time_desc')} variant='outline-success' className='p-2'>
-                    Najstaršie</Button>
-                <Button type='submit' onClick={(e) => setSortKey('price_asc')} variant='outline-success' className='p-2'>
-                    Najlacnejšie</Button>
-                <Button type='submit' onClick={(e) => setSortKey('price_desc')} variant='outline-success' className='p-2'>
-                    Najdrahšie</Button>
-            </Form>
-        </Row>
+        <Select
+            value={selectedOption}
+            onChange={handleChange}
+            options={sortOptions}
+            placeholder={<span>Vyberte...</span>}
+            styles={customStyles}
+        />
+
     )
 }
 

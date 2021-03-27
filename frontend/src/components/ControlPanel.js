@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact'
-import SortPanelNew from './SortPanelNew'
+import SortPanelNew from './SortPanel'
 import FilterPanel from './FilterPanel'
 
 const ControlPanel = ({ history, match, keyword }) => {
@@ -9,10 +9,6 @@ const ControlPanel = ({ history, match, keyword }) => {
     // tu tahat z url hotnoty sortkey a filter
     const sortKey = match.params.sortKey
     const filter = match.params.filter
-
-    // useEffect(() => {
-    //     console.log('OBNOVIL SA')
-    // }, [keyword])
 
     return (
         // pohyblivy div -> vonkajsi div (farba2) -> vnutorny kontajner (farba1)

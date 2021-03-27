@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import Pagination from "react-js-pagination";
-// require("bootstrap/less/bootstrap.less");
 
 class MyPagination extends Component {
   constructor(props) {
@@ -34,14 +32,6 @@ class MyPagination extends Component {
     if (this.props.screen === 1) { this.props.history.push(`/user/my/profile/page/${pageNumber}`) }
     if (this.props.screen === 2) { this.props.history.push(`/user/my/favorites/${pageNumber}`) }
     if (this.props.screen === 3) { this.props.history.push(`/products/user/${this.props.id}/${pageNumber}`) }
-
-    // <LinkContainer key={x + 1}
-    //   to={
-    //     screen == 2 ? `/user/my/favorites/${x + 1}`
-    //       : screen == 3 ? `/products/user/${id}/${x + 1}`
-    //         : `/user/my/profile/page/${x + 1}`}>
-    //   <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
-    // </LinkContainer>
   }
 
   render() {
