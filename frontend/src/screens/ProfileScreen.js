@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Table, Image } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listMyProducts, deleteProduct } from '../actions/productActions'
@@ -12,8 +12,10 @@ import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from
 import UserInfoPanel from '../components/UserInfoPanel'
 import { translateClassification } from '../utils/translate'
 import TablePaginate from '../components/TablePaginate'
+import MyPagination from '../components/MyPagination'
 
 const UserProfileScreen = ({ history, match, prevProps }) => {
+    const pageSize = 5  // TODO 10
     const pageNumber = match.params.pageNumber || 1
     // ked nastavim useState na 1, tak sa nebude nacitavat pri Moj profil(lenze to i zosatne na poslednej prezeranej strane...)
     const [newPageNumber, setNewPageNumber] = useState(0)   // TODO: rename oldPage
@@ -35,7 +37,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
 
     // get products from logged user
     const productListMy = useSelector(state => state.productListMy)
-    const { loading: loadingProducts, error: errorProducts, products, pages, page } = productListMy
+    const { loading: loadingProducts, error: errorProducts, products, count, pages, page } = productListMy
 
     // create product from CreateProductScreen
     const productCreate = useSelector((state) => state.productCreate)
@@ -51,11 +53,11 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
 
     const componentDidUpdate = (prevProps) => {
         console.log("zmenil sa ", pageNumber, newPageNumber)
-        if (newPageNumber !== pageNumber){//match.params.pageNumber) {
-          setNewPageNumber(pageNumber)//match.params.pageNumber);
-          dispatch(listMyProducts(pageNumber))
+        if (newPageNumber !== pageNumber) {//match.params.pageNumber) {
+            setNewPageNumber(pageNumber)//match.params.pageNumber);
+            dispatch(listMyProducts(pageNumber, pageSize))
         }
-      }
+    }
 
     useEffect(() => {
         if (!userInfo) {
@@ -65,7 +67,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                 // DISPATCH USER DETAILS
                 dispatch(getUserProfile())
                 // DISPATCH MY PRODUCTS
-                dispatch(listMyProducts(pageNumber))
+                dispatch(listMyProducts(pageNumber, pageSize))
                 setNewPageNumber(pageNumber)
             }
 
@@ -80,7 +82,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                 dispatch({ type: PRODUCT_UPDATE_RESET })
                 dispatch({ type: PRODUCT_DELETE_RESET })
                 // DISPATCH MY PRODUCTS
-                dispatch(listMyProducts(pageNumber))
+                dispatch(listMyProducts(pageNumber, pageSize))
             }
 
             componentDidUpdate(prevProps)
@@ -132,40 +134,46 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                         : errorProducts ? <Message>{error}</Message>
                             : products.length === 0 ? <Message variant='info'>Zatiaľ ste nepridali žiadne produkty</Message>
                                 :
-                                (<Table striped bordered responsive className='table-sm'>
-                                    <thead>
-                                        <tr className='text-uppercase'>
-                                            <th className='fw-600 vert-align-midd ' style={{ width: '8%' }}></th>
-                                            <th className='fw-600 vert-align-midd  pl-small-table-td' style={{ width: '25%' }}>Názov</th>
-                                            <th className='fw-600 vert-align-midd ' style={{ width: '10%' }}>Typ</th>
-                                            <th className='fw-600 vert-align-midd ' style={{ width: '15%' }}>Cena</th>
-                                            <th className='fw-600 vert-align-midd  text-center' style={{ width: '17%' }}>Dátum pridania</th>
-                                            <th className='fw-600 vert-align-midd ' style={{ width: '25%' }}></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {products.map(product => (
-                                            <tr key={product._id}>
-                                                <td className='vert-align-midd text-center'><Image src={product.images[0]} alt={product.name} fluid rounded style={{ maxWidth: '70px' }} /></td>
-                                                <td className='vert-align-midd fw-600 pl-small-table-td' >{product.name}</td>
-                                                <td className='vert-align-midd'>{translateClassification(product.classification)}</td>
-                                                <td className='vert-align-midd'>{product.price}</td>
-                                                <td className='vert-align-midd text-center'>{product.createdAt.substring(0, 10)}</td>
-                                                <td className='vert-align-midd text-center'>
-                                                    <LinkContainer to={`/user/product/${product._id}/edit`}>
-                                                        <button className='my-btn-small' >
-                                                            <i className='fas fa-edit'></i> Upraviť
+                                (
+                                    <>
+                                        <Table striped bordered responsive className='table-sm'>
+                                            <thead>
+                                                <tr className='text-uppercase'>
+                                                    <th className='fw-600 vert-align-midd ' style={{ width: '8%' }}></th>
+                                                    <th className='fw-600 vert-align-midd  pl-small-table-td' style={{ width: '25%' }}>Názov</th>
+                                                    <th className='fw-600 vert-align-midd ' style={{ width: '10%' }}>Typ</th>
+                                                    <th className='fw-600 vert-align-midd ' style={{ width: '15%' }}>Cena</th>
+                                                    <th className='fw-600 vert-align-midd  text-center' style={{ width: '17%' }}>Dátum pridania</th>
+                                                    <th className='fw-600 vert-align-midd ' style={{ width: '25%' }}></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {products.map(product => (
+                                                    <tr key={product._id}>
+                                                        <td className='vert-align-midd text-center'><Image src={product.images[0]} alt={product.name} fluid rounded style={{ maxWidth: '70px' }} /></td>
+                                                        <td className='vert-align-midd fw-600 pl-small-table-td' >{product.name}</td>
+                                                        <td className='vert-align-midd'>{translateClassification(product.classification)}</td>
+                                                        <td className='vert-align-midd'>{product.price}</td>
+                                                        <td className='vert-align-midd text-center'>{product.createdAt.substring(0, 10)}</td>
+                                                        <td className='vert-align-midd text-center'>
+                                                            <LinkContainer to={`/user/product/${product._id}/edit`}>
+                                                                <button className='my-btn-small' >
+                                                                    <i className='fas fa-edit'></i> Upraviť
                                                 </button>
-                                                    </LinkContainer>
-                                                    <button className='my-btn-small' onClick={() => deleteHandler(product._id)}>
-                                                        <i className='fas fa-trash'></i> Zmazať
+                                                            </LinkContainer>
+                                                            <button className='my-btn-small' onClick={() => deleteHandler(product._id)}>
+                                                                <i className='fas fa-trash'></i> Zmazať
                                             </button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </Table>)}
-                    < TablePaginate pages={pages} page={page} screen={1} />
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </Table>
+                                        <Route render={({ history }) => <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={1} />} />
+                                        {/*  itemsCountPerPage={10} */}
+                                        {/* <MyPagination itemsCountPerPage={2} totalItemsCount={count} activePage={page} /> */}
+                                    </>
+                                )}
                 </Col>
             </Row>
         </Container>

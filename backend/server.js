@@ -2,7 +2,6 @@ import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
-import cors from 'cors'
 
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
@@ -19,7 +18,6 @@ const app = express()
 const apiPort = 5000
 
 app.use(bodyParser.urlencoded({ extended: true }))  // Allows to use whole body, not only parts
-app.use(cors())
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {

@@ -3,11 +3,11 @@ import { categoryOptions } from './options'
 export const triangleColor = (condition) => {
     switch (condition) {
         case "new":
-            return 'pink'
+            return 'green'
         case "used":
             return 'blue'
         case "handmade":
-            return 'yellow'
+            return 'orange'
         default:
             return 'gray'
     }
@@ -37,11 +37,11 @@ export const getCategoryName = (val) => {
 export const translateCondition = (condition) => {
     switch (condition) {
         case "new":
-            return 'NOVÝ TOVAR'
+            return 'nový'
         case "used":
-            return 'POUŽITÝ TOVAR'
+            return 'používané'
         case "handmade":
-            return 'VLASTNÁ VÝROBA' // RUČNÁ
+            return 'vlastná výroba' // RUČNÁ
         default:
             return ''
     }

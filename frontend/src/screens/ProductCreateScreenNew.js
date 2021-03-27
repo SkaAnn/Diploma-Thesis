@@ -30,6 +30,7 @@ const ProductCreateScreenNew = ({ history }) => {
     const [step1, setStep1] = useState(true)
     const [step2, setStep2] = useState(false)
     const [step3, setStep3] = useState(false)
+    const [allDone, setAllDone] = useState(false)
 
     // Global state
     const userLogin = useSelector(state => state.userLogin)
@@ -207,7 +208,7 @@ const ProductCreateScreenNew = ({ history }) => {
             if (blankPropList) setMessage2('Položky v tejto časti nesmú byť prázdne')
         }
         else {
-
+            setAllDone(true)
 
             // UPLOAD IMAGES
             let imagesArr = []
@@ -242,31 +243,62 @@ const ProductCreateScreenNew = ({ history }) => {
 
     return (
         <Container className='mt-5rem'>
-            <h1>Pridať produkt</h1>
-            <Row>
-                <Col md={3}>
+            <h2 className='fw-400 text-uppercase mb-4'><i className="fas fa-plus mr-1" style={{color: 'plum'}}></i> Pridať produkt</h2>
+            <Row style={{ minHeight: '70vh' }}>
+                <Col md={3} className='p-0' style={{ background: 'yellow' }}>
                     {/* if step 1 then on click */}
                     {/* if setpart1 tak tie ostatne steps dame false, aby sme sa museli preklikat znovu  */}
-                    <div className='py-4' style={{ backgroundColor: 'aqua' }}
-                        onClick={(e) => { step1 && setPart(1) }}>Typ produktu
+                    <div className='my-form-section px-3'
+                        onClick={(e) => { step1 && setPart(1) }}
+                        style={{ color: `${!step1 ? '#6c757d' : 'black'}` }}>
+
+                        <div className='ml-2' style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                            {step2 ? <i className="far fa-check-circle fa-2x" style={{ color: 'green' }}></i>
+                                : <i className="far fa-times-circle fa-2x" style={{ color: `${step1 && 'red'}` }}></i>}
+                        </div>
+                        <div className="ml-3" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                            <h5> <strong>1. KROK</strong></h5> Typ produktu
+                         </div>
                     </div>
-                    <div className='py-4' style={{ backgroundColor: 'pink' }} onClick={(e) => { step2 && setPart(2) }}>Základné informácie</div>
-                    <div className='py-4' style={{ backgroundColor: 'gray' }} onClick={(e) => { step3 && setPart(3) }}>Špecifikácia produktu</div>
+
+                    <div className='my-form-section px-3' onClick={(e) => { step2 && setPart(2) }}
+                        style={{ color: `${!step2 ? '#6c757d' : 'black'}` }}>
+
+                        <div className='ml-2 inline-block-middle'>
+                            {step3 ? <i className="far fa-check-circle fa-2x" style={{ color: 'green' }}></i>
+                                : <i className="far fa-times-circle fa-2x" style={{ color: `${step2 && 'red'}` }}></i>}
+                        </div>
+                        <div className="ml-3 inline-block-middle">
+                            <h5><strong>2. KROK</strong></h5> Základné informácie
+                         </div>
+
+                    </div>
+                    <div className='my-form-section px-3' onClick={(e) => { step3 && setPart(3) }}
+                        style={{ color: `${!step3 ? '#6c757d' : 'black'}` }} >
+
+                        <div className='ml-2 inline-block-middle'>
+                            {allDone ? <i className="far fa-check-circle fa-2x" style={{ color: 'green' }}></i>
+                                : <i className="far fa-times-circle fa-2x" style={{ color: `${step3 && 'red'}` }}></i>}
+                        </div>
+                        <div className="ml-3 inline-block-middle">
+                            <h5><strong>3. KROK</strong></h5> Špecifikácia produktu
+                         </div>
+                    </div>
                 </Col>
-                <Col md={9}>
+                <Col md={9} style={{ background: 'aliceblue' }} className='my-form-body'>
 
                     <div style={{ display: `${step1 && part == 1 ? 'block' : 'none'}` }}>
-                        <h2> Typ produktu </h2>
+                        <h2 className='text-uppercase fw-500 mb-4'> Typ produktu </h2>
                         <Form onSubmit={submitFirstPartHandler}>
-                            <Form.Group as={Row} controlId="category">
-                                <Form.Label column sm="3">Kategória</Form.Label>
+                            <Form.Group as={Row} controlId="category" className='my-5'>
+                                <Form.Label column sm="3" className='my-form-label'>Kategória*</Form.Label>
                                 <Col sm="9">
                                     <ReactSelect req={true} options={categoryOptions} onSelect={(val) => setField('category', val.value)} />
                                 </Col>
                             </Form.Group>
 
-                            <Form.Group as={Row} controlId="classificationBox" onChange={(e) => setField('classification', e.target.value)}>
-                                <Form.Label column sm="3">Typ</Form.Label>
+                            <Form.Group as={Row} controlId="classificationBox" className='my-5' onChange={(e) => setField('classification', e.target.value)}>
+                                <Form.Label column sm="3" className='my-form-label'>Typ*</Form.Label>
                                 <Col sm="9">
                                     <Form.Check className="form-check-inline mr-3" type="radio" name='classification' value='supply' label="ponuka" required />
                                     <Form.Check className="form-check-inline mr-3" type="radio" name='classification' value='demand' label="dopyt" required />
@@ -274,25 +306,25 @@ const ProductCreateScreenNew = ({ history }) => {
                                 </Col>
                             </Form.Group>
 
-                            <Form.Group as={Row} controlId="conditionBox" onChange={(e) => setField('condition', e.target.value)}>
-                                <Form.Label column sm="3">Stav tovaru</Form.Label>
+                            <Form.Group as={Row} controlId="conditionBox" className='my-5' onChange={(e) => setField('condition', e.target.value)}>
+                                <Form.Label column sm="3" className='my-form-label'>Stav tovaru*</Form.Label>
                                 <Col sm="9">
                                     <Form.Check className="form-check-inline mr-3" type="radio" name='condition' value='new' label="nový" required />
                                     <Form.Check className="form-check-inline mr-3" type="radio" name='condition' value='used' label="použitý" required />
                                     <Form.Check className="form-check-inline" type="radio" name='condition' value='handmade' label="vlastná výroba" required />
                                 </Col>
                             </Form.Group>
-                            <Button type='submit' variant='indigo' className='w-100 mt-4'>Ďalej 1</Button>
+                            <button type='submit' className='mt-3 my-form-checkout-btn' style={{ float: 'right' }}>Pokračovať <i className="fas fa-chevron-circle-right fa-2x ml-2"></i></button>
                         </Form>
                     </div>
 
 
                     <div style={{ display: `${step1 && step2 && part == 2 ? 'block' : 'none'}` }}>
-                        <h2> Základné informácie </h2>
+                        <h2 className='text-uppercase fw-500 mb-3'> Základné informácie </h2>
                         <Form onSubmit={submitSecondPartHandler}>
-                            <Form.Group as={Row} controlId='name'>
-                                <Form.Label column sm="3">Názov</Form.Label>
-                                <Col sm="9">
+                            <Form.Group as={Row} controlId='name' className='my-5'>
+                                <Form.Label column sm="2" className='my-form-label'>Názov* </Form.Label>
+                                <Col sm="10">
                                     <Form.Control type='text' onChange={e => setField('name', e.target.value)}
                                         placeholder='Zadajte názov produktu' required
                                         isInvalid={!!errors.name}></Form.Control>
@@ -302,17 +334,15 @@ const ProductCreateScreenNew = ({ history }) => {
                                 </Col>
                             </Form.Group>
 
-                            <Form.Group as={Row} controlId="countInStock">
-                                <Form.Label column sm="3" >Počet kusov</Form.Label>
-                                <Col sm="9">
+                            <Form.Group as={Row} controlId="countInStockAndPrice" className='my-5'>
+                                <Form.Label column sm="2" className='my-form-label' >Počet kusov* </Form.Label>
+                                <Col sm="4">
                                     <Form.Control type='number' step={'1'} min={1}
                                         onChange={(e) => setField('countInStock', Number(e.target.value))} required />
                                 </Col>
-                            </Form.Group>
 
-                            <Form.Group as={Row} controlId="price">
-                                <Form.Label column sm="3">Cena</Form.Label>
-                                <Col sm="9">
+                                <Form.Label column sm="2" className='my-form-label'>Cena* </Form.Label>
+                                <Col sm="4">
                                     {form.classification && form.classification === 'donor' ?
                                         <Form.Control plaintext readOnly value="Zadarmo" />
                                         :
@@ -323,13 +353,13 @@ const ProductCreateScreenNew = ({ history }) => {
                                 </Col>
                             </Form.Group>
 
-                            <Form.Group controlId='images'>
-                                <Form.Label>Fotky</Form.Label>
+                            <Form.Group controlId='images' className='my-5'>
+                                <Form.Label className='my-form-label'>Fotky</Form.Label>
                                 <UploadMultipleImages onUpload={(val) => setImages(val)} />
                             </Form.Group>
 
-                            <Form.Group controlId='description'>
-                                <Form.Label>Popis</Form.Label>
+                            <Form.Group controlId='description' className='my-5'>
+                                <Form.Label className='my-form-label'>Popis* </Form.Label>
                                 <Form.Control as="textarea" onChange={(e) => setField('description', e.target.value)}
                                     isInvalid={!!errors.description}
                                     placeholder='Zadajte popis produktu' rows={4} required />
@@ -337,55 +367,53 @@ const ProductCreateScreenNew = ({ history }) => {
                                     {errors.description}
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            <Button type='submit' variant='indigo' className='w-100 mt-4'>Ďalej 2</Button>
+                            <button type='submit' className='my-form-checkout-btn' style={{ float: 'right' }}>Pokračovať <i className="fas fa-chevron-circle-right fa-2x ml-2"></i></button>
                         </Form>
                     </div>
 
 
                     <div style={{ display: `${step1 && step2 && step3 && part == 3 ? 'block' : 'none'}` }}>
-                        <h2> Špecifikácia produktu </h2>
+                        <h2 className='text-uppercase fw-500 mb-4'> Špecifikácia produktu </h2>
                         <Form onSubmit={submitAllHandler}>
-                            <Form.Group as={Row} controlId='origin'>
-                                <Form.Label column sm="3">Pôvod</Form.Label>
-                                <Col sm="9">
+                            <Form.Group as={Row} controlId='originAndBrand' className='my-5'>
+                                <Form.Label column sm="2" className='my-form-label'>Pôvod</Form.Label>
+                                <Col sm="4">
                                     <Form.Control type='text' onChange={(e) => setField('origin', e.target.value)}
                                         placeholder='Vyrobené v...' required ></Form.Control>
                                 </Col>
-                            </Form.Group>
 
-                            <Form.Group as={Row} controlId='brand'>
-                                <Form.Label column sm="3">Výrobca</Form.Label>
+                                <Form.Label column sm="2" className='my-form-label'>Výrobca</Form.Label>
                                 {/* Značka */}
-                                <Col sm="9">
+                                <Col sm="4">
                                     <Form.Control type='text' onChange={(e) => setField('brand', e.target.value)}
                                         placeholder='Značka produktu' ></Form.Control>
                                     <Form.Text id="brandBlock" muted> Ak nie je známa alebo na nej nezáleží zadajte pomlčku </Form.Text>
                                 </Col>
                             </Form.Group>
 
-                            <Form.Group controlId='measures'>
-                                <Form.Label>Rozmery výrobku</Form.Label>
+                            <Form.Group controlId='measures' className='my-5'>
+                                <Form.Label className='my-form-label'>Rozmery výrobku</Form.Label>
                                 {/* šírka, výška, hĺbka, váha */}
                                 <Row>
-                                    <Col sm='6'>
+                                    <Col sm='6' className='mb-2'>
                                         <div className='form-check-inline w-5r'>šírka</div>
                                         <Form.Control className='form-check-inline w-50 pad-control' type='text'
                                             value={measures.width} onChange={(e) => setMeasures({ ...measures, width: e.target.value })}
                                             placeholder='' ></Form.Control>
                                     </Col>
-                                    <Col sm='6'>
+                                    <Col sm='6' className='mb-2'>
                                         <div className='form-check-inline w-5r'>výška</div>
                                         <Form.Control className='form-check-inline w-50 pad-control' type='text'
                                             value={measures.height} onChange={(e) => setMeasures({ ...measures, height: e.target.value })}
                                             placeholder='' ></Form.Control>
                                     </Col>
-                                    <Col sm='6'>
+                                    <Col sm='6' className='mb-2'>
                                         <div className='form-check-inline w-5r'>hĺbka</div>
                                         <Form.Control className='form-check-inline w-50 pad-control' type='text'
                                             value={measures.depth} onChange={(e) => setMeasures({ ...measures, depth: e.target.value })}
                                             placeholder='' ></Form.Control>
                                     </Col>
-                                    <Col sm='6'>
+                                    <Col sm='6' className='mb-2'>
                                         <div className='form-check-inline w-5r'>hmotnosť</div>
                                         <Form.Control className='form-check-inline w-50 pad-control' type='text'
                                             value={measures.weight} onChange={(e) => setMeasures({ ...measures, weight: e.target.value })}
@@ -396,17 +424,17 @@ const ProductCreateScreenNew = ({ history }) => {
 
 
                             <Form.Group controlId="shipping">
-                                <Form.Label>Spôsoby doručenia / dopravy</Form.Label>
+                                <Form.Label className='my-form-label'>Spôsoby doručenia / dopravy</Form.Label>
                                 <Form.Text id="propBlock" muted> Zvoľte spôsob doručenia produktu. Spôsob aj cena napr. osobný odber - Zadarmo, Slovenská pošta - 1.5e </Form.Text>
                             </Form.Group>
                             {message && <Message>{message}</Message>}
                             {shippingList.length === 0
-                                ? <Button type='button' className='btn btn-primary' onClick={handleAddClickShipping}>Pridať</Button>
+                                ? <button className='my-btn-small' onClick={handleAddClickShipping} style={{ width: '120px', borderRadius: '0' }}> <i className="fas fa-plus" /> Pridať</button>
                                 :
                                 shippingList.map((x, i) => {
                                     return (
-                                        <Row key={i}>
-                                            <Col sm='5' className='pad-r1'>
+                                        <Row key={i} className='mb-2'>
+                                            <Col sm='4' className='pad-r1'>
                                                 <Form.Control
                                                     type='text'
                                                     name='typ'
@@ -416,7 +444,7 @@ const ProductCreateScreenNew = ({ history }) => {
                                                 />
                                             </Col>
 
-                                            <Col sm='5' className='pad-l0'>
+                                            <Col sm='4' className='pad-l0'>
                                                 <Form.Control
                                                     type='text'
                                                     // className="ml10"
@@ -427,15 +455,15 @@ const ProductCreateScreenNew = ({ history }) => {
                                                 />
                                             </Col>
 
-                                            <Col sm='2' className='pad-l0'>
+                                            <Col sm='4' className='pad-l0'>
                                                 <div className="btn-box">
                                                     {shippingList.length >= 1 &&
-                                                        <Button type='button' className="p-1 mr10 " onClick={() => handleRemoveClickShipping(i)}>
-                                                            <i className="fas fa-trash" /></Button>
+                                                        <button type='button' className="mr10 py-2 my-btn-small" style={{ borderRadius: '0' }} onClick={() => handleRemoveClickShipping(i)}>
+                                                            <i className="fas fa-trash" /> Zmazať</button>
                                                     }
                                                     {shippingList.length - 1 === i &&
-                                                        <Button type='button' onClick={handleAddClickShipping} className="p-1 btn btn-outline-primary">
-                                                            <i className="fas fa-plus-circle" /></Button>}
+                                                        <button type='button' onClick={handleAddClickShipping} style={{ borderRadius: '0' }} className="py-2 my-btn-small">
+                                                            <i className="fas fa-plus" /> Pridať</button>}
                                                 </div>
                                             </Col>
                                         </Row>
@@ -444,19 +472,19 @@ const ProductCreateScreenNew = ({ history }) => {
 
 
 
-                            <Form.Group controlId="moreProperties">
-                                <Form.Label>Ďalšie vlastnosti</Form.Label>
+                            <Form.Group controlId="moreProperties" className='mt-5'>
+                                <Form.Label className='my-form-label'>Ďalšie vlastnosti</Form.Label>
                                 <Form.Text id="propBlock" muted> napr. autor, pocet stran, farba, material... bude sa to menit podla kategorie </Form.Text>
                             </Form.Group>
                             {message2 && <Message>{message2}</Message>}
                             {/* https://www.cluemediator.com/add-or-remove-input-fields-dynamically-with-reactjs */}
                             {propsList.length === 0
-                                ? <Button type='button' className='btn btn-primary' onClick={handleAddClick}>Pridať</Button>
+                                ? <button className='my-btn-small' onClick={handleAddClick} style={{ width: '120px', borderRadius: '0' }}> <i className="fas fa-plus" /> Pridať</button>
                                 :
                                 propsList.map((x, i) => {
                                     return (
-                                        <Row key={i}>
-                                            <Col sm='5' className='pad-r1'>
+                                        <Row key={i} className='mb-2'>
+                                            <Col sm='4' className='pad-r1'>
                                                 <Form.Control
                                                     type='text'
                                                     name='key'
@@ -466,7 +494,7 @@ const ProductCreateScreenNew = ({ history }) => {
                                                 />
                                             </Col>
 
-                                            <Col sm='5' className='pad-l0'>
+                                            <Col sm='4' className='pad-l0'>
                                                 <Form.Control
                                                     type='text'
                                                     // className="ml10"
@@ -477,27 +505,28 @@ const ProductCreateScreenNew = ({ history }) => {
                                                 />
                                             </Col>
 
-                                            <Col sm='2' className='pad-l0'>
+                                            <Col sm='4' className='pad-l0'>
                                                 <div className="btn-box">
                                                     {propsList.length >= 1 &&
-                                                        <Button type='button' className="p-1 mr10 " onClick={() => handleRemoveClick(i)}>
-                                                            <i className="fas fa-trash" /></Button>
+                                                        <button type='button' className="p-2 mr10 my-btn-small" style={{ borderRadius: '0' }} onClick={() => handleRemoveClick(i)}>
+                                                            <i className="fas fa-trash" /> Zmazať</button>
                                                     }
                                                     {propsList.length - 1 === i &&
-                                                        <Button type='button' onClick={handleAddClick} className="p-1 btn btn-outline-primary">
-                                                            <i className="fas fa-plus-circle" /></Button>}
+                                                        <button type='button' onClick={handleAddClick} className="p-2 my-btn-small" style={{ borderRadius: '0' }}>
+                                                            <i className="fas fa-plus" /> Pridať</button>}
                                                 </div>
                                             </Col>
                                         </Row>
                                     );
                                 })}
 
-                            <Button type='submit' variant='indigo' className='w-100 mt-4'>uložiť</Button>
+                            <button type='submit' className='w-100 mt-4 my-form-checkout-btn' style={{ float: 'right' }}> Uložiť </button>
+                            {/* <Button type='submit' variant='indigo' className='w-100 mt-4'>uložiť</Button> */}
                         </Form>
                     </div>
 
                 </Col>
-            </Row>
+            </Row >
         </Container >
     )
 }

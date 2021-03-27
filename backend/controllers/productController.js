@@ -9,7 +9,7 @@ const getProducts = asyncHandler(async (req, res) => {
     // console.log(req.query.sortKey)
 
     // Pagination
-    const pageSize = 2 // TODO: 12 alebo 20
+    const pageSize = Number(req.query.pageSize) || 8 // TODO: 12/20
     const page = Number(req.query.pageNumber) || 1
 
     // Sorting products criterium
@@ -44,18 +44,36 @@ const getProducts = asyncHandler(async (req, res) => {
         }
     } : {}
 
+    // filter 0-2 bude pre classification a 3-5 pre condition
+
+    // Classification filter
+    console.log('filter ', req.query.filter)
+    const classificationArr = []
+    const classificationFilter = req.query.filter.substring(0, 3)
+    if (classificationFilter.charAt(0) === '1') classificationArr.push('supply')
+    if (classificationFilter.charAt(1) === '1') classificationArr.push('demand')
+    if (classificationFilter.charAt(2) === '1') classificationArr.push('donor')
+    // console.log('MyCLASSIF', classificationFilter)
+
+    // Condition filter
+    const conditionArr = []
+    const conditionFilter = req.query.filter.substring(3, 6)
+    if (conditionFilter.charAt(0) === '1') conditionArr.push('new')
+    if (conditionFilter.charAt(1) === '1') conditionArr.push('used')
+    if (conditionFilter.charAt(2) === '1') conditionArr.push('handmade')
+    // console.log('Mycond', conditionFilter)
 
     // Count all products
-    const count = await Product.countDocuments({ ...keyword, active: true })
+    const count = await Product.countDocuments({ ...keyword, active: true, classification: { $in: classificationArr }, condition: { $in: conditionArr } })
 
     const products = await Product
-        .find({ ...keyword, active: true })
+        .find({ ...keyword, active: true, classification: { $in: classificationArr }, condition: { $in: conditionArr } })
         .populate('user', 'id name')
         .sort(mysort)
         .limit(pageSize)
         .skip(pageSize * (page - 1))
 
-    res.json({ products, page, pages: Math.ceil(count / pageSize) })
+    res.json({ products, count, page, pages: Math.ceil(count / pageSize) })
 })
 
 // TODO nezobrazovat ked uz bude deaktivovany!
@@ -155,7 +173,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // @access  Private
 const getMyProducts = asyncHandler(async (req, res) => {
     // Pagination
-    const pageSize = 2 // TODO: 10
+    const pageSize = Number(req.query.pageSize) || 5 // TODO: 10
     const page = Number(req.query.pageNumber) || 1
     // Count all products
     const count = await Product.countDocuments({ user: req.user._id, active: true })
@@ -165,7 +183,7 @@ const getMyProducts = asyncHandler(async (req, res) => {
         .limit(pageSize)
         .skip(pageSize * (page - 1))
 
-    res.json({ products, page, pages: Math.ceil(count / pageSize) })
+    res.json({ products, count, page, pages: Math.ceil(count / pageSize) })
     //  res.json(products)
 })
 
@@ -174,12 +192,13 @@ const getMyProducts = asyncHandler(async (req, res) => {
 // @route   GET /api/products/user/:id
 // @access  Public
 const getProductsByUser = asyncHandler(async (req, res) => {
-    const pageSize = 2 // TODO: 10
+    const pageSize = Number(req.query.pageSize) || 6 // TODO: 10
     const page = Number(req.query.pageNumber) || 1
     // Count all products
     const count = await Product.countDocuments({ user: req.params.id, active: true })
 
     const products = await Product.find({ user: req.params.id, active: true }).populate('user', 'id name')
+        .sort({ createdAt: -1 })
         .limit(pageSize)
         .skip(pageSize * (page - 1))
 
@@ -235,7 +254,7 @@ const removeProductFollower = asyncHandler(async (req, res) => {
 // @route   GET /api/products/favorite
 // @access  Private
 const getMyFavoriteProducts = asyncHandler(async (req, res) => {
-    const pageSize = 2 // TODO: 10
+    const pageSize = Number(req.query.pageSize) || 5 // TODO: 10
     const page = Number(req.query.pageNumber) || 1
     // Count all products
     const count = await Product.countDocuments({ followers: req.user._id, active: true })

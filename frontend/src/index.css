@@ -212,6 +212,10 @@ main {
     }
 }
 
+.fw-800{
+    font-weight: 800 !important;
+}
+
 .fw-600{
     font-weight: 600 !important;
 }
@@ -309,6 +313,14 @@ main {
 
 .my-btn-big:focus { 
     outline: none; 
+}
+
+.fs-18px{
+    font-size: 18px !important;
+}
+
+.fs-15px{
+    font-size: 14px;
 }
 
 .fs-14px{
@@ -474,3 +486,198 @@ padding-top: 2px;
 .mt-5rem{
     margin-top: 5rem;
 }
+
+
+
+
+/******** PRODUCT CREATE SCREEN ***************/
+@media only screen and (max-width: 768px) {
+    .my-form-section {
+        padding: 0.9rem 0.5rem !important;
+    }
+
+    .my-form-body {
+        padding: 2rem 1.3rem !important;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .my-form-body{
+        padding: 2rem 3rem !important;
+    }
+}
+
+.my-form-section {
+    cursor: pointer;
+    
+    padding: 2rem 0.5rem;
+    /* color: var(--black-color) !important; */
+    /* display: block; */
+    --my-form-section-bg-color: yellow;
+    --my-form-section-bg-color-hover: #9ff5df;
+    background-color: var(--my-form-section-bg-color);
+    font-size: 15px;
+    /* font-weight: 600; */
+    letter-spacing: -.09px;
+    color: inherit;
+    text-transform: uppercase;
+    transition: color .3s;
+}
+
+.my-form-section:hover{
+    background-color: var(--my-form-section-bg-color-hover);
+}
+
+
+.my-form-label {
+    /* color: var(--black-color) !important; */
+    /* display: block; */
+    font-size: 14px !important;
+    font-weight: 600;
+    letter-spacing: -.09px;
+    color: inherit;
+    text-transform: uppercase;
+
+    transition: color .3s;
+}
+
+.inline-block-middle{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* .my-form-body{
+    padding: 2rem 3rem !important;
+} */
+
+.my-form-checkout-btn{
+    width: 200px;
+    color: var(--black-color) !important;
+    --button-bg-color: #fff;
+    --button-bg-color-hover: #9ff5df;
+    --button-bg-color-active: #78f5d6;
+    display: -webkit-inline-box;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 15px 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    /* line-height: 1.17; */
+    background-color: aliceblue;
+    border: none;
+    /* box-shadow: inset 1px 1px 0 1px #fff; */
+    /* -webkit-transition: all .25s ease;
+    transition: all .25s ease; */
+    white-space: pre-wrap;
+    text-transform: none;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.my-form-checkout-btn:hover{
+    background-color: var(--button-bg-color-hover);
+}
+
+.my-btn-primary {
+    background-color: #78f5d6 !important;
+    color: black !important;
+    margin: .375rem;
+    color: inherit;
+    text-transform: uppercase;
+    word-wrap: break-word;
+    white-space: normal;
+    cursor: pointer;
+    border: 0;
+    border-radius: .125rem;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    padding: .84rem 2.14rem;
+    font-size: .81rem;
+}
+
+/* [type=button], [type=reset], [type=submit], button {
+    -webkit-appearance: button;
+} */
+
+.my-btn-primary:hover {
+    color: #fff !important;
+    background-color: #5a95f5 !important;
+}
+
+.my-btn-primary:hover, .my-btn-primary:focus, .my-btn-primary:active {
+    outline: 0; 
+    box-shadow: 0 5px 11px 0 rgb(0 0 0 / 18%), 0 4px 15px 0 rgb(0 0 0 / 15%);
+}
+
+/* .my-btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+} */
+
+/* .my-btn:hover {
+    color: #212529;
+    text-decoration: none;
+} */
+
+/**** HOmescreen *****/
+.sticky-top {
+    padding-top: 4rem;
+}
+
+
+
+/********************* PAGINATION *********************/
+.pagination {
+    justify-content: center;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  ul.pagination li {
+    display: inline-block;
+    width: 30px;
+    border: 1px solid #e2e2e2;
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+  }
+  
+  ul.pagination li a {
+    text-decoration: none;
+    color: #337ab7;
+    font-size: 20px;
+  }
+  
+  ul.pagination li.active a {
+    color: white;
+  }
+  ul.pagination li.active {
+    background-color: #337ab7;
+  }
+  
+  ul.pagination li a:hover,
+  ul.pagination li a.active {
+    color: blue;
+  }
+
+/* https://stackoverflow.com/questions/2852276/make-div-overlay-entire-page-not-just-viewport */
+ .fadeMe {
+    /* opacity:    0.7;  */
+    background-color:rgba(0,0,0,.7);
+    /* background: #000;  */
+    width:      100%;
+    height:     100%; 
+    /* z-index: 1030 ma Header */
+    z-index:    1050;
+    top:        0; 
+    left:       0; 
+    position:   fixed; 
+  }
