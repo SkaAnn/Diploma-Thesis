@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col } from 'react-bootstrap'
-import { listUserDetails } from '../actions/userActions'
 import { Route } from 'react-router-dom'
-import ProductItem from '../components/ProductItem'
+
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listUserProducts } from '../actions/productActions'
 import UserInfoPanel from '../components/UserInfoPanel'
 import ProductCard from '../components/ProductCard'
-import TablePaginate from '../components/TablePaginate'
 import MyPagination from '../components/MyPagination'
+
+import { listUserProducts } from '../actions/productActions'
+import { listUserDetails } from '../actions/userActions'
 
 const UserProductsScreen = ({ match }) => {
     const pageSize = 2 // TODO 10
@@ -65,12 +65,10 @@ const UserProductsScreen = ({ match }) => {
                                     <Row>
                                         {products.map(product => (
                                             <Col key={product._id} lg={4} md={6}>
-                                                {/* <ProductItem key={product._id} product={product} /> */}
                                                 <ProductCard key={product._id} product={product} />
                                             </Col>))}
                                     </Row>
                                     <Route render={({ history }) => <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={3} id={match.params.id} />} />
-                                    {/* <TablePaginate pages={pages} page={page} screen={3} id={match.params.id} /> */}
                                 </>
                             )}
                 </Col>

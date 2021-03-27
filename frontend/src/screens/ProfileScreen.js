@@ -11,7 +11,6 @@ import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants'
 import UserInfoPanel from '../components/UserInfoPanel'
 import { translateClassification } from '../utils/translate'
-import TablePaginate from '../components/TablePaginate'
 import MyPagination from '../components/MyPagination'
 
 const UserProfileScreen = ({ history, match, prevProps }) => {

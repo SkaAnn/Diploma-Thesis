@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Form, Row, Col } from 'react-bootstrap'
 
 const SearchBox = ({ history }) => {
-    // component state keyword
     const [keyword, setKeyword] = useState('')
 
     const submitHandler = (e) => {
@@ -24,7 +23,6 @@ const SearchBox = ({ history }) => {
                 </Col>
                 <Col className='p-0 ml-3 col-4'>
                     <button type='submit' className='header-button'><i className="fas fa-search"></i> Vyhľadať</button>
-                    {/* <Button type='submit' variant='outline-success' className='p-2'>Vyhľadať</Button> */}
                 </Col>
             </Row >
         </Form >

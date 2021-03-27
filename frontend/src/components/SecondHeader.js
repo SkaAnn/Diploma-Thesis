@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact'
-import SortPanelNew from './SortPanel'
+import SortPanel from './SortPanel'
 import FilterPanel from './FilterPanel'
 
 const ControlPanel = ({ history, match, keyword }) => {
@@ -36,7 +36,7 @@ const ControlPanel = ({ history, match, keyword }) => {
                             <MDBRow>
                                 <MDBCol lg='3' className='my-auto'><span className='text-uppercase fw-600 fs-15px'>Zoradiť </span></MDBCol>
                                 <MDBCol lg='9' className='fs-13px fw-500 text-uppercase'>
-                                    <SortPanelNew history={history} keyword={keyword} filter={filter ? filter : ''} />
+                                    <SortPanel history={history} keyword={keyword} filter={filter ? filter : ''} />
                                 </MDBCol>
                             </MDBRow>
 

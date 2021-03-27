@@ -6,7 +6,6 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listFavoriteProducts } from '../actions/productActions'
 import { getCategoryName } from '../utils/translate'
-import TablePaginate from '../components/TablePaginate'
 import MyPagination from '../components/MyPagination'
 
 const FavoriteProductsScreen = ({ history, match }) => {
@@ -63,7 +62,6 @@ const FavoriteProductsScreen = ({ history, match }) => {
                                     </tbody>
                                 </Table>)}
                     <Route render={({ history }) => <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={2} />} />
-                    {/* <TablePaginate pages={pages} page={page} screen={2} /> */}
                 </Col>
             </Row>
         </Container>
