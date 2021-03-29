@@ -64,10 +64,10 @@ const ProductCard = ({ product }) => {
                 {/* <LinkContainer to={`/product/${product._id}`}> */}
                 <img
                     // src="https://mdbootstrap.com/img/Others/documentation/img%20(131)-mini.jpg"
-                    src={product.images[0]}
+                    src={product.images.length !== 0 ? product.images[0] : '/images/bez-fotky.jpg'}
                     className="mx-auto img-fluid"
                     alt={product.name}
-                    style={{  minHeight: '12rem', maxHeight: '12rem' }}
+                    style={{ minHeight: '12rem', maxHeight: '12rem' }}
                 />
 
                 <MDBMask

@@ -212,9 +212,7 @@ const ProductCreateScreenNew = ({ history }) => {
 
             // UPLOAD IMAGES
             let imagesArr = []
-            if (images.length === 0) {
-                imagesArr = ['/images/bez-fotky.jpg']
-            } else {
+            if (images.length !== 0) {
                 imagesArr = await uploadFiles()
                 console.log(imagesArr)
             }
@@ -243,7 +241,7 @@ const ProductCreateScreenNew = ({ history }) => {
 
     return (
         <Container className='mt-5rem'>
-            <h2 className='fw-400 text-uppercase mb-4'><i className="fas fa-plus mr-1" style={{color: 'plum'}}></i> Pridať produkt</h2>
+            <h2 className='fw-400 text-uppercase mb-4'><i className="fas fa-plus mr-1" style={{ color: 'plum' }}></i> Pridať produkt</h2>
             <Row style={{ minHeight: '70vh' }}>
                 <Col md={3} className='p-0' style={{ background: 'yellow' }}>
                     {/* if step 1 then on click */}

@@ -51,7 +51,7 @@ const FavoriteProductsScreen = ({ history, match }) => {
                                     <tbody>
                                         {products.map(product => (
                                             <tr key={product._id} >
-                                                <td className='vert-align-midd'> <Image src={product.images[0]} alt={product.name} fluid rounded style={{ maxWidth: '80px' }} /></td>
+                                                <td className='vert-align-midd'> <Image src={product.images.length !== 0 ? product.images[0] : '/images/bez-fotky.jpg'} alt={product.name} fluid rounded style={{ maxWidth: '80px' }} /></td>
                                                 <td className='vert-align-midd fw-600 pl-table-td'><Link to={`/product/${product._id}`}>{product.name}</Link></td>
                                                 <td className='vert-align-midd'>{getCategoryName(product.category)}</td>
                                                 <td className='vert-align-midd'>{product.price}</td>

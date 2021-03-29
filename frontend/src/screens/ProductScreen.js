@@ -13,6 +13,7 @@ import { translateClassification, translateCondition } from '../utils/translate'
 
 const ProductScreen = ({ match }) => {
     const dispatch = useDispatch()
+    const productId = match.params.id
 
     const [activeItem, setActiveItem] = useState('1');
     const toggle = tab => e => {
@@ -34,8 +35,17 @@ const ProductScreen = ({ match }) => {
     const { userInfo } = userLogin
 
     useEffect(() => {
-        dispatch(listProductDetails(match.params.id))
-    }, [dispatch, match.params.id, userInfo])
+        console.log('dispatch ProductScreen')
+        if (!product || !product.name) {
+            dispatch(listProductDetails(productId))
+        } else {
+
+            if (productId !== product._id) {
+                dispatch(listProductDetails(productId))
+            }
+        }
+    }, [dispatch, product, productId]) //history
+    // }, [dispatch, match.params.id, userInfo])
 
     const onClickHandler = (e) => {
         e.preventDefault()
@@ -173,8 +183,10 @@ const ProductScreen = ({ match }) => {
                                                 {formSubmitSuccessful
                                                     ? <span> Správa bola úspešne odoslaná! </span>
                                                     :
+                                                    userInfo &&
                                                     <button className='my-btn-primary mt-4 fw-500' style={{ float: 'right' }} onClick={onClickHandler}>
-                                                        <i className="far fa-paper-plane mr-1"></i> Mám záujem</button>}
+                                                        <i className="far fa-paper-plane mr-1"></i> Mám záujem</button>
+                                                }
                                             </Col>
                                         </Row>
 

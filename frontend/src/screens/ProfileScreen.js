@@ -149,7 +149,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                                             <tbody>
                                                 {products.map(product => (
                                                     <tr key={product._id}>
-                                                        <td className='vert-align-midd text-center'><Image src={product.images[0]} alt={product.name} fluid rounded style={{ maxWidth: '70px' }} /></td>
+                                                        <td className='vert-align-midd text-center'><Image src={product.images.length !== 0 ? product.images[0] : '/images/bez-fotky.jpg'} alt={product.name} fluid rounded style={{ maxWidth: '70px' }} /></td>
                                                         <td className='vert-align-midd fw-600 pl-small-table-td' >{product.name}</td>
                                                         <td className='vert-align-midd'>{translateClassification(product.classification)}</td>
                                                         <td className='vert-align-midd'>{product.price}</td>

@@ -230,6 +230,7 @@ const ProductEditScreenNew = ({ match, history }) => {
                             {reload &&
                                 <Form.Group controlId='images'>
                                     <Form.Label className='my-form-label'>Fotky</Form.Label>
+                                    {product.images.length === 0 && <div>Žiadne fotky</div>}
                                     {/* <Form.Control type='text' value={images} onChange={(e) => setImages(e.target.value)} /> */}
                                     <UploadMultipleImages2 images={product.images} userId={userInfo._id} onLoad={(val) => setImages(val)} onUpload={(val) => setImages(val)} />
                                 </Form.Group>}
