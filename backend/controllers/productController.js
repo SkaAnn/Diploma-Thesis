@@ -137,8 +137,9 @@ const updateProduct = asyncHandler(async (req, res) => {
         product.countInStock = body.countInStock
         product.images = body.images
         product.origin = body.origin
-        // brand, size, weight,
-        // todo shipping
+        product.brand = body.brand
+        product.measures = body.measures
+        product.shipping = body.shipping
         product.moreProperties = body.moreProperties
 
         const updatedProduct = await product.save()

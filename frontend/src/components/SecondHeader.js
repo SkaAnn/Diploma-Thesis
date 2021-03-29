@@ -3,7 +3,7 @@ import { MDBContainer, MDBRow, MDBCol } from 'mdbreact'
 import SortPanel from './SortPanel'
 import FilterPanel from './FilterPanel'
 
-const ControlPanel = ({ history, match, keyword }) => {
+const SecondHeader = ({ history, match, keyword }) => {
     const [show, setShow] = useState(false)
 
     // tu tahat z url hotnoty sortkey a filter
@@ -50,4 +50,4 @@ const ControlPanel = ({ history, match, keyword }) => {
     )
 }
 
-export default ControlPanel
+export default SecondHeader

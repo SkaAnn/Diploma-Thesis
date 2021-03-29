@@ -18,6 +18,7 @@ import RegisterScreenNew from './screens/RegisterScreenNew'
 import ProfileUpdateScreenNew from './screens/ProfileUpdateScreenNew'
 import ProductCreateScreenNew from './screens/ProductCreateScreenNew'
 import My404Screen from './screens/My404Screen'
+import ProductEditScreenNew from './screens/ProductEditScreenNew'
 
 const App = () => {
   return (
@@ -37,7 +38,7 @@ const App = () => {
           <Route path='/user/my/profile/update' component={ProfileUpdateScreenNew} exact />
           <Route path='/user/my/profile/page/:pageNumber' component={ProfileScreen} exact />
           <Route path='/user/my/product/create' component={ProductCreateScreenNew} />
-          <Route path='/user/product/:id/edit' component={ProductEditScreen} />
+          <Route path='/user/product/:id/edit' component={ProductEditScreenNew} />
           {/* 4 jednoice */}
           <Route path='/sort/:sortKey' component={HomeScreen} exact />
           <Route path='/search/:keyword' component={HomeScreen} exact />
