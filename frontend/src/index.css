@@ -345,6 +345,10 @@ main {
 
 
 /****** PRODUCT CARD **********/
+.view-background{
+    background-color: #f2f2f3;
+}
+
 .card-pad{
     padding: 1rem 1.25rem 0.6rem 1.25rem !important;
 }

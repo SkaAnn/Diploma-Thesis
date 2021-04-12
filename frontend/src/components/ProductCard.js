@@ -57,10 +57,10 @@ const ProductCard = ({ product }) => {
 
         // border: 5px solid rgba(0,0,0,.125)
         // box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)
-        <MDBCard style={{ width: "16rem" }} className='mx-auto my-3'>
+        <MDBCard style={{ width: "16rem"}} className='mx-auto my-3'>
 
 
-            <MDBView>
+            <MDBView className='view-background'>
                 {/* <LinkContainer to={`/product/${product._id}`}> */}
                 <img
                     // src="https://mdbootstrap.com/img/Others/documentation/img%20(131)-mini.jpg"
@@ -91,7 +91,7 @@ const ProductCard = ({ product }) => {
             </MDBView>
 
             <span style={{ zIndex: '100' }} onClick={addOrRemoveHandler} className='fixed-right-top curs-pointer mt-2 px-3'>
-                {isFavorite ?
+                {isFavorite && userInfo ?
                     <i className="fas fa-heart fa-lg"></i>
                     : <i className="far fa-heart fa-lg"></i>}
             </span>
@@ -101,7 +101,7 @@ const ProductCard = ({ product }) => {
                 <Link to={`/product/${product._id}`}>
                     <MDBCardTitle className='text-truncate mb-1' style={{ fontSize: '18px' }}>{product.name}</MDBCardTitle>
                 </Link>
-                <div className='mb-1' style={{ fontSize: '20px' }}><strong>{product.price}€</strong></div>
+                <div className='mb-1' style={{ fontSize: '20px' }}><strong>{product.price !== 0 ? `${product.price}€` : product.classification === 'donor' ? 'Zadarmo' : 'Dohodou'}</strong></div>
                 <Link to={`/products/user/${product.user._id}`}>
                     <div className='text-muted' style={{ fontSize: '14px' }}>{product.user.name}</div>
                 </Link>
