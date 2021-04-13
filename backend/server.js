@@ -12,7 +12,7 @@ import uploadRoutes from './routes/uploadRoutes.js'
 dotenv.config()
 
 // Connect to database
-connectDB() 
+connectDB()
 
 const app = express()
 const apiPort = 5000
@@ -20,17 +20,24 @@ const apiPort = 5000
 app.use(bodyParser.urlencoded({ extended: true }))  // Allows to use whole body, not only parts
 app.use(bodyParser.json())
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
-
-app.use('/api/products',productRoutes)
+app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/upload', uploadRoutes)
 
 // Make upload static folder
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+
+if (process.env.NODE_ENV === 'production') {
+    // make build folder as static
+    app.use(express.static(path.join(__dirname, '/frontend/build')))
+    // ani route thats not api
+    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html')))
+} else {
+    app.get('/', (req, res) => {
+        res.send('API is running...')
+    })
+}
 
 // Handling errors
 app.use(notFound)           // e.g. not existing id
