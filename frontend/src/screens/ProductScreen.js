@@ -6,7 +6,7 @@ import Loader from '../components/Loader'
 import { listProductDetails } from '../actions/productActions'
 import ImageCarousel from '../components/ImageCarousel'
 import FeedbackForm from '../components/FeedbackForm'
-import { env } from '../config'
+// import { env } from '../config'
 import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 import { Table } from 'react-bootstrap'
 import { translateClassification, translateCondition } from '../utils/translate'
@@ -94,12 +94,12 @@ const ProductScreen = ({ match }) => {
             REACT_APP_EMAILJS_RECEIVER: receiverEmail,
             REACT_APP_EMAILJS_TEMPLATEID: templateId,
             REACT_APP_EMAILJS_USERID: user,
-        } = env;
+        } = process.env;
 
         // ale vzdy to tomu uzivatelovi dojde z mojho mailu co mam nastaveny v programe
         const senderEmail = 'skaann.dev@gmail.com' //userInfo.email// userinfi
 
-        console.log(receiverEmail, templateId, user)
+        console.log("TU ENV VARS", receiverEmail, templateId, user)
 
         sendFeedback({
             templateId,
