@@ -1,5 +1,8 @@
 #root{
     --black-color: #4a4a4a;
+    --primaryColor: #4460aa;
+    --primaryColorDarken: #3f599e;
+    --primaryColorLight: #6d85c5;
 }
 
 body{
@@ -135,13 +138,13 @@ main {
 }
 
 .header-link {
-    color: var(--black-color) !important;
+    /* color: var(--black-color) !important; */
     --link-bg-color-hover: #9ff5df;
     display: block;
     font-size: 13px;
     font-weight: 600;
     letter-spacing: -.09px;
-    color: inherit;
+    color: white !important;
     text-transform: uppercase;
     transition: color .3s;
 }

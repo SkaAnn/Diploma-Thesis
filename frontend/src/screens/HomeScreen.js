@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import { Route, Link } from 'react-router-dom'
+import { Route} from 'react-router-dom'
+import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -43,10 +44,12 @@ const HomeScreen = ({ match }) => {
             <Container className='mt-3'>
                 {/* <Route render={({ history }) => <SortPanel history={history} keyword={keyword ? keyword : ''} />} /> */}
                 {!keyword ?
-                    <h2>Všetky produkty</h2>
+                    <h2 className='mb-3 pt-3 fw-600'>Všetky produkty</h2>
                     : <>
-                        <Link to='/' className='btn btn-light'>Go Back</Link>
-                        <h2>Výsledky hľadania slova "<strong>{keyword}</strong>"</h2>
+                        <LinkContainer to='/' >
+                            <h6 className='pt-3 fw-600 curs-pointer'><i className="fas fa-arrow-left"></i> Späť</h6>
+                        </LinkContainer>
+                        <h2 className='mb-3 pt-3 fw-400'>Výsledky hľadania slova "<strong>{keyword}</strong>"</h2>
                     </>}
                 {loading ? (<Loader />)
                     : error ? (<Message>{error}</Message>)

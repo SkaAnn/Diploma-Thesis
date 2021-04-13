@@ -13,8 +13,8 @@ const SecondHeader = ({ history, match, keyword }) => {
     return (
         // pohyblivy div -> vonkajsi div (farba2) -> vnutorny kontajner (farba1)
         <div className="sticky-top">
-            <div style={{ backgroundColor: 'rgb(12 108 184)' }}>
-                <MDBContainer className='py-2 mt-3' style={{ backgroundColor: 'rgb(12 108 184)' }}>
+            <div style={{ backgroundColor: 'rgb(51 74 136)', color: 'white' }}>
+                <MDBContainer className='py-2 mt-3'>
                     <MDBRow className='my-auto' style={{ lineHeight: '2' }}>
 
                         <MDBCol sm='9' md='8' className='my-auto'>
@@ -35,7 +35,7 @@ const SecondHeader = ({ history, match, keyword }) => {
 
                             <MDBRow>
                                 <MDBCol lg='3' className='my-auto'><span className='text-uppercase fw-600 fs-15px'>Zoradiť </span></MDBCol>
-                                <MDBCol lg='9' className='fs-13px fw-500 text-uppercase'>
+                                <MDBCol lg='9' className='fs-13px fw-500 text-uppercase' style={{color: 'black'}}>
                                     <SortPanel history={history} keyword={keyword} filter={filter ? filter : ''} />
                                 </MDBCol>
                             </MDBRow>

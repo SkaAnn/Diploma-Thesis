@@ -22,8 +22,8 @@ const Header = () => {
 
     return (
         <header>
-            <Navbar className='navbar-light blue' fixed='top' expand="lg" collapseOnSelect
-            style={{minHeight: '5rem', boxShadow:'none'}}
+            <Navbar className='navbar-dark' fixed='top' expand="lg" collapseOnSelect
+            style={{minHeight: '5rem', boxShadow:'none', backgroundColor: '#4460aa'}}
             >
                 <Container>
                     <LinkContainer to='/'>
@@ -47,7 +47,7 @@ const Header = () => {
                                         <Nav.Link className='header-link mr-3'> <i className="far fa-smile-beam mr-1"></i> Môj Profil</Nav.Link>
                                     </LinkContainer>
                                     <NavDropdown className='header-link' title={userInfo.name} id='username'>
-                                        <NavDropdown.Item onClick={logoutHandler}> <span className='header-link'> Odhlásiť sa </span></NavDropdown.Item>
+                                        <NavDropdown.Item onClick={logoutHandler} style={{color: 'black'}}> <span className='header-link'> Odhlásiť sa </span></NavDropdown.Item>
                                     </NavDropdown>
                                 </>
                             ) : (

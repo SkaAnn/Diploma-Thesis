@@ -115,7 +115,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
             <Row>
                 <Col lg={3} className='my-3'>
 
-                    <h2 className='text-uppercase fw-400 text-center mb-3'>Môj profil</h2>
+                    <h2 className='mb-3 pt-3 fw-600 text-center'>Môj profil</h2>
                     {loading ? <Loader />
                         : error ? <Message>{error}</Message>
                             : user && (
@@ -128,7 +128,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                             )}
                 </Col>
                 <Col lg={9} className='my-3'>
-                    <h2 className='text-uppercase fw-400 mb-3'>Moje produkty</h2>
+                    <h2 className='mb-3 pt-3 fw-600'>Moje produkty</h2>
                     {loadingProducts ? <Loader />
                         : errorProducts ? <Message>{error}</Message>
                             : products.length === 0 ? <Message variant='info'>Zatiaľ ste nepridali žiadne produkty</Message>

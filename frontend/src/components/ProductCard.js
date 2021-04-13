@@ -73,7 +73,7 @@ const ProductCard = ({ product }) => {
                 <MDBMask
                     // pattern={1}
                     className="flex-top mt-2 px-3">
-                    <span className="badge bg-primary text-uppercase">{translateClassification(product.classification)}</span>
+                    <span className="badge text-uppercase" style={{backgroundColor: '#6d85c5'}}>{translateClassification(product.classification)}</span>
 
                     {/* <span style={{ float: 'right', zIndex: '100' }} onClick={addOrRemoveHandler} className='card-wrapper'>
                             {isFavorite ?
@@ -92,14 +92,14 @@ const ProductCard = ({ product }) => {
 
             <span style={{ zIndex: '100' }} onClick={addOrRemoveHandler} className='fixed-right-top curs-pointer mt-2 px-3'>
                 {isFavorite && userInfo ?
-                    <i className="fas fa-heart fa-lg"></i>
-                    : <i className="far fa-heart fa-lg"></i>}
+                    <i className="fas fa-heart fa-lg" style={{color: '#ff6b78'}}></i>
+                    : <i className="far fa-heart fa-lg" style={{color: '#ff6b78'}}></i>}
             </span>
 
 
             <MDBCardBody className='card-pad'>
                 <Link to={`/product/${product._id}`}>
-                    <MDBCardTitle className='text-truncate mb-1' style={{ fontSize: '18px' }}>{product.name}</MDBCardTitle>
+                    <MDBCardTitle className='text-truncate mb-1' style={{ fontSize: '18px', color: '#3f599e' }}>{product.name}</MDBCardTitle>
                 </Link>
                 <div className='mb-1' style={{ fontSize: '20px' }}><strong>{product.price !== 0 ? `${product.price}€` : product.classification === 'donor' ? 'Zadarmo' : 'Dohodou'}</strong></div>
                 <Link to={`/products/user/${product.user._id}`}>

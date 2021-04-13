@@ -3,11 +3,11 @@ import { categoryOptions } from './options'
 export const triangleColor = (condition) => {
     switch (condition) {
         case "new":
-            return 'green'
+            return '#00c851'
         case "used":
-            return 'blue'
+            return '#4285f4'
         case "handmade":
-            return 'orange'
+            return '#ffc107'
         default:
             return 'gray'
     }

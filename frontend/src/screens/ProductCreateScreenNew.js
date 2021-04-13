@@ -241,7 +241,7 @@ const ProductCreateScreenNew = ({ history }) => {
 
     return (
         <Container className='mt-5rem'>
-            <h2 className='fw-400 text-uppercase mb-4'><i className="fas fa-plus mr-1" style={{ color: 'plum' }}></i> Pridať produkt</h2>
+           <h2 className='mb-4 pt-4 fw-600'><i className="fas fa-plus mr-1" style={{ color: 'plum' }}></i> Pridať produkt</h2>
             <Row style={{ minHeight: '70vh' }}>
                 <Col md={3} className='p-0' style={{ background: 'yellow' }}>
                     {/* if step 1 then on click */}

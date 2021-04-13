@@ -32,7 +32,7 @@ const FavoriteProductsScreen = ({ history, match }) => {
         <Container className='mt-5rem'>
             <Row>
                 <Col>
-                    <h2 className='fw-400 text-uppercase mb-4'> <i className="far fa-heart mr-1" style={{ color: 'pink' }}></i> Obľúbené ({count})</h2>
+                <h2 className='mb-3 pt-4 fw-600'> <i className="far fa-heart mr-1" style={{ color: 'pink' }}></i> Obľúbené ({count})</h2>
                     {loading ? <Loader />
                         : error ? <Message>{error}</Message>
                             : products.length === 0 ? <Message variant='info'>Zatiaľ nemáte pridané žiadne produkty medzi obľúbenými</Message>
