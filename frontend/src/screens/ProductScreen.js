@@ -6,7 +6,7 @@ import Loader from '../components/Loader'
 import { listProductDetails } from '../actions/productActions'
 import ImageCarousel from '../components/ImageCarousel'
 import FeedbackForm from '../components/FeedbackForm'
-// import { env } from '../config'
+import { env } from '../config'
 import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 import { Table } from 'react-bootstrap'
 import { translateClassification, translateCondition } from '../utils/translate'
@@ -88,15 +88,14 @@ const ProductScreen = ({ match }) => {
     const submitHandler = (e) => {
         e.preventDefault()
 
-        // TODO: receiver (owner of product) and sender (logged user) email
-
         const {
-            REACT_APP_EMAILJS_RECEIVER: receiverEmail,
             REACT_APP_EMAILJS_TEMPLATEID: templateId,
             REACT_APP_EMAILJS_USERID: user,
-        } = process.env;
+        } = env;
 
+        // TODO: receiver (owner of product) and sender (logged user) email
         // ale vzdy to tomu uzivatelovi dojde z mojho mailu co mam nastaveny v programe
+        const receiverEmail = 'skaann.dev@gmail.com'
         const senderEmail = 'skaann.dev@gmail.com' //userInfo.email// userinfi
 
         console.log("TU ENV VARS", receiverEmail, templateId, user)
