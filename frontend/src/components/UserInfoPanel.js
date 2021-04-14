@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, ListGroup, Row, Col } from 'react-bootstrap'
+import { ListGroup, Row, Col } from 'react-bootstrap'
 
 const UserInfoPanel = ({ user }) => {
     return (

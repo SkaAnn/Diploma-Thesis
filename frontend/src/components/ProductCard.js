@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { LinkContainer } from 'react-router-bootstrap'
-import {
-    MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardImage,
-    MDBCardTitle, MDBCardHeader, MDBCardFooter, MDBView, MDBMask
-} from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBView, MDBMask } from 'mdbreact';
 import { triangleColor, translateClassification } from '../utils/translate'
 import { followProduct, unfollowProduct } from '../actions/productActions'
 
@@ -57,7 +53,7 @@ const ProductCard = ({ product }) => {
 
         // border: 5px solid rgba(0,0,0,.125)
         // box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)
-        <MDBCard style={{ width: "16rem"}} className='mx-auto my-3'>
+        <MDBCard style={{ width: "16rem" }} className='mx-auto my-3'>
 
 
             <MDBView className='view-background'>
@@ -73,7 +69,7 @@ const ProductCard = ({ product }) => {
                 <MDBMask
                     // pattern={1}
                     className="flex-top mt-2 px-3">
-                    <span className="badge text-uppercase" style={{backgroundColor: '#6d85c5'}}>{translateClassification(product.classification)}</span>
+                    <span className="badge text-uppercase" style={{ backgroundColor: '#6d85c5' }}>{translateClassification(product.classification)}</span>
 
                     {/* <span style={{ float: 'right', zIndex: '100' }} onClick={addOrRemoveHandler} className='card-wrapper'>
                             {isFavorite ?
@@ -92,8 +88,8 @@ const ProductCard = ({ product }) => {
 
             <span style={{ zIndex: '100' }} onClick={addOrRemoveHandler} className='fixed-right-top curs-pointer mt-2 px-3'>
                 {isFavorite && userInfo ?
-                    <i className="fas fa-heart fa-lg" style={{color: '#ff6b78'}}></i>
-                    : <i className="far fa-heart fa-lg" style={{color: '#ff6b78'}}></i>}
+                    <i className="fas fa-heart fa-lg" style={{ color: '#ff6b78' }}></i>
+                    : <i className="far fa-heart fa-lg" style={{ color: '#ff6b78' }}></i>}
             </span>
 
 
