@@ -15,7 +15,6 @@ dotenv.config()
 connectDB()
 
 const app = express()
-const apiPort = 5000
 
 app.use(bodyParser.urlencoded({ extended: true }))  // Allows to use whole body, not only parts
 app.use(bodyParser.json())
@@ -28,11 +27,13 @@ app.use('/api/upload', uploadRoutes)
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
+// FOR PRODUCTION
 if (process.env.NODE_ENV === 'production') {
-    // make build folder as static
+    // make frontend/build as static folder
     app.use(express.static(path.join(__dirname, '/frontend/build')))
-    // ani route thats not api
-    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html')))
+    // any route thats not api
+    app.get('*', (req, res) =>
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html')))
 } else {
     app.get('/', (req, res) => {
         res.send('API is running...')
@@ -43,4 +44,6 @@ if (process.env.NODE_ENV === 'production') {
 app.use(notFound)           // e.g. not existing id
 app.use(errorHandler)     // error, or not existing routing
 
-app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
+const PORT = process.env.PORT || 5000
+
+app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`))
