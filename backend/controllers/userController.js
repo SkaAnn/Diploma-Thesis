@@ -47,7 +47,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password,
         phoneNumber, profileImage, profileType,
         locality, profileInfo, marketPolicy,
-        favoriteProducts } = req.body
+        favoriteProducts, display } = req.body
 
     const nameExist = await User.findOne({ name })
 
@@ -67,7 +67,7 @@ const registerUser = asyncHandler(async (req, res) => {
         name, email, password,
         phoneNumber, profileImage, profileType,
         locality, profileInfo, marketPolicy,
-        favoriteProducts
+        favoriteProducts, display
     })
 
     if (user) {
@@ -98,6 +98,7 @@ const getUserById = asyncHandler(async (req, res) => {
             profileImage: user.profileImage,
             profileInfo: user.profileInfo,
             marketPolicy: user.marketPolicy,
+            display: user.display,
         })
     } else {
         res.status(404)
@@ -130,6 +131,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         user.profileImage = req.body.profileImage || user.profileImage
         user.profileInfo = req.body.profileInfo || user.profileInfo
         user.marketPolicy = req.body.marketPolicy || user.marketPolicy
+        user.display = req.body.display || user.display
 
         if (req.body.password) {
             user.password = req.body.password

@@ -35,11 +35,11 @@ const LoginScreen = ({ location, history }) => {
     }
 
     return (
-        <Container className='mt-5rem'>
+        <Container className='mt-5rem' style={{marginTop: '20vh'}}>
         <FormContainerSmall myHeight='30rem'>
             <div className='mid-align'>
-                <h2 className='text-uppercase fw-500 text-center mb-3'>Prihlásenie</h2>
-                {error && <Message>{error}</Message>}
+                <h2 className='text-uppercase fw-600 text-center mb-3'>Prihlásenie</h2>
+                {error && <div className='mx-4'><Message>{error}</Message></div>}
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler} className='form-pad'>
 
@@ -47,13 +47,13 @@ const LoginScreen = ({ location, history }) => {
                         {/* <Form.Label>Email</Form.Label> */}
                         <Form.Control type='email' className="mainLoginInput login-control" placeholder="&#x40; EMAIL" value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            style={{ marginBottom: '2rem' }}></Form.Control>
+                            style={{ marginBottom: '2rem' }} required></Form.Control>
                     </Form.Group>
 
                     <Form.Group controlId='password'>
                         {/* <Form.Label>Heslo</Form.Label> */}
                         <Form.Control type='password' className="mainLoginInput login-control" placeholder="&#61475;  HESLO" value={password}
-                            onChange={(e) => setPassword(e.target.value)} ></Form.Control>
+                            onChange={(e) => setPassword(e.target.value)} required></Form.Control>
                     </Form.Group>
                     {/* <Button  variant='primary'>Prihlásiť!</Button> */}
                     <button type='submit' className='my-btn-big my-3 text-uppercase' style={{ width: '100%' }}> Prihlásiť! </button>

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, Row, Col, Button, Form } from 'react-bootstrap'
+import { Container, Row, Col, Form } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listProductDetails } from '../actions/productActions'
 import ImageCarousel from '../components/ImageCarousel'
 import FeedbackForm from '../components/FeedbackForm'
-import { env } from '../config'
-import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 import { Table } from 'react-bootstrap'
-import { translateClassification, translateCondition } from '../utils/translate'
+
+import { env } from '../config'
+import { listProductDetails } from '../actions/productActions'
+import { translateClassification, translateCondition, getCategoryName } from '../utils/translate'
 
 const ProductScreen = ({ match }) => {
     const dispatch = useDispatch()
@@ -150,16 +152,16 @@ const ProductScreen = ({ match }) => {
 
         <Container className='mt-5rem'>
             {loading ? <Loader />
-                : error ? <Message>{error}</Message>
+                : error ? <div style={{marginTop: '6rem'}}><Message>{error}</Message></div>
                     : (
-                        <>
+                        <div className='pt-4'>
                             <Row>
                                 <Col md='6'>
-                                    PONUKA / Elektronika / Bezdrotove sluchadla
+                                <Link to='/'><i className="fas fa-home"/></Link> &gt; <Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link> &gt; <i>{getCategoryName(product.category)}</i> &gt; {product.name}
                                 </Col>
                             </Row>
 
-                            <Row>
+                            <Row className='mt-3'>
                                 {/* LAVA CAST OBRAZOVKY */}
                                 <Col md='6' className='mb-2'>
                                     <ImageCarousel images={product.images} />
@@ -305,7 +307,7 @@ const ProductScreen = ({ match }) => {
                                 </Col>
                             </Row>
 
-                        </>
+                        </div>
                     )
             }
         </Container>

@@ -13,7 +13,7 @@ import { listUserProducts } from '../actions/productActions'
 import { listUserDetails } from '../actions/userActions'
 
 const UserProductsScreen = ({ match }) => {
-    const pageSize = 2 // TODO 10
+    const pageSize = 6 // TODO 10
     const pageNumber = match.params.pageNumber || 1
 
     const dispatch = useDispatch()
@@ -35,36 +35,27 @@ const UserProductsScreen = ({ match }) => {
         <Container className='mt-5rem'>
             <Row>
                 <Col lg={3}>
-
-
                     {loading ? <Loader />
-                        : error ? <Message>{error}</Message>
+                        : error ? <div style={{marginTop: '2.5rem'}}><Message>{error}</Message></div>
                             : user && (
-                                <>
-                                    <h4 className='fw-400 text-center lh-15'><span className='text-uppercase'>Profil užívateľa </span>
-                                        {/* <br /> <span className='fw-600'> {user.name} </span> */}
-                                    </h4>
+                                <div className='mb-3 pt-4'>
+                                    <h5 className='text-center lh-15'><span className='fw-600'>Profil</span> <span className='fw-400'><i>{user.name}</i></span></h5>
                                     <div style={{ border: '0', boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)' }}>
                                         <UserInfoPanel user={user} />
                                     </div>
-                                </>
-                                // <>
-                                //     <p>{user._id}</p>
-                                //     <p>{user.name}</p>
-                                //     <p>{user.email}</p>
-                                // </>
-
+                                </div>
                             )}
                 </Col>
                 <Col lg={9}>
                     {loadingProducts ? <Loader />
-                        : errorProducts ? <Message>{error}</Message>
+                        : errorProducts ? <div style={{marginTop: '2.5rem'}}><Message>{errorProducts}</Message></div>
                             : (
                                 <>
-                                    <h2 className='text-uppercase fw-400 mb-2'>Produkty</h2>
+                                    <h2 className='mb-3 pt-4 fw-600'>Produkty</h2>
+                                    {/* <h2 className='text-uppercase fw-400 mb-2'>Produkty</h2> */}
                                     <Row>
                                         {products.map(product => (
-                                            <Col key={product._id} lg={4} md={6}>
+                                            <Col key={product._id} xl={4} lg={5} md={6}>
                                                 <ProductCard key={product._id} product={product} />
                                             </Col>))}
                                     </Row>

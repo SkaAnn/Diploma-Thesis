@@ -27,7 +27,7 @@ const Header = () => {
             >
                 <Container>
                     <LinkContainer to='/'>
-                        <Navbar.Brand>DP-2021</Navbar.Brand>
+                        <Navbar.Brand>SEGIAN</Navbar.Brand>
                     </LinkContainer>
 
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -47,7 +47,7 @@ const Header = () => {
                                         <Nav.Link className='header-link mr-3'> <i className="far fa-smile-beam mr-1"></i> Môj Profil</Nav.Link>
                                     </LinkContainer>
                                     <NavDropdown className='header-link' title={userInfo.name} id='username'>
-                                        <NavDropdown.Item onClick={logoutHandler} style={{color: 'black'}}> <span className='header-link'> Odhlásiť sa </span></NavDropdown.Item>
+                                        <NavDropdown.Item onClick={logoutHandler} style={{color: 'black'}}> <span className='header-link-black'> Odhlásiť sa </span></NavDropdown.Item>
                                     </NavDropdown>
                                 </>
                             ) : (

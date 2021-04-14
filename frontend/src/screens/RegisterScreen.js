@@ -18,6 +18,7 @@ const RegisterScreen = ({ location, history }) => {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [locality, setLocality] = useState('')
     const [profileImage, setProfileImage] = useState('/images/sample-profile.svg')
+    const [display, setDisplay] = useState({ email: true, phone: true })
     // Tieto spolu s fotkou neskor...
     // const [profileInfo, setProfileInfo] = useState('')
     // const [marketPolicy, setMarketPolicy] = useState('')
@@ -43,6 +44,7 @@ const RegisterScreen = ({ location, history }) => {
     const submitHandler = (e) => {
         e.preventDefault()
         setMessage('')
+        console.log('Display ',  display)
         if (password !== confirmPassword) {
             setMessage('Heslá sa nezhodujú!')
         } else {
@@ -50,7 +52,7 @@ const RegisterScreen = ({ location, history }) => {
             const newUser = {
                 name, email, password,
                 phoneNumber, profileImage, profileType,
-                locality,
+                locality, display
                 // profileInfo, marketPolicy
             }
             dispatch(register(newUser))
@@ -58,17 +60,20 @@ const RegisterScreen = ({ location, history }) => {
     }
 
     return (
-        <Container className='mt-5rem'>
-            <FormContainerSmall myHeight='55rem'>
+        <Container className='mt-5rem' style={{ marginTop: '20vh', marginBottom: '10vh' }}>
+            <FormContainerSmall myHeight='60rem'>
                 <div className='mid-align'>
-                    <h2 className='text-uppercase fw-500 text-center mb-3'>Registrácia</h2>
+                    <h2 className='text-uppercase fw-600 text-center'>Registrácia</h2>
                     {message && <Message>{message}</Message>}
                     {error && <Message>{error}</Message>}
                     {loading && <Loader />}
                     <Form onSubmit={submitHandler} className='form-pad'>
 
+                        <Form.Label className="mb-4 fs-14px text-center w-100" style={{ color: 'red' }}>Všetky položky sú povinné. <br /> Položky označené * sa nedajú zmeniť.</Form.Label>
+
+
                         <Form.Group controlId="profileTypeBox" value={profileType} onChange={(e) => setProfileType(e.target.value)}>
-                            <Form.Label className="form-check-inline mb-0 fs-14px font-italic">Typ profilu* </Form.Label>
+                            <Form.Label className="form-check-inline mb-0 fs-14px">Typ profilu* </Form.Label>
                             <div className='disp-block'>
                                 <Form.Check className="form-check-inline pl-3" type="radio" name='condition' value='user' label="fyzická osoba" required />
                                 <Form.Check className="form-check-inline pl-3" type="radio" name='condition' value='company' label="organizácia" required />
@@ -83,46 +88,64 @@ const RegisterScreen = ({ location, history }) => {
 
                         {/* form-check-inline */}
                         <Form.Group controlId='name'>
-                            <Form.Label className='mb-0 fs-14px font-italic'>Užívateľské meno*</Form.Label>
-                            <Form.Control type='text' className="mainLoginInput login-control" placeholder="&#61447;  MENO" value={name}
+                            <Form.Label className='mb-0 fs-14px'>Používateľské meno</Form.Label>
+                            <Form.Control type='text' className="mainLoginInput login-control" placeholder="&#61447;  používateľské meno" value={name}
                                 onChange={(e) => setName(e.target.value)} required
                                 style={{ marginBottom: '1.1rem' }}></Form.Control>
                         </Form.Group>
 
-                        <Form.Group controlId='email'>
-                            <Form.Label className='mb-0 fs-14px font-italic'>Email*</Form.Label>
-                            <Form.Control type='email' className="mainLoginInput login-control" placeholder="&#x40; EMAIL" value={email}
-                                onChange={(e) => setEmail(e.target.value)} required
-                                style={{ marginBottom: '1.1rem' }}></Form.Control>
+                        <Form.Group controlId='email' style={{ marginBottom: '1.1rem' }}>
+                            <Form.Label className='mb-0 fs-14px'>Email*</Form.Label>
+                            <Row>
+                                <Col md={8}>
+                                    <Form.Control type='email' className="mainLoginInput login-control" placeholder="&#x40; email" value={email}
+                                        onChange={(e) => setEmail(e.target.value)} required></Form.Control>
+                                    <Form.Text id="emailBlock" muted> Zadajte platný email, na ktorý Vás môžeme kontaktovať </Form.Text>
+                                </Col>
+                                <Col md={4}>
+                                    <Form.Check inline type='checkbox' name='displayEmail' checked={display.email}
+                                        onChange={(e) => setDisplay({ ...display, email: !display.email })} label="zobrazovať verejnosti" className='mt-2 fs-14px text-center' />
+                                </Col>
+                            </Row>
                         </Form.Group>
 
-                        <Form.Group controlId='phoneNumber'>
-                            <Form.Label className='mb-0 fs-14px font-italic'>Telefónne číslo*</Form.Label>
+                        <Form.Group controlId='phoneNumber' style={{ marginBottom: '1.1rem' }}>
+                            <Form.Label className='mb-0 fs-14px'>Telefónne číslo</Form.Label>
                             {/* TODO: valid only digits onKeyPress */}
-                            <Form.Control type='text' className="mainLoginInput login-control" placeholder='&#x2706;  TELEFÓNNE ČÍSLO' value={phoneNumber}
-                                onChange={(e) => setPhoneNumber(e.target.value)}
-                                style={{ marginBottom: '1.1rem' }}></Form.Control>
+                            <Row>
+                                <Col md={8}>
+                                    <Form.Control type='text' className="mainLoginInput login-control" placeholder='&#x2706;  telefónne číslo' value={phoneNumber}
+                                        onChange={(e) => setPhoneNumber(e.target.value)}></Form.Control>
+                                </Col>
+                                <Col md={4}>
+                                    <Form.Check inline type='checkbox' name='displayPhone' checked={display.phone}
+                                        onChange={(e) => setDisplay({ ...display, phone: !display.phone })} label="zobrazovať verejnosti" className='mt-2 fs-14px text-center' />
+                                </Col>
+                            </Row>
                         </Form.Group>
 
                         <Form.Group controlId='locality'>
-                            <Form.Label className="mb-0 fs-14px font-italic">Lokalita* </Form.Label>
+                            <Form.Label className="mb-0 fs-14px">Lokalita</Form.Label>
                             <Form.Control type='text' className="mainLoginInput login-control" placeholder='napr. Bratislava, Slovenská republika' value={locality}
                                 onChange={(e) => setLocality(e.target.value)} required
                                 style={{ marginBottom: '1.1rem' }}></Form.Control>
                         </Form.Group>
 
                         <Form.Group controlId='password'>
-                            <Form.Label className='mb-0 fs-14px font-italic'>Heslo*</Form.Label>
-                            <Form.Control type='password' className="mainLoginInput login-control mb-2" placeholder="&#61475;  HESLO" value={password}
-                                onChange={(e) => setPassword(e.target.value)} required>
-                            </Form.Control>
-                            {/* </Form.Group>
-
-                    <Form.Group controlId='confirmPassword'> */}
-                            {/* <Form.Label>Potvrďte heslo* </Form.Label> */}
-                            <Form.Control type='password' className="mainLoginInput login-control" placeholder="&#61475;  POTVRDIŤ HESLO" value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)} required></Form.Control>
+                            <Form.Label className='mb-0 fs-14px'>Heslo</Form.Label>
+                            <Row>
+                                <Col sm={6} className='pr-1'>
+                                    <Form.Control type='password' className="mainLoginInput login-control mb-2" placeholder="&#61475;  heslo" value={password}
+                                        onChange={(e) => setPassword(e.target.value)} required>
+                                    </Form.Control>
+                                </Col>
+                                <Col sm={6} className='pl-1'>
+                                    <Form.Control type='password' className="mainLoginInput login-control" placeholder="&#61475;  potvrdiť heslo" value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)} required></Form.Control>
+                                </Col>
+                            </Row>
                         </Form.Group>
+
 
                         {/* <Button  variant='primary'>Prihlásiť!</Button> */}
                         <button type='submit' className='my-btn-big my-3 text-uppercase' style={{ width: '100%' }}> Zaregistruj! </button>

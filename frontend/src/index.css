@@ -3,6 +3,7 @@
     --primaryColor: #4460aa;
     --primaryColorDarken: #3f599e;
     --primaryColorLight: #6d85c5;
+    --secondaryColorLight: #FFE773;
 }
 
 body{
@@ -100,8 +101,10 @@ main {
     color: var(--black-color) !important;
     --border-color: var(--black-color);
     --button-bg-color: #fff;
-    --button-bg-color-hover: #9ff5df;
-    --button-bg-color-active: #78f5d6;
+    /* --button-bg-color-hover: #9ff5df; */
+    --button-bg-color-hover: var(--secondaryColorLight);
+    --button-bg-color-active:  var(--secondaryColorLight); 
+    /* #78f5d6; */
     display: -webkit-inline-box;
     display: inline-flex;
     -webkit-box-pack: center;
@@ -139,7 +142,9 @@ main {
 
 .header-link {
     /* color: var(--black-color) !important; */
-    --link-bg-color-hover: #9ff5df;
+    /* --link-bg-color-hover: #9ff5df; */
+    --link-text-color-hover: var(--black-color);
+    --link-bg-color-hover: var(--secondaryColorLight);
     display: block;
     font-size: 13px;
     font-weight: 600;
@@ -149,8 +154,33 @@ main {
     transition: color .3s;
 }
 
-.header-link:hover{
+.header-link-black {
+    /* color: var(--black-color) !important; */
+    /* --link-bg-color-hover: #9ff5df; */
+    --link-text-color-hover: var(--black-color);
+    --link-bg-color-hover: var(--secondaryColorLight);
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -.09px;
+    color: black !important;
+    text-transform: uppercase;
+    transition: color .3s;
+}
+
+.header-link:hover, .dropdown-toggle:hover, .dropdown-toggle:focus{
     background-color: var(--link-bg-color-hover);
+    color: var(--link-text-color-hover) !important;
+}
+
+/* uprava header */
+#username.dropdown-toggle.nav-link{
+    margin: 0px !important;
+}
+
+.header-link.nav-item.dropdown{
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .search-box{
@@ -285,7 +315,8 @@ main {
     color: var(--black-color) !important;
     --border-color: var(--black-color);
     --button-bg-color: #fff;
-    --button-bg-color-hover: #9ff5df;
+    /* --button-bg-color-hover: #9ff5df; */
+    --button-bg-color-hover: var(--secondaryColorLight);
     --button-bg-color-active: #78f5d6;
     display: -webkit-inline-box;
     display: inline-flex;
@@ -687,4 +718,9 @@ padding-top: 2px;
     top:        0; 
     left:       0; 
     position:   fixed; 
+  }
+
+  /* register form */
+  #email.form-check-input,  #phoneNumber.form-check-input{
+      margin-right: 0.7rem;
   }

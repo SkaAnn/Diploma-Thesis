@@ -21,6 +21,11 @@ const userSchema = mongoose.Schema({
 
     marketPolicy: { type: String },
 
+    display: {
+        email: { type: Boolean, default: true },
+        phone: { type: Boolean, default: true },
+    }
+
 }, { timestamps: true })
 
 // Check if passwords match
