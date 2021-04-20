@@ -51,7 +51,7 @@ const ProfileUpdateScreen = ({ history }) => {
         } else {
             // if user update success then redirect
             if (success) {
-                history.push('/user/my/profile')
+                history.push('/my/profile')
             } else {
 
                 if (!user || !user.name) {

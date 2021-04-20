@@ -46,7 +46,7 @@ const ProductCreateScreen = ({ history }) => {
 
         if (successCreate) {
             // TODO prepnut na zoznam mojich produktov a vypisat uspesnu hlasku
-            history.push('/user/my/profile')
+            history.push('/my/profile')
         }
 
     }, [dispatch, userInfo, history, successCreate])

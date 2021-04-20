@@ -97,7 +97,7 @@ const ProductEditScreen = ({ match, history }) => {
         } else {
             if (successUpdate) {
                 dispatch({ type: PRODUCT_DETAILS_RESET })
-                history.push('/user/my/profile')
+                history.push('/my/profile')
             } else {
 
                 if (!product || !product.name || product._id !== productId) {

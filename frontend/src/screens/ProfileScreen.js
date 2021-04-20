@@ -122,7 +122,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                                 <div style={{ border: '0', boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)' }}>
                                     <UserInfoPanel user={user} />
                                     <div className='px-2'>
-                                        <span className='my-btn-small my-3' style={{ width: '100%' }}> <i className='fas fa-edit'></i> <Link to={'/user/my/profile/update'}> Aktualizovať </Link> </span>
+                                        <span className='my-btn-small my-3' style={{ width: '100%' }}> <i className='fas fa-edit'></i> <Link to={'/my/profile/update'}> Aktualizovať </Link> </span>
                                     </div>
                                 </div>
                             )}
@@ -155,7 +155,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                                                         <td className='vert-align-midd'>{product.price}</td>
                                                         <td className='vert-align-midd text-center'>{product.createdAt.substring(0, 10)}</td>
                                                         <td className='vert-align-midd text-center'>
-                                                            <LinkContainer to={`/user/product/${product._id}/edit`}>
+                                                            <LinkContainer to={`/my/product/edit/${product._id}`}>
                                                                 <button className='my-btn-small' >
                                                                     <i className='fas fa-edit'></i> Upraviť
                                                 </button>

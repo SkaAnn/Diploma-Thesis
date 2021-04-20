@@ -210,7 +210,7 @@ const getProductsByUser = asyncHandler(async (req, res) => {
 // @desc    Add follower for product
 // @route   POST /api/products/:id/follow
 // @access  Private
-const addProductFollower = asyncHandler(async (req, res) => {
+const addFollower = asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id)
     if (product) {
 
@@ -232,7 +232,7 @@ const addProductFollower = asyncHandler(async (req, res) => {
 // @desc    Remove product follower
 // @route   PUT /api/products/:id/follow
 // @access  Private
-const removeProductFollower = asyncHandler(async (req, res) => {
+const removeFollower = asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id)
     if (product) {
 
@@ -254,7 +254,7 @@ const removeProductFollower = asyncHandler(async (req, res) => {
 // @desc    Get users favorite products
 // @route   GET /api/products/favorite
 // @access  Private
-const getMyFavoriteProducts = asyncHandler(async (req, res) => {
+const getFavoriteProducts = asyncHandler(async (req, res) => {
     const pageSize = Number(req.query.pageSize) || 5 // TODO: 10
     const page = Number(req.query.pageNumber) || 1
     // Count all products
@@ -276,7 +276,7 @@ export {
     deleteProduct,
     getMyProducts,
     getProductsByUser,
-    addProductFollower,
-    removeProductFollower,
-    getMyFavoriteProducts
+    addFollower,
+    removeFollower,
+    getFavoriteProducts
 }

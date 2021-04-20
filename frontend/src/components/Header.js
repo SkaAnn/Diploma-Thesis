@@ -37,13 +37,13 @@ const Header = () => {
                         <Nav className="ml-auto">
                             {userInfo ? (
                                 <>
-                                    <LinkContainer to='/user/my/product/create'>
+                                    <LinkContainer to='/my/product/create'>
                                         <Nav.Link className='header-link mr-3'> <i className="fas fa-plus mr-1"></i> Pridaj produkt</Nav.Link>
                                     </LinkContainer>
-                                    <LinkContainer to='/user/my/favorites'>
+                                    <LinkContainer to='/my/favorites'>
                                         <Nav.Link className='header-link mr-3'> <i className="far fa-heart mr-1"></i> Obľúbené</Nav.Link>
                                     </LinkContainer>
-                                    <LinkContainer to={`/user/my/profile`}>
+                                    <LinkContainer to={`/my/profile`}>
                                         <Nav.Link className='header-link mr-3'> <i className="far fa-smile-beam mr-1"></i> Môj Profil</Nav.Link>
                                     </LinkContainer>
                                     <NavDropdown className='header-link' title={userInfo.name} id='username'>

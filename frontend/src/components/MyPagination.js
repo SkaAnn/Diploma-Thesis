@@ -29,8 +29,8 @@ class MyPagination extends Component {
       // 1 jednoica
       else { this.props.history.push(`/page/${pageNumber}`) }
     }
-    if (this.props.screen === 1) { this.props.history.push(`/user/my/profile/page/${pageNumber}`) }
-    if (this.props.screen === 2) { this.props.history.push(`/user/my/favorites/${pageNumber}`) }
+    if (this.props.screen === 1) { this.props.history.push(`/my/profile/page/${pageNumber}`) }
+    if (this.props.screen === 2) { this.props.history.push(`/my/favorites/${pageNumber}`) }
     if (this.props.screen === 3) { this.props.history.push(`/products/user/${this.props.id}/${pageNumber}`) }
   }
 

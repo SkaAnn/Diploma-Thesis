@@ -26,13 +26,13 @@ const App = () => {
           <Route path='/products/user/:id' component={UserProductsScreen} exact />
           <Route path='/products/user/:id/:pageNumber' component={UserProductsScreen} exact />
           <Route path='/product/:id' component={ProductScreen} />
-          <Route path='/user/my/favorites' component={FavoriteProductsScreen} exact />
-          <Route path='/user/my/favorites/:pageNumber' component={FavoriteProductsScreen} exact />
-          <Route path='/user/my/profile' component={ProfileScreen} exact />
-          <Route path='/user/my/profile/update' component={ProfileUpdateScreen} exact />
-          <Route path='/user/my/profile/page/:pageNumber' component={ProfileScreen} exact />
-          <Route path='/user/my/product/create' component={ProductCreateScreen} />
-          <Route path='/user/product/:id/edit' component={ProductEditScreen} />
+          <Route path='/my/favorites' component={FavoriteProductsScreen} exact />
+          <Route path='/my/favorites/:pageNumber' component={FavoriteProductsScreen} exact />
+          <Route path='/my/profile' component={ProfileScreen} exact />
+          <Route path='/my/profile/update' component={ProfileUpdateScreen} exact />
+          <Route path='/my/profile/page/:pageNumber' component={ProfileScreen} exact />
+          <Route path='/my/product/create' component={ProductCreateScreen} />
+          <Route path='/my/product/edit/:id' component={ProductEditScreen} />
           {/* 4 jednoice */}
           <Route path='/sort/:sortKey' component={HomeScreen} exact />
           <Route path='/search/:keyword' component={HomeScreen} exact />
