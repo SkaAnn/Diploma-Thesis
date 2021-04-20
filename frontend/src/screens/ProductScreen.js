@@ -126,7 +126,7 @@ const ProductScreen = ({ match }) => {
 
         < div className="fadeMe" style={{ display: `${show ? 'block' : 'none'}`, verticalAlign: 'middle' }}>
             <i className="fas fa-times fa-3x"
-                style={{ position: 'absolute', top: '1.5rem', right: '10%', cursor: 'pointer' }}
+                style={{ position: 'absolute', top: '1.5rem', right: '10%', cursor: 'pointer', color:'gray' }}
                 onClick={onClickHandler} />
             <div style={{ width: '100%', height: '100%', display: 'table' }}>
                 <div className='m-auto' style={{
@@ -194,7 +194,7 @@ const ProductScreen = ({ match }) => {
 
                                     </div>
 
-                                    <Row style={{ margin: 'inherit', backgroundColor: 'antiquewhite' }} className='text-center py-2'>
+                                    <Row style={{ margin: 'inherit', backgroundColor: '#e9ecef' }} className='text-center py-2'>
                                         <Col lg={3} className='py-1 m-auto fs-14px'> <i className="far fa-user mr-1"></i> {product.user.name} </Col>
                                         <Col lg={3} className='py-1 m-auto fs-14px'> <i className="far fa-clock mr-1"></i> {product.createdAt && product.createdAt.substring(0, 10)} </Col>
                                         <Col lg={3} className='py-1 m-auto fs-14px fw-500' style={{ letterSpacing: '0' }}> <i className="fas fa-tag mr-1"></i> {translateClassification(product.classification)} </Col>

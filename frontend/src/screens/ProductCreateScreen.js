@@ -240,18 +240,18 @@ const ProductCreateScreen = ({ history }) => {
     }
 
     return (
-        <Container className='mt-5rem'>
+        <Container className='mt-5rem mb-3'>
            <h2 className='mb-4 pt-4 fw-600'><i className="fas fa-plus mr-1" style={{ color: 'plum' }}></i> Pridať produkt</h2>
             <Row style={{ minHeight: '70vh' }}>
-                <Col md={3} className='p-0' style={{ background: 'yellow' }}>
+                <Col md={3} className='p-0' style={{ background: '#3f599e' }}>
                     {/* if step 1 then on click */}
                     {/* if setpart1 tak tie ostatne steps dame false, aby sme sa museli preklikat znovu  */}
                     <div className='my-form-section px-3'
                         onClick={(e) => { step1 && setPart(1) }}
-                        style={{ color: `${!step1 ? '#6c757d' : 'black'}` }}>
+                        style={{ color: `${!step1 ? '#6c757d' : 'white'}` }}>
 
                         <div className='ml-2' style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                            {step2 ? <i className="far fa-check-circle fa-2x" style={{ color: 'green' }}></i>
+                            {step2 ? <i className="far fa-check-circle fa-2x" style={{ color: '#28a745' }}></i>
                                 : <i className="far fa-times-circle fa-2x" style={{ color: `${step1 && 'red'}` }}></i>}
                         </div>
                         <div className="ml-3" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
@@ -260,10 +260,10 @@ const ProductCreateScreen = ({ history }) => {
                     </div>
 
                     <div className='my-form-section px-3' onClick={(e) => { step2 && setPart(2) }}
-                        style={{ color: `${!step2 ? '#6c757d' : 'black'}` }}>
+                        style={{ color: `${!step2 ? 'rgb(165 170 175)' : 'white'}` }}>
 
                         <div className='ml-2 inline-block-middle'>
-                            {step3 ? <i className="far fa-check-circle fa-2x" style={{ color: 'green' }}></i>
+                            {step3 ? <i className="far fa-check-circle fa-2x" style={{ color: '#28a745' }}></i>
                                 : <i className="far fa-times-circle fa-2x" style={{ color: `${step2 && 'red'}` }}></i>}
                         </div>
                         <div className="ml-3 inline-block-middle">
@@ -272,10 +272,10 @@ const ProductCreateScreen = ({ history }) => {
 
                     </div>
                     <div className='my-form-section px-3' onClick={(e) => { step3 && setPart(3) }}
-                        style={{ color: `${!step3 ? '#6c757d' : 'black'}` }} >
+                        style={{ color: `${!step3 ? 'rgb(165 170 175)' : 'white'}` }} >
 
                         <div className='ml-2 inline-block-middle'>
-                            {allDone ? <i className="far fa-check-circle fa-2x" style={{ color: 'green' }}></i>
+                            {allDone ? <i className="far fa-check-circle fa-2x" style={{ color: '#28a745' }}></i>
                                 : <i className="far fa-times-circle fa-2x" style={{ color: `${step3 && 'red'}` }}></i>}
                         </div>
                         <div className="ml-3 inline-block-middle">
@@ -283,7 +283,7 @@ const ProductCreateScreen = ({ history }) => {
                          </div>
                     </div>
                 </Col>
-                <Col md={9} style={{ background: 'aliceblue' }} className='my-form-body'>
+                <Col md={9} style={{ background: '#fff4bf' }} className='my-form-body'>
 
                     <div style={{ display: `${step1 && part === 1 ? 'block' : 'none'}` }}>
                         <h2 className='text-uppercase fw-500 mb-4'> Typ produktu </h2>

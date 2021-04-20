@@ -46,3 +46,12 @@ export const translateCondition = (condition) => {
             return ''
     }
 }
+
+export const transformDate = (date) => {
+    const parts = date.split('-')
+    let newDate = ''
+    if (parts.length === 3){
+        newDate = parts[2] + '.' + parts[1] + '.' + parts[0]
+    }
+    return newDate
+}

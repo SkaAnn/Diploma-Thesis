@@ -9,7 +9,7 @@ import { getCategoryName } from '../utils/translate'
 import MyPagination from '../components/MyPagination'
 
 const FavoriteProductsScreen = ({ history, match }) => {
-    const pageSize = 3  // TODO 10
+    const pageSize = 5  // TODO 10
     const pageNumber = match.params.pageNumber || 1
 
     const dispatch = useDispatch()

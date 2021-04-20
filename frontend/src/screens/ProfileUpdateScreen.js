@@ -25,6 +25,7 @@ const ProfileUpdateScreen = ({ history }) => {
     // Cannot change - profileType, locality
     const [profileType, setProfileType] = useState('')
     const [locality, setLocality] = useState('')
+    const [display, setDisplay] = useState('')
 
     const [message, setMessage] = useState('')
 
@@ -68,6 +69,7 @@ const ProfileUpdateScreen = ({ history }) => {
                     setProfileImage(user.profileImage)
                     setLocality(user.locality)
                     setImage(user.profileImage)
+                    setDisplay(user.display)
                 }
             }
         }
@@ -185,7 +187,7 @@ const ProfileUpdateScreen = ({ history }) => {
 
             const updatedUser = {
                 id: user._id, name, email,
-                phoneNumber, profileInfo, marketPolicy,
+                phoneNumber, profileInfo, marketPolicy, display,
                 profileImage: imgUrl
             }
 
@@ -204,15 +206,17 @@ const ProfileUpdateScreen = ({ history }) => {
                 {error && <Message>{error}</Message>}
 
                 <Container style={{
-                    border: '1px solid rgba(0,0,0,.125)', borderRadius: '0.25rem'
+                    border: '1px solid rgba(0,0,0,.125)', borderRadius: '0.25rem', marginTop: '15vh'
                 }} className='card-style'>
                     <Form onSubmit={submitHandler}>
                         <Row>
 
                             <Col sm={5} className='px-5 py-5' style={{ backgroundColor: '#EEEEEE' }}>
-                                <h2 className='fw-500 text-uppercase text-center' style={{ marginBottom: '2.2rem' }}> Môj profil</h2>
+                                <h2 className='fw-600 text-center' style={{ marginBottom: '2.2rem' }}> Môj profil</h2>
 
-                                {/* <Form.Group controlId="profileTypeBox ">
+                                {/* 
+                                className='fw-500 text-uppercase text-center'
+                                <Form.Group controlId="profileTypeBox ">
                             <Form.Label className='fs-14px form-check-inline'>Typ profilu</Form.Label>
                             <Form.Control className='form-check-inline ml-2' style={{ width: '130px' }}
                                 plaintext readOnly value={profileType === 'user' ? 'fyzická osoba' : 'organizácia'} />
@@ -258,6 +262,8 @@ const ProfileUpdateScreen = ({ history }) => {
                                         <Form.Group controlId='email'>
                                             <Form.Label className='fs-14px'>Email </Form.Label>
                                             <Form.Control plaintext readOnly value={email} />
+                                            <Form.Check inline type='checkbox' name='displayEmail' checked={display.email}
+                                        onChange={(e) => setDisplay({ ...display, email: !display.email })} label="zobrazovať verejnosti" className='mt-2 fs-13px' />
                                         </Form.Group>
                                     </Col>
 
@@ -267,6 +273,8 @@ const ProfileUpdateScreen = ({ history }) => {
                                             {/* TODO: valid only digits onKeyPress */}
                                             <Form.Control type='text' value={phoneNumber}
                                                 onChange={(e) => setPhoneNumber(e.target.value)} ></Form.Control>
+                                            <Form.Check inline type='checkbox' name='displayPhone' checked={display.phone}
+                                        onChange={(e) => setDisplay({ ...display, phone: !display.phone })} label="zobrazovať verejnosti" className='mt-2 fs-13px' />
                                         </Form.Group>
                                     </Col>
 

@@ -470,6 +470,7 @@ padding-top: 2px;
     background-color: #EEEEEE !important;
     padding-top: 1.3rem !important;
     padding-bottom: 1.3rem !important;
+    padding-left: 0.7rem !important;
 }
 
 .mid-align{
@@ -551,8 +552,8 @@ padding-top: 2px;
     padding: 2rem 0.5rem;
     /* color: var(--black-color) !important; */
     /* display: block; */
-    --my-form-section-bg-color: yellow;
-    --my-form-section-bg-color-hover: #9ff5df;
+    --my-form-section-bg-color: (var(--primaryColorDarken));
+    --my-form-section-bg-color-hover: #FFE773;
     background-color: var(--my-form-section-bg-color);
     font-size: 15px;
     /* font-weight: 600; */
@@ -563,6 +564,7 @@ padding-top: 2px;
 }
 
 .my-form-section:hover{
+    color: black !important;
     background-color: var(--my-form-section-bg-color-hover);
 }
 
@@ -592,7 +594,7 @@ padding-top: 2px;
     width: 200px;
     color: var(--black-color) !important;
     --button-bg-color: #fff;
-    --button-bg-color-hover: #9ff5df;
+    --button-bg-color-hover: #FFE773;
     --button-bg-color-active: #78f5d6;
     display: -webkit-inline-box;
     display: inline-flex;
@@ -605,7 +607,7 @@ padding-top: 2px;
     font-size: 18px;
     font-weight: 600;
     /* line-height: 1.17; */
-    background-color: aliceblue;
+    background-color: rgb(255, 244, 191);
     border: none;
     /* box-shadow: inset 1px 1px 0 1px #fff; */
     /* -webkit-transition: all .25s ease;
@@ -621,7 +623,8 @@ padding-top: 2px;
 }
 
 .my-btn-primary {
-    background-color: #78f5d6 !important;
+    background-color: #FFE773 !important; 
+    /* #78f5d6 !important; */
     color: black !important;
     margin: .375rem;
     color: inherit;

@@ -10,7 +10,7 @@ import { getUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants'
 import UserInfoPanel from '../components/UserInfoPanel'
-import { translateClassification } from '../utils/translate'
+import { translateClassification, transformDate  } from '../utils/translate'
 import MyPagination from '../components/MyPagination'
 
 const UserProfileScreen = ({ history, match, prevProps }) => {
@@ -140,9 +140,9 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                                                 <tr className='text-uppercase'>
                                                     <th className='fw-600 vert-align-midd ' style={{ width: '8%' }}></th>
                                                     <th className='fw-600 vert-align-midd  pl-small-table-td' style={{ width: '25%' }}>Názov</th>
-                                                    <th className='fw-600 vert-align-midd ' style={{ width: '10%' }}>Typ</th>
-                                                    <th className='fw-600 vert-align-midd ' style={{ width: '15%' }}>Cena</th>
-                                                    <th className='fw-600 vert-align-midd  text-center' style={{ width: '17%' }}>Dátum pridania</th>
+                                                    <th className='fw-600 vert-align-midd text-center' style={{ width: '10%' }}>Typ</th>
+                                                    <th className='fw-600 vert-align-midd text-center' style={{ width: '15%' }}>Cena</th>
+                                                    <th className='fw-600 vert-align-midd text-center' style={{ width: '17%' }}>Dátum pridania</th>
                                                     <th className='fw-600 vert-align-midd ' style={{ width: '25%' }}></th>
                                                 </tr>
                                             </thead>
@@ -151,9 +151,9 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                                                     <tr key={product._id}>
                                                         <td className='vert-align-midd text-center'><Image src={product.images.length !== 0 ? product.images[0] : '/images/bez-fotky.jpg'} alt={product.name} fluid rounded style={{ maxWidth: '70px' }} /></td>
                                                         <td className='vert-align-midd fw-600 pl-small-table-td' >{product.name}</td>
-                                                        <td className='vert-align-midd'>{translateClassification(product.classification)}</td>
-                                                        <td className='vert-align-midd'>{product.price}</td>
-                                                        <td className='vert-align-midd text-center'>{product.createdAt.substring(0, 10)}</td>
+                                                        <td className='vert-align-midd text-center'>{translateClassification(product.classification)}</td>
+                                                        <td className='vert-align-midd text-center fw-400'>{product.price} €</td>
+                                                        <td className='vert-align-midd text-center'>{transformDate(product.createdAt.substring(0, 10))}</td>
                                                         <td className='vert-align-midd text-center'>
                                                             <LinkContainer to={`/my/product/edit/${product._id}`}>
                                                                 <button className='my-btn-small' >

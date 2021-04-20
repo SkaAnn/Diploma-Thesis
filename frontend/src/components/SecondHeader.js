@@ -14,7 +14,7 @@ const SecondHeader = ({ history, match, keyword }) => {
         // pohyblivy div -> vonkajsi div (farba2) -> vnutorny kontajner (farba1)
         <div className="sticky-top">
             <div style={{ backgroundColor: 'rgb(51 74 136)', color: 'white' }}>
-                <MDBContainer className='py-2 mt-3'>
+                <MDBContainer className='py-3 mt-3'>
                     <MDBRow className='my-auto' style={{ lineHeight: '2' }}>
 
                         <MDBCol sm='9' md='8' className='my-auto'>
