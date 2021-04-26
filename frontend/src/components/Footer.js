@@ -7,7 +7,6 @@ const Footer = () => {
             <Container >
                 <Row className='fs-14px py-4 px-3'>
                     <Col className='col-md-4' style={{ lineHeight: '2rem' }}>
-                        <span className='text-uppercase'> Diplomová práca </span> <br/>
                         <span className='fw-600'>Bc. Anna Skachová </span> <br/>
 
                         <a href='https://github.com/SkaAnn/' style={{color: 'white'}}> 
@@ -20,7 +19,7 @@ const Footer = () => {
                 </Row>
             </Container>
             <div className='text-center py-2' style={{ backgroundColor: 'rgb(51 74 136)'}}>
-                &copy; {new Date().getFullYear()}
+                &copy; {new Date().getFullYear()}, Diplomová práca
             </div>
         </footer>
     )

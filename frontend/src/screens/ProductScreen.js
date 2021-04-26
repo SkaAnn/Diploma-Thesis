@@ -8,6 +8,7 @@ import Loader from '../components/Loader'
 import ImageCarousel from '../components/ImageCarousel'
 import FeedbackForm from '../components/FeedbackForm'
 import { Table } from 'react-bootstrap'
+import emailjs from 'emailjs-com';
 
 import { env } from '../config'
 import { listProductDetails } from '../actions/productActions'
@@ -64,8 +65,7 @@ const ProductScreen = ({ match }) => {
         feedback,
         user,
     }) => {
-        window.emailjs
-            .send(
+        emailjs.send(
                 'default_service',
                 templateId,
                 {
@@ -97,7 +97,7 @@ const ProductScreen = ({ match }) => {
 
         // TODO: receiver (owner of product) and sender (logged user) email
         // ale vzdy to tomu uzivatelovi dojde z mojho mailu co mam nastaveny v programe
-        const receiverEmail = 'skaann.dev@gmail.com'
+        const receiverEmail = 'askachova@gmail.com'
         const senderEmail = 'skaann.dev@gmail.com' //userInfo.email// userinfi
 
         console.log("TU ENV VARS", receiverEmail, templateId, user)

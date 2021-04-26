@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Container, Form, Row, Col } from 'react-bootstrap'
 import UploadMultipleImages from '../components/UploadMultipleImages'
 import ReactSelect from '../components/ReactSelect'
-import { categoryOptions } from '../utils/options'
+import { categoryOptions, hintOptions } from '../utils/options'
 import { createProduct } from '../actions/productActions'
 import Message from '../components/Message'
 
@@ -339,7 +339,7 @@ const ProductCreateScreen = ({ history }) => {
                                         onChange={(e) => setField('countInStock', Number(e.target.value))} required />
                                 </Col>
 
-                                <Form.Label column sm="2" className='my-form-label'>Cena* </Form.Label>
+                                <Form.Label column sm="2" className='my-form-label'>Cena* [€]</Form.Label>
                                 <Col sm="4">
                                     {form.classification && form.classification === 'donor' ?
                                         <Form.Control plaintext readOnly value="Zadarmo" />
@@ -347,7 +347,9 @@ const ProductCreateScreen = ({ history }) => {
                                         <Form.Control type='number' step={'.01'} min={0}
                                             onChange={(e) => setField('price', Number(e.target.value))} />
                                     }
-                                    {/* <Form.Text id="priceBlock" muted> Ak chcete niečo darovať zadajte 0 </Form.Text> */}
+                                    {form.classification && form.classification === 'demand' &&
+                                    <Form.Text id="priceBlock" muted className='text-center'> Zadajte 0 ak hľadáte darcu alebo iné číslo na cenu Dohodou</Form.Text>
+                                    }
                                 </Col>
                             </Form.Group>
 
@@ -385,7 +387,7 @@ const ProductCreateScreen = ({ history }) => {
                                 <Col sm="4">
                                     <Form.Control type='text' onChange={(e) => setField('brand', e.target.value)}
                                         placeholder='Značka produktu' ></Form.Control>
-                                    <Form.Text id="brandBlock" muted> Ak nie je známa alebo na nej nezáleží zadajte pomlčku </Form.Text>
+                                    {/* <Form.Text id="brandBlock" muted> Ak nie je známa alebo na nej nezáleží zadajte pomlčku </Form.Text> */}
                                 </Col>
                             </Form.Group>
 
@@ -394,36 +396,36 @@ const ProductCreateScreen = ({ history }) => {
                                 {/* šírka, výška, hĺbka, váha */}
                                 <Row>
                                     <Col sm='6' className='mb-2'>
-                                        <div className='form-check-inline w-5r'>šírka</div>
+                                        <div className='form-check-inline w-5r'>šírka </div>
                                         <Form.Control className='form-check-inline w-50 pad-control' type='text'
                                             value={measures.width} onChange={(e) => setMeasures({ ...measures, width: e.target.value })}
-                                            placeholder='' ></Form.Control>
+                                            placeholder='' /> cm
                                     </Col>
                                     <Col sm='6' className='mb-2'>
                                         <div className='form-check-inline w-5r'>výška</div>
                                         <Form.Control className='form-check-inline w-50 pad-control' type='text'
                                             value={measures.height} onChange={(e) => setMeasures({ ...measures, height: e.target.value })}
-                                            placeholder='' ></Form.Control>
+                                            placeholder='' /> cm
                                     </Col>
                                     <Col sm='6' className='mb-2'>
                                         <div className='form-check-inline w-5r'>hĺbka</div>
                                         <Form.Control className='form-check-inline w-50 pad-control' type='text'
                                             value={measures.depth} onChange={(e) => setMeasures({ ...measures, depth: e.target.value })}
-                                            placeholder='' ></Form.Control>
+                                            placeholder='' /> cm
                                     </Col>
                                     <Col sm='6' className='mb-2'>
                                         <div className='form-check-inline w-5r'>hmotnosť</div>
                                         <Form.Control className='form-check-inline w-50 pad-control' type='text'
                                             value={measures.weight} onChange={(e) => setMeasures({ ...measures, weight: e.target.value })}
-                                            placeholder='' ></Form.Control>
+                                            placeholder='' /> g
                                     </Col>
                                 </Row>
                             </Form.Group>
 
 
                             <Form.Group controlId="shipping">
-                                <Form.Label className='my-form-label'>Spôsoby doručenia / dopravy</Form.Label>
-                                <Form.Text id="propBlock" muted> Zvoľte spôsob doručenia produktu. Spôsob aj cena napr. osobný odber - Zadarmo, Slovenská pošta - 1.5e </Form.Text>
+                                <Form.Label className='my-form-label'>Spôsoby dodania</Form.Label>
+                                <Form.Text id="propBlock" muted> Zvoľte spôsob a cenu doručenia produktu. napr. osobný odber - zadarmo, Slovenská pošta - 1.5e </Form.Text>
                             </Form.Group>
                             {message && <Message>{message}</Message>}
                             {shippingList.length === 0
@@ -472,7 +474,8 @@ const ProductCreateScreen = ({ history }) => {
 
                             <Form.Group controlId="moreProperties" className='mt-5'>
                                 <Form.Label className='my-form-label'>Ďalšie vlastnosti</Form.Label>
-                                <Form.Text id="propBlock" muted> napr. autor, pocet stran, farba, material... bude sa to menit podla kategorie </Form.Text>
+                                {hintOptions[form.category-1] && hintOptions[form.category-1] !== '' &&
+                                <Form.Text id="propBlock" muted> napr. {hintOptions[form.category-1]} </Form.Text>}
                             </Form.Group>
                             {message2 && <Message>{message2}</Message>}
                             {/* https://www.cluemediator.com/add-or-remove-input-fields-dynamically-with-reactjs */}

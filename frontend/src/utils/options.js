@@ -22,3 +22,21 @@ export const categoryOptions = [
     if (nameA > nameB) { return 1; }
     return 0;   // names must be equal
 })
+
+export const hintOptions = [
+'farba, materiál, konfekčná veľkosť', // Oblečenie a obuv
+'materiál, vhodný pre vek', // Hračky a hry
+'autor, počet strán, rok vydania',  // Knihy
+'', // Nábytok a bývanie
+'rok výroby', // Starožitnosti a zberateľstvo
+'', // Starostlivosť o zvieratá
+'použitie (vonku, dnu)', // Šport
+'rok výroby, záruka', // Hudba
+'', // Dom a záhrada
+'účel použitia, záručná doba', // Zdravie
+'', // Šperky a dekorácie
+'príslušenstvo, veľkosť pamäte, kvalita fotoaparátu', // Mobily a tablety
+'veľkosť pamäte', // Počítače a TV
+'záruka', //Elektro
+'' // Ostatné
+]
