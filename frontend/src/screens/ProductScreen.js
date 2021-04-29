@@ -6,7 +6,6 @@ import { MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbre
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import ImageCarousel from '../components/ImageCarousel'
-import FeedbackForm from '../components/FeedbackForm'
 import { Table } from 'react-bootstrap'
 import emailjs from 'emailjs-com';
 
@@ -38,7 +37,6 @@ const ProductScreen = ({ match }) => {
     const { userInfo } = userLogin
 
     useEffect(() => {
-        console.log('dispatch ProductScreen')
         if (!product || !product.name) {
             dispatch(listProductDetails(productId))
         } else {
@@ -52,7 +50,6 @@ const ProductScreen = ({ match }) => {
 
     const onClickHandler = (e) => {
         e.preventDefault()
-        console.log("Kontaktuj predajcu")
         setShow(!show)
     }
 
@@ -100,8 +97,6 @@ const ProductScreen = ({ match }) => {
         const receiverEmail = 'askachova@gmail.com'
         const senderEmail = 'skaann.dev@gmail.com' //userInfo.email// userinfi
 
-        console.log("TU ENV VARS", receiverEmail, templateId, user)
-
         sendFeedback({
             templateId,
             senderEmail,
@@ -115,7 +110,6 @@ const ProductScreen = ({ match }) => {
 
 
     if (formSubmitted && formSubmitSuccessful) {
-        console.log('form submitted and succesful')
         setShow(false)
         setFormSubmitted(false)
         // setFormSubmitSuccessful(false)
@@ -302,8 +296,6 @@ const ProductScreen = ({ match }) => {
                                             </MDBTabPane>
                                         </MDBTabContent>
                                     </div>
-
-                                    {/* <FeedbackForm env={env} /> */}
                                 </Col>
                             </Row>
 

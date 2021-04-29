@@ -18,7 +18,6 @@ const SortPanel = ({ history, keyword, filter, prevProps }) => {
     const handleChange = (selectedOption) => {
         setState({ selectedOption });
         setSortKey(selectedOption.value)
-        console.log(`Option selected:`, selectedOption);
     };
 
     const { selectedOption } = state;
@@ -31,9 +30,7 @@ const SortPanel = ({ history, keyword, filter, prevProps }) => {
     ]
 
     const componentDidUpdate = (prevProps) => {
-        console.log("porovnanie ", keyword, oldKeyword)
         if (oldKeyword !== keyword) {//match.params.pageNumber) {
-            console.log("zmenil sa ", keyword, oldKeyword)
             setOldKeyword(keyword)//match.params.pageNumber);
             // vynulovat
             setSortKey('')
@@ -44,16 +41,9 @@ const SortPanel = ({ history, keyword, filter, prevProps }) => {
     }
 
     useEffect(() => {
-        // console.log('OBNOVIL SA SORT PANEL')
-        // console.log('sortkey', sortKey)
-
         const reload = componentDidUpdate(prevProps)
 
-        // console.log('upravit linku')
-        // console.log('sortkey', sortKey)
-
         if (sortKey && !reload) {
-            console.log('som tu')
             if (keyword || filter) {
                 let url = ''
                 if (sortKey === 'time_asc') {

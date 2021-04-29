@@ -29,7 +29,6 @@ export default class UploadMultipleImages extends Component {
             this.fileArray.push(URL.createObjectURL(this.fileObj[i]))
         }
         this.setState({ file: this.fileArray })
-        console.log(this.fileObj)
         this.props.onUpload(this.fileObj)
     }
 
@@ -41,14 +40,12 @@ export default class UploadMultipleImages extends Component {
     //     }
     //     this.setState({ file: this.fileArray })
     //     this.setState({ imgCollection: e.target.files })
-    //     console.log(this.state.imgCollection)
     //     this.props.onUpload(this.imgCollection) //this.fileArray)
     //     this.fileObj = []
     // }
 
     uploadFiles(e) {
         e.preventDefault()
-        console.log(this.state.file)
     }
 
     deleteImage(e, index) {
@@ -56,7 +53,6 @@ export default class UploadMultipleImages extends Component {
         this.fileArray.splice(index, 1);
         this.fileObj.splice(index, 1);
         this.props.onUpload(this.fileObj)
-        console.log(index)
         this.setState(
             { reload: true },
             () => this.setState({ reload: false })

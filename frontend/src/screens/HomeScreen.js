@@ -16,7 +16,6 @@ import { listProducts } from '../actions/productActions'
 const HomeScreen = ({ match }) => {
     const pageSize = 8
     const keyword = match.params.keyword
-    console.log('homescreen - keyword ', keyword)
     const sortKey = match.params.sortKey
     const filter = match.params.filter
 

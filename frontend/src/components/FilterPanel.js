@@ -15,7 +15,6 @@ const FilterPanel = ({ history, keyword, sortKey }) => {
     })
 
     useEffect(() => {
-        console.log('OBNOVIL SA FILTER PANEL')
         // obnovit hodnoty vo filter panely
         setClassification({ 'supply': true, 'demand': true, 'donor': true })
         setCondition({ 'new': true, 'used': true, 'handmade': true })
@@ -31,8 +30,6 @@ const FilterPanel = ({ history, keyword, sortKey }) => {
         Object.keys(condition).map((keyName) => (
             condition[keyName] ? filterStr += "1" : filterStr += "0"
         ))
-
-        console.log(filterStr)
 
         let url = ''
 

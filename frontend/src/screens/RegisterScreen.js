@@ -44,7 +44,6 @@ const RegisterScreen = ({ location, history }) => {
     const submitHandler = (e) => {
         e.preventDefault()
         setMessage('')
-        console.log('Display ',  display)
         if (password !== confirmPassword) {
             setMessage('Heslá sa nezhodujú!')
         } else {

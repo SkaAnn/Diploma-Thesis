@@ -6,7 +6,7 @@ const router = express.Router()
 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
-        console.log(req.body.userId);
+
         const dir = `uploads/${req.body.userId}`
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir);
@@ -17,15 +17,12 @@ const storage = multer.diskStorage({
     },
 
     filename(req, file, cb) {
-        console.log('som tu')
         if (file.fieldname === 'avatar') {
             // Set profile photo
-            // console.log(`${file.fieldname}${path.extname(file.originalname)}`)
             // cb(null, `profile${path.extname(file.originalname)}`)
             cb(null, `profile-${Date.now()}${path.extname(file.originalname)}`)
         } else {
             // Product photos
-            console.log('som tu v products photos ')
             cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
         }
     }
@@ -59,16 +56,13 @@ router.route('/photos').post(upload.array('photos', 10), function (req, res) {
     for (var i = 0; i < req.files.length; i++) {
         arr.push(`/uploads/${req.body.userId}/${req.files[i].filename}`)
     }
-    console.log(arr)
     res.send(arr)
     // var file = req.body.photos;
     //res.send(`Uploaded Files: ${req.files[0].filename}`);
-    // console.log(`Req files: ${req.body.photos}`);
 });
 
 
 router.route('/profile').post(upload.single('avatar'), (req, res) => { // mozme i multiple
-    console.log(`\\${req.file.path}`)
     res.send(`\\${req.file.path}`)
 })
 

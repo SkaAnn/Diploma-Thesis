@@ -15,8 +15,6 @@ export default class UploadMultipleImages extends Component {
             reload: false
         }
         if (this.props.images) {
-            console.log('mam images');
-            console.log(this.props.images);
             const imagesUrl = []
             const imageObj = []
             for (var i = 0; i < this.props.images.length; i++) {
@@ -28,8 +26,6 @@ export default class UploadMultipleImages extends Component {
             this.fileArray = imagesUrl
             this.fileObj = imageObj
         }
-        console.log(this.fileArray)
-        console.log(this.fileObj)
         this.uploadMultipleFiles = this.uploadMultipleFiles.bind(this)
         this.uploadFiles = this.uploadFiles.bind(this)
         this.props.onLoad(this.props.images)
@@ -49,7 +45,6 @@ export default class UploadMultipleImages extends Component {
         }
         this.fileNewObj = []
         this.setState({ file: this.fileArray })
-        console.log(this.fileObj)
         this.props.onUpload(this.fileObj)
     }
 
@@ -61,14 +56,12 @@ export default class UploadMultipleImages extends Component {
     //     }
     //     this.setState({ file: this.fileArray })
     //     this.setState({ imgCollection: e.target.files })
-    //     console.log(this.state.imgCollection)
     //     this.props.onUpload(this.imgCollection) //this.fileArray)
     //     this.fileObj = []
     // }
 
     uploadFiles(e) {
         e.preventDefault()
-        console.log(this.state.file)
     }
 
     deleteImage(e, index) {
@@ -76,7 +69,6 @@ export default class UploadMultipleImages extends Component {
         this.fileArray.splice(index, 1);
         this.fileObj.splice(index, 1);
         this.props.onUpload(this.fileObj)
-        console.log(index)
         this.setState(
             { reload: true },
             () => this.setState({ reload: false })

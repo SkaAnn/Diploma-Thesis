@@ -19,31 +19,19 @@ const ProductCard = ({ product }) => {
         if (userInfo && onLoad) {
             // zisti ci ma produkt medzi oblubenymi
             const isFollower = product.followers.some(item => userInfo._id.toString() === item.toString());
-            console.log('Is follower: ', isFollower)
             if (isFollower) setIsFavorite(true)
             setOnLoad(false)
-            console.log('onLoad ', onLoad)
         }
-
-        // if (isFavorite && !onLoad) {
-        //     console.log('Pridaj medzi oblubene')
-        // } else {
-        //     console.log('Odober z oblubenych')
-        // }
     }, [])
 
     const addOrRemoveHandler = async (e) => {
         e.preventDefault()
         if (userInfo) {
-            console.log(isFavorite)
             await setIsFavorite(!isFavorite)
-            console.log(isFavorite)
             if (isFavorite) {
-                console.log('odober z oblubenych')
                 dispatch(unfollowProduct(product._id))
 
             } else {
-                console.log('pridaj medzi oblubene')
                 dispatch(followProduct(product._id))
             }
         } // else redirect to /login

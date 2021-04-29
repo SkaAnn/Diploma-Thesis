@@ -77,7 +77,6 @@ const ProfileUpdateScreen = ({ history }) => {
 
     const uploadFileHandler = async (e) => {
         const file = image//e.target.files[0]  // can upload multiple files
-        console.log(file)
         const formData = new FormData()
         formData.append('userId', userInfo._id);
         formData.append('avatar', file)    // image sa vola i v backend
@@ -89,8 +88,6 @@ const ProfileUpdateScreen = ({ history }) => {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-
-            console.log(formData)
 
             const { data } = await axios.post(`/api/upload/profile`, formData, config)
             // setImage(data)
@@ -124,7 +121,6 @@ const ProfileUpdateScreen = ({ history }) => {
     const handlePhoto = (e) => setProfileImage(URL.createObjectURL(e.target.files[0]))
 
     const imageChangeHandler = async (e) => {
-        console.log('Choosed file ', e.target.files[0])
         if (e.target.files[0]) {
             handleImage(e)
             handlePhoto(e)
@@ -139,8 +135,6 @@ const ProfileUpdateScreen = ({ history }) => {
 
         // Chcem menit heslo 
         if (newPassword && confirmNewPassword) {
-            console.log('Chcem menit heslo')
-
             if (newPassword !== confirmNewPassword) {
                 setMessage('Nové heslá sa nezhodujú!')
             } else {
@@ -148,12 +142,9 @@ const ProfileUpdateScreen = ({ history }) => {
                 // ak je nove heslo aj potvrdene tak zisti ci sa zhoduje stare heslo...
                 const isCorrectPassword = await authorizeUser()
 
-                console.log(isCorrectPassword)
-
                 if (isCorrectPassword) {
 
                     let imgUrl
-                    console.log('Toto je image ', image)
                     if (image === user.profileImage) {
                         imgUrl = image
                     }
@@ -169,7 +160,6 @@ const ProfileUpdateScreen = ({ history }) => {
 
                     // DISPATCH UPDATE PROFILE
                     dispatch(updateUserProfile(updatedUser))
-                    console.log('UPDATE PROFILE')
                 } else {
                     setMessage('Nezadali ste spravne aktualne heslo!')
                 }
@@ -177,7 +167,6 @@ const ProfileUpdateScreen = ({ history }) => {
         } else {
             // Nechcem menit heslo
             let imgUrl
-            console.log('Toto je image ', image)
             if (image === user.profileImage) {
                 imgUrl = image
             }
@@ -191,10 +180,8 @@ const ProfileUpdateScreen = ({ history }) => {
                 profileImage: imgUrl
             }
 
-            console.log(updatedUser)
             // DISPATCH UPDATE PROFILE
             dispatch(updateUserProfile(updatedUser))
-            console.log('UPDATE PROFILE')
         }
     }
 

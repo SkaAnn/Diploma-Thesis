@@ -9,7 +9,6 @@ const ReactSelect = (props) => {
     const handleChange = (selectedOption) => {
         setState({ selectedOption });
         props.onSelect(selectedOption)
-        console.log(`Option selected:`, selectedOption);
     };
 
     const { selectedOption } = state;

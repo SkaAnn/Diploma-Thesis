@@ -18,7 +18,6 @@ export const listProducts = (sortKey = '', keyword = '', filter = '111111', page
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
 
-        console.log(`GET /api/products?sortKey=${sortKey}&pageNumber=${pageNumber}&pageSize=${pageSize}`)
         const { data } = await axios.get(`/api/products?sortKey=${sortKey}&keyword=${keyword}&filter=${filter}&pageNumber=${pageNumber}&pageSize=${pageSize}`)
 
         dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
@@ -115,9 +114,6 @@ export const createProduct = (product) => async (dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-
-        console.log(config)
-        console.log(JSON.stringify(product))
 
         const { data } = await axios.post(`/api/products`, product, config)
 

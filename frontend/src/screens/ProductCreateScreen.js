@@ -90,11 +90,8 @@ const ProductCreateScreen = ({ history }) => {
 
     // Handle click event of the Remove button
     const handleRemoveClick = index => {
-        console.log(`remove ${index}`)
         const list = [...propsList];
-        console.log(`list before ${JSON.stringify(list)}`)
         list.splice(index, 1);
-        console.log(`list after ${JSON.stringify(list)}`)
         setPropsList(list);
     };
 
@@ -127,7 +124,6 @@ const ProductCreateScreen = ({ history }) => {
 
 
     const uploadFiles = async (e) => {
-        console.log(images)
         const formData = new FormData()
         formData.append('userId', userInfo._id);
         // formData.append('photos', images)    // photos in backend
@@ -144,7 +140,6 @@ const ProductCreateScreen = ({ history }) => {
             }
 
             const { data } = await axios.post(`/api/upload/photos`, formData, config)
-            console.log(data)
             return data
 
         } catch (error) {
@@ -155,14 +150,12 @@ const ProductCreateScreen = ({ history }) => {
 
     const submitFirstPartHandler = async (e) => {
         e.preventDefault()
-        console.log('part one', form)
         setPart(2)
         setStep2(true)
     }
 
     const submitSecondPartHandler = async (e) => {
         e.preventDefault()
-        console.log('part two', form)
 
         // get our new errors
         const newErrors = findFormErrors()
@@ -197,13 +190,10 @@ const ProductCreateScreen = ({ history }) => {
         e.preventDefault()
         setMessage('')
         setMessage2('')
-        console.log(images)
 
         const blankPropList = isBlankPropList()
         const blankShippingList = isBlankShippingList()
         if (blankPropList || blankShippingList) {
-            console.log("List je prazdny")
-            console.log(blankShippingList, blankPropList)
             if (blankShippingList) setMessage('Položky v časti Shipping nesmú byť prázdne')
             if (blankPropList) setMessage2('Položky v tejto časti nesmú byť prázdne')
         }
@@ -214,7 +204,6 @@ const ProductCreateScreen = ({ history }) => {
             let imagesArr = []
             if (images.length !== 0) {
                 imagesArr = await uploadFiles()
-                console.log(imagesArr)
             }
 
             const newProduct = form
@@ -233,7 +222,6 @@ const ProductCreateScreen = ({ history }) => {
             //     moreProperties: propsList,
 
             // }
-            console.log(newProduct)
             // DISPATCH CREATE PRODUCT
             dispatch(createProduct(newProduct))
         }

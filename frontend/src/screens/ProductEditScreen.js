@@ -52,14 +52,12 @@ const ProductEditScreen = ({ match, history }) => {
         }
 
         if (newImgFiles.length !== 0) {
-            console.log('New files on indexes: ', newImgFiles)
             // ak boli pridane nove fotky
             // dovtedy budu stare images - do prveho indexu vo newImgFiles
             const oldImgs = []
             for (var j = 0; j < newImgFiles[0]; j++) {
                 oldImgs.push(images[j])
             }
-            console.log('Old files: ', oldImgs)
 
             // UPLOADNI NOVE IMG FILES
             const formData = new FormData()
@@ -76,7 +74,6 @@ const ProductEditScreen = ({ match, history }) => {
                 }
 
                 const { data } = await axios.post(`/api/upload/photos`, formData, config)
-                console.log(data)
                 return oldImgs.concat(data)
 
             } catch (error) {
@@ -136,11 +133,8 @@ const ProductEditScreen = ({ match, history }) => {
 
     // Handle click event of the Remove button
     const handleRemoveClick = index => {
-        console.log(`remove ${index}`)
         const list = [...propsList];
-        console.log(`list before ${JSON.stringify(list)}`)
         list.splice(index, 1);
-        console.log(`list after ${JSON.stringify(list)}`)
         setPropsList(list);
     };
 
@@ -174,8 +168,6 @@ const ProductEditScreen = ({ match, history }) => {
     const submitHandler = async (e) => {
         e.preventDefault()
 
-        // console.log('ImageFiles: ', imageFiles)
-        console.log('Images: ', images)
         // ak ImagesFiles je prazdne tak to treba len vlozit product.images
 
         // zisti ci images == product.images
@@ -184,14 +176,12 @@ const ProductEditScreen = ({ match, history }) => {
 
         let imagesArr
         if (images === product.images) {
-            console.log('Ziadne fotky sa nezmenili')
+            // ziadne fotky sa nezmenili
             imagesArr = images
         } else {
             // Su nejake nove/zmazane fotky
             // UPLOAD IMAGES
-            console.log('fotky sa zmenili')
             imagesArr = await uploadFiles()
-            console.log(imagesArr)
         }
 
         // DISPATCH UPDATE PRODUCT
@@ -205,7 +195,6 @@ const ProductEditScreen = ({ match, history }) => {
             moreProperties: propsList,
         }
 
-        console.log(JSON.stringify(newProduct))
         dispatch(updateProduct(newProduct))
     }
 

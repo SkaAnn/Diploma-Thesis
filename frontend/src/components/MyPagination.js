@@ -3,7 +3,6 @@ import Pagination from "react-js-pagination";
 
 class MyPagination extends Component {
   constructor(props) {
-    console.log('som tu v mypag construcitor')
     super(props);
     this.state = {
       activePage: this.props.activePage || 1
@@ -11,8 +10,6 @@ class MyPagination extends Component {
   }
 
   handlePageChange(pageNumber) {
-    console.log('count ', this.props.totalItemsCount)
-    console.log(`active page is ${pageNumber}`);
     this.setState({ activePage: pageNumber });
 
     if (this.props.screen === 0) {

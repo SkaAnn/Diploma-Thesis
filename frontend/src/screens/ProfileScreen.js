@@ -51,7 +51,6 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
 
     const componentDidUpdate = (prevProps) => {
-        console.log("zmenil sa ", pageNumber, newPageNumber)
         if (newPageNumber !== pageNumber) {//match.params.pageNumber) {
             setNewPageNumber(pageNumber)//match.params.pageNumber);
             dispatch(listMyProducts(pageNumber, pageSize))
@@ -87,7 +86,6 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
             componentDidUpdate(prevProps)
 
             // if (pageNumber){
-            //     console.log("som v pagenumber")
             // }
 
             // if (!user || !user.name || success || productCreateSuccess || productUpdateSuccess || successDelete) {
