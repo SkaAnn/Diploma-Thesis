@@ -11,7 +11,7 @@ import emailjs from 'emailjs-com';
 
 import { env } from '../config'
 import { listProductDetails } from '../actions/productActions'
-import { translateClassification, translateCondition, getCategoryName } from '../utils/translate'
+import { translateClassification, translateCondition, getCategoryName, transformDate } from '../utils/translate'
 
 const ProductScreen = ({ match }) => {
     const dispatch = useDispatch()
@@ -190,7 +190,7 @@ const ProductScreen = ({ match }) => {
 
                                     <Row style={{ margin: 'inherit', backgroundColor: '#e9ecef' }} className='text-center py-2'>
                                         <Col lg={3} className='py-1 m-auto fs-14px'> <i className="far fa-user mr-1"></i> {product.user.name} </Col>
-                                        <Col lg={3} className='py-1 m-auto fs-14px'> <i className="far fa-clock mr-1"></i> {product.createdAt && product.createdAt.substring(0, 10)} </Col>
+                                        <Col lg={3} className='py-1 m-auto fs-14px'> <i className="far fa-clock mr-1"></i> {product.createdAt && transformDate(product.createdAt.substring(0, 10))} </Col>
                                         <Col lg={3} className='py-1 m-auto fs-14px fw-500' style={{ letterSpacing: '0' }}> <i className="fas fa-tag mr-1"></i> {translateClassification(product.classification)} </Col>
                                         <Col lg={3} className='py-1 m-auto fs-14px fw-500' style={{ letterSpacing: '0' }}> <i className="far fa-gem mr-1"></i> {translateCondition(product.condition)} </Col>
                                     </Row>
