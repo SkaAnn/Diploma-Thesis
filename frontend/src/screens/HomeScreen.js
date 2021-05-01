@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -55,16 +55,20 @@ const HomeScreen = ({ match }) => {
                         :
                         (
                             <>
-                                {products.length === 0 && <div style={{ maxWidth: '40rem' }}><Message>Nenašli sa žiadne produkty</Message></div>}
+                                {products.length === 0 && <div><Message>Nenašli sa žiadne produkty</Message></div>}
                                 <Row>
                                     {products.map(product => (
                                         <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                                             <ProductCard key={product._id} product={product} />
                                         </Col>))}
                                 </Row>
-                                <Route render={({ history }) =>
-                                    <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page}
-                                        history={history} screen={0} sortKey={sortKey ? sortKey : ''} keyword={keyword ? keyword : ''} filter={filter ? filter : ''} />} />
+                                <Route render={({ history }) => {
+                                    pages > 1 &&
+                                        <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page}
+                                            history={history} screen={0} sortKey={sortKey ? sortKey : ''} keyword={keyword ? keyword : ''} filter={filter ? filter : ''} />
+                                }
+                                }
+                                />
 
                             </>
                         )}

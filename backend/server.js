@@ -11,8 +11,7 @@ import uploadRoutes from './routes/uploadRoutes.js'
 
 dotenv.config()
 
-// Connect to database
-connectDB()
+connectDB() // Connect to database
 
 const app = express()
 
@@ -41,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Handling errors
-app.use(notFound)           // e.g. not existing id
+app.use(notFound)         // e.g. not existing id
 app.use(errorHandler)     // error, or not existing routing
 
 const PORT = process.env.PORT || 5000

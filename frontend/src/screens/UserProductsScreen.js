@@ -36,7 +36,7 @@ const UserProductsScreen = ({ match }) => {
             <Row>
                 <Col lg={3}>
                     {loading ? <Loader />
-                        : error ? <div style={{marginTop: '2.5rem'}}><Message>{error}</Message></div>
+                        : error ? <div style={{ marginTop: '2.5rem' }}><Message>{error}</Message></div>
                             : user && (
                                 <div className='mb-3 pt-4'>
                                     <h5 className='text-center lh-15'><span className='fw-600'>Profil</span> <span className='fw-400'><i>{user.name}</i></span></h5>
@@ -48,7 +48,7 @@ const UserProductsScreen = ({ match }) => {
                 </Col>
                 <Col lg={9}>
                     {loadingProducts ? <Loader />
-                        : errorProducts ? <div style={{marginTop: '2.5rem'}}><Message>{errorProducts}</Message></div>
+                        : errorProducts ? <div style={{ marginTop: '2.5rem' }}><Message>{errorProducts}</Message></div>
                             : (
                                 <>
                                     <h2 className='mb-3 pt-4 fw-600'>Produkty</h2>
@@ -59,7 +59,9 @@ const UserProductsScreen = ({ match }) => {
                                                 <ProductCard key={product._id} product={product} />
                                             </Col>))}
                                     </Row>
-                                    <Route render={({ history }) => <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={3} id={match.params.id} />} />
+                                    <Route render={({ history }) => {
+                                        pages > 1 && <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={3} id={match.params.id} />
+                                    }} />
                                 </>
                             )}
                 </Col>

@@ -10,7 +10,7 @@ import { getUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants'
 import UserInfoPanel from '../components/UserInfoPanel'
-import { translateClassification, transformDate  } from '../utils/translate'
+import { translateClassification, transformDate } from '../utils/translate'
 import MyPagination from '../components/MyPagination'
 
 const UserProfileScreen = ({ history, match, prevProps }) => {
@@ -166,9 +166,10 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                                                 ))}
                                             </tbody>
                                         </Table>
-                                        <Route render={({ history }) => <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={1} />} />
-                                        {/*  itemsCountPerPage={10} */}
-                                        {/* <MyPagination itemsCountPerPage={2} totalItemsCount={count} activePage={page} /> */}
+                                        <Route render={({ history }) => {
+                                            pages > 1 &&
+                                                <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={1} />
+                                        }} />
                                     </>
                                 )}
                 </Col>

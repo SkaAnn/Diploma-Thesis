@@ -24,7 +24,9 @@ const userSchema = mongoose.Schema({
     display: {
         email: { type: Boolean, default: true },
         phone: { type: Boolean, default: true },
-    }
+    },
+
+    token: { type: String },
 
 }, { timestamps: true })
 

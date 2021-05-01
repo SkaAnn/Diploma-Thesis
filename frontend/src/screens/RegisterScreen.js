@@ -63,8 +63,8 @@ const RegisterScreen = ({ location, history }) => {
             <FormContainerSmall myHeight='60rem'>
                 <div className='mid-align'>
                     <h2 className='text-uppercase fw-600 text-center'>Registrácia</h2>
-                    {message && <Message>{message}</Message>}
-                    {error && <Message>{error}</Message>}
+                    {message && <div className='mx-4 mb-0'><Message>{message}</Message></div>}
+                    {error && <div className='mx-4 mb-0'><Message>{error}</Message></div>}
                     {loading && <Loader />}
                     <Form onSubmit={submitHandler} className='form-pad'>
 

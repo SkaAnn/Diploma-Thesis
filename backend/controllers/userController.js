@@ -11,11 +11,16 @@ const loginUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email })
 
     if (user && (await user.matchPassword(password))) { // Match user password
+        // generate user token
+        const token = generateToken(user._id)
+        user.token = token
+        await user.save()
+
         res.json({
             _id: user._id,
             name: user.name,
             email: user.email,
-            token: generateToken(user._id),
+            token: token,
         })
     } else {
         res.status(401)
@@ -32,7 +37,7 @@ const authUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email })
 
     if (user && (await user.matchPassword(password))) { // Match user password
-        res.json({ message : 'success' })
+        res.json({ message: 'success' })
     } else {
         res.status(401)
         throw new Error('Not authorized')
@@ -71,11 +76,16 @@ const registerUser = asyncHandler(async (req, res) => {
     })
 
     if (user) {
+        // generate user token
+        const token = generateToken(user._id)
+        user.token = token
+        await user.save()
+
         res.status(201).json({
             _id: user._id,
             name: user.name,
             email: user.email,
-            token: generateToken(user._id),
+            token: token,
         })
     } else {
         res.status(400)
@@ -137,13 +147,17 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             user.password = req.body.password
         }
 
+        // generate user token
+        const token = generateToken(user._id)
+        user.token = token
+
         const updatedUser = await user.save()
 
         res.json({
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
-            token: generateToken(updatedUser._id),
+            token: token,
         })
 
     } else {
