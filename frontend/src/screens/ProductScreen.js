@@ -63,17 +63,17 @@ const ProductScreen = ({ match }) => {
         user,
     }) => {
         emailjs.send(
-                'default_service',
-                templateId,
-                {
-                    sender_email: senderEmail,
-                    receiver_email: receiverEmail,
-                    sender_name: userInfo.name,
-                    product_name: product.name,
-                    message: feedback,
-                },
-                user
-            )
+            'default_service',
+            templateId,
+            {
+                sender_email: senderEmail,
+                receiver_email: receiverEmail,
+                sender_name: userInfo.name,
+                product_name: product.name,
+                message: feedback,
+            },
+            user
+        )
             .then((res) => {
                 if (res.status === 200) {
                     setFormSubmitSuccessful(true);
@@ -120,7 +120,7 @@ const ProductScreen = ({ match }) => {
 
         < div className="fadeMe" style={{ display: `${show ? 'block' : 'none'}`, verticalAlign: 'middle' }}>
             <i className="fas fa-times fa-3x"
-                style={{ position: 'absolute', top: '1.5rem', right: '10%', cursor: 'pointer', color:'gray' }}
+                style={{ position: 'absolute', top: '1.5rem', right: '10%', cursor: 'pointer', color: 'gray' }}
                 onClick={onClickHandler} />
             <div style={{ width: '100%', height: '100%', display: 'table' }}>
                 <div className='m-auto' style={{
@@ -146,12 +146,12 @@ const ProductScreen = ({ match }) => {
 
         <Container className='mt-5rem'>
             {loading ? <Loader />
-                : error ? <div style={{marginTop: '6rem'}}><Message>{error}</Message></div>
+                : error ? <div style={{ marginTop: '6rem' }}><Message>{error}</Message></div>
                     : (
                         <div className='pt-4'>
                             <Row>
                                 <Col md='6'>
-                                <Link to='/'><i className="fas fa-home"/></Link> &gt; <Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link> &gt; <i>{getCategoryName(product.category)}</i> &gt; {product.name}
+                                    <Link to='/'><i className="fas fa-home" /></Link> &gt; <Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link> &gt; <i>{getCategoryName(product.category)}</i> &gt; {product.name}
                                 </Col>
                             </Row>
 
@@ -170,7 +170,9 @@ const ProductScreen = ({ match }) => {
                                         <Row>
                                             <Col md={6}>
                                                 <h2 className=' fw-500 mb-3'>
-                                                    {product.price === 0 ? 'Zadarmo' : `${product.price}€ / ks`}
+                                                {product.price !== 0 ? (product.classification === 'demand' ? 'Dohodou' : `${product.price}€  / ks`)
+                                                    : 'Zadarmo'}
+                                                    {/* {product.price === 0 ? 'Zadarmo' : `${product.price}€ / ks`} */}
                                                 </h2>
                                                 <span>dostupnosť: {product.countInStock} ks</span>
                                             </Col>
@@ -232,16 +234,16 @@ const ProductScreen = ({ match }) => {
                                                         </tr>
                                                         <tr>
                                                             <td>výrobca</td>
-                                                            <td>{product.brand}</td>
+                                                            <td>{product.brand === '' ? '-' : product.brand}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>šírka x výška x hĺbka</td>
                                                             {product.measures !== undefined &&
-                                                                <td>{product.measures.width} x {product.measures.height} x {product.measures.depth}</td>}
+                                                                <td>{product.measures.width === '' ? '-' : product.measures.width + 'cm'} x {product.measures.height === '' ? '-' : product.measures.height + 'cm'} x {product.measures.depth === '' ? '-' : product.measures.depth + 'cm'}</td>}
                                                         </tr>
                                                         <tr>
                                                             <td>hmotnosť</td>
-                                                            {product.measures !== undefined && <td>{product.measures.weight}</td>}
+                                                            {(product.measures !== undefined) && <td>{product.measures.weight === '' ? '-' : product.measures.weight + 'g'} </td>}
                                                         </tr>
                                                     </tbody>
                                                 </Table>

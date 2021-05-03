@@ -24,7 +24,7 @@ export const categoryOptions = [
 })
 
 export const hintOptions = [
-'farba, materiál, konfekčná veľkosť', // Oblečenie a obuv
+'farba, materiál, konfekčná veľkosť, sezóna', // Oblečenie a obuv
 'materiál, vhodný pre vek', // Hračky a hry
 'autor, počet strán, rok vydania',  // Knihy
 '', // Nábytok a bývanie

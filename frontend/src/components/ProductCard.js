@@ -85,7 +85,12 @@ const ProductCard = ({ product }) => {
                 <Link to={`/product/${product._id}`}>
                     <MDBCardTitle className='text-truncate mb-1' style={{ fontSize: '18px', color: '#3f599e' }}>{product.name}</MDBCardTitle>
                 </Link>
-                <div className='mb-1' style={{ fontSize: '20px' }}><strong>{product.price !== 0 ? `${product.price}€` : product.classification === 'donor' ? 'Zadarmo' : 'Dohodou'}</strong></div>
+                <div className='mb-1' style={{ fontSize: '20px' }}><strong>{
+                    product.price !== 0 ? (product.classification === 'demand' ? 'Dohodou' : `${product.price}€`)
+                        : 'Zadarmo'}
+
+                    {/* product.price !== 0 ? `${product.price}€` : product.classification === 'donor' ? 'Zadarmo' : 'Dohodou'} */}
+                </strong></div>
                 <Link to={`/products/user/${product.user._id}`}>
                     <div className='text-muted' style={{ fontSize: '14px' }}>{product.user.name}</div>
                 </Link>

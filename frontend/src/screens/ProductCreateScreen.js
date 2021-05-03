@@ -70,6 +70,7 @@ const ProductCreateScreen = ({ history }) => {
         const newErrors = {}
         // name errors
         if (!name || name === '') newErrors.name = 'cannot be blank!'
+        else if (name.length < 3) newErrors.name = 'name is too short!'
         else if (name.length > 100) newErrors.name = 'name is too long!'
         // comment errors
         if (!description || description === '') newErrors.description = 'cannot be blank!'
@@ -343,6 +344,7 @@ const ProductCreateScreen = ({ history }) => {
 
                             <Form.Group controlId='images' className='my-5'>
                                 <Form.Label className='my-form-label'>Fotky</Form.Label>
+                                <Form.Text id="photosBlock" muted className=''>Vložte max 10 obrázkov. Kliknutím na miniatúru obrázku ho vymažete. </Form.Text>
                                 <UploadMultipleImages onUpload={(val) => setImages(val)} />
                             </Form.Group>
 
@@ -385,25 +387,25 @@ const ProductCreateScreen = ({ history }) => {
                                 <Row>
                                     <Col sm='6' className='mb-2'>
                                         <div className='form-check-inline w-5r'>šírka </div>
-                                        <Form.Control className='form-check-inline w-50 pad-control' type='text'
+                                        <Form.Control className='form-check-inline w-50 pad-control' type='number' step={'.01'} min={0}
                                             value={measures.width} onChange={(e) => setMeasures({ ...measures, width: e.target.value })}
                                             placeholder='' /> cm
                                     </Col>
                                     <Col sm='6' className='mb-2'>
                                         <div className='form-check-inline w-5r'>výška</div>
-                                        <Form.Control className='form-check-inline w-50 pad-control' type='text'
+                                        <Form.Control className='form-check-inline w-50 pad-control' type='number' step={'.01'} min={0}
                                             value={measures.height} onChange={(e) => setMeasures({ ...measures, height: e.target.value })}
                                             placeholder='' /> cm
                                     </Col>
                                     <Col sm='6' className='mb-2'>
                                         <div className='form-check-inline w-5r'>hĺbka</div>
-                                        <Form.Control className='form-check-inline w-50 pad-control' type='text'
+                                        <Form.Control className='form-check-inline w-50 pad-control' type='number' step={'.01'} min={0}
                                             value={measures.depth} onChange={(e) => setMeasures({ ...measures, depth: e.target.value })}
                                             placeholder='' /> cm
                                     </Col>
                                     <Col sm='6' className='mb-2'>
-                                        <div className='form-check-inline w-5r'>hmotnosť</div>
-                                        <Form.Control className='form-check-inline w-50 pad-control' type='text'
+                                        <div className='form-check-inline w-5r'>hmotnosť</div> 
+                                        <Form.Control className='form-check-inline w-50 pad-control' type='number' step={'.01'} min={0}
                                             value={measures.weight} onChange={(e) => setMeasures({ ...measures, weight: e.target.value })}
                                             placeholder='' /> g
                                     </Col>

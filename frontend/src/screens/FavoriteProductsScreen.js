@@ -5,8 +5,9 @@ import { Link, Route } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listFavoriteProducts } from '../actions/productActions'
-import { getCategoryName } from '../utils/translate'
+import { getCategoryName, transformDate } from '../utils/translate'
 import MyPagination from '../components/MyPagination'
+
 
 const FavoriteProductsScreen = ({ history, match }) => {
     const pageSize = 5  // TODO 10
@@ -54,16 +55,18 @@ const FavoriteProductsScreen = ({ history, match }) => {
                                                 <td className='vert-align-midd'> <Image src={product.images.length !== 0 ? product.images[0] : '/images/bez-fotky.jpg'} alt={product.name} fluid rounded style={{ maxWidth: '80px' }} /></td>
                                                 <td className='vert-align-midd fw-600 pl-table-td'><Link to={`/product/${product._id}`}>{product.name}</Link></td>
                                                 <td className='vert-align-midd'>{getCategoryName(product.category)}</td>
-                                                <td className='vert-align-midd'>{product.price}</td>
-                                                <td className='vert-align-midd'>{product.createdAt.substring(0, 10)}</td>
+                                                <td className='vert-align-midd'>{product.price !== 0 ? (product.classification === 'demand' ? 'dohodou' : `${product.price}€`)
+                                                    : 'zadarmo'}</td>
+                                                <td className='vert-align-midd'>{product.createdAt && transformDate(product.createdAt.substring(0, 10))}</td>
                                                 <td className='vert-align-midd'><Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link></td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </Table>)}
-                    <Route render={({ history }) => {
-                        pages > 1 && <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={2} />
-                    }} />
+                    {pages > 1 &&
+                        <Route render={({ history }) =>
+                            <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={2} />
+                        } />}
                 </Col>
             </Row>
         </Container>

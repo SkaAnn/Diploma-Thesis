@@ -69,7 +69,7 @@ export default class UploadMultipleImages extends Component {
                 </div>
 
                 <div className="form-group">
-                    <input type="file" name='photos' className="form-control pb-5" onChange={this.uploadMultipleFiles} multiple />
+                    <input type="file" accept="image/*" name='photos' className="form-control pb-5" onChange={this.uploadMultipleFiles} multiple />
                 </div>
                 {/* <button type="button" className="btn btn-danger btn-block" onClick={this.uploadFiles}>Upload</button> */}
             </ >

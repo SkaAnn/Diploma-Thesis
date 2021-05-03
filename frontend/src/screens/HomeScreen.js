@@ -62,13 +62,12 @@ const HomeScreen = ({ match }) => {
                                             <ProductCard key={product._id} product={product} />
                                         </Col>))}
                                 </Row>
-                                <Route render={({ history }) => {
-                                    pages > 1 &&
+                                {pages > 1 &&
+                                    <Route render={({ history }) =>
                                         <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page}
                                             history={history} screen={0} sortKey={sortKey ? sortKey : ''} keyword={keyword ? keyword : ''} filter={filter ? filter : ''} />
-                                }
-                                }
-                                />
+                                    }
+                                    />}
 
                             </>
                         )}

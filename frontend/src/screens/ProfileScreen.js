@@ -148,9 +148,10 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                                                 {products.map(product => (
                                                     <tr key={product._id}>
                                                         <td className='vert-align-midd text-center'><Image src={product.images.length !== 0 ? product.images[0] : '/images/bez-fotky.jpg'} alt={product.name} fluid rounded style={{ maxWidth: '70px' }} /></td>
-                                                        <td className='vert-align-midd fw-600 pl-small-table-td' >{product.name}</td>
+                                                        <td className='vert-align-midd fw-600 pl-small-table-td' ><Link to={`/product/${product._id}`}>{product.name}</Link></td>
                                                         <td className='vert-align-midd text-center'>{translateClassification(product.classification)}</td>
-                                                        <td className='vert-align-midd text-center fw-400'>{product.price} €</td>
+                                                        <td className='vert-align-midd text-center fw-400'>{product.price !== 0 ? (product.classification === 'demand' ? 'dohodou' : `${product.price}€`)
+                                                            : 'zadarmo'}</td>
                                                         <td className='vert-align-midd text-center'>{transformDate(product.createdAt.substring(0, 10))}</td>
                                                         <td className='vert-align-midd text-center'>
                                                             <LinkContainer to={`/my/product/edit/${product._id}`}>
@@ -166,10 +167,10 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                                                 ))}
                                             </tbody>
                                         </Table>
-                                        <Route render={({ history }) => {
-                                            pages > 1 &&
+                                        {pages > 1 &&
+                                            <Route render={({ history }) =>
                                                 <MyPagination itemsCountPerPage={pageSize} totalItemsCount={count} activePage={page} history={history} screen={1} />
-                                        }} />
+                                            } />}
                                     </>
                                 )}
                 </Col>
