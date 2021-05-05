@@ -147,162 +147,164 @@ const ProductScreen = ({ match }) => {
         <Container className='mt-5rem'>
             {loading ? <Loader />
                 : error ? <div style={{ marginTop: '6rem' }}><Message>{error}</Message></div>
-                    : (
-                        <div className='pt-4'>
-                            <Row>
-                                <Col md='6'>
-                                    <Link to='/'><i className="fas fa-home" /></Link> &gt; <Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link> &gt; <i>{getCategoryName(product.category)}</i> &gt; {product.name}
-                                </Col>
-                            </Row>
+                    :
+                    product.active === false ? <div style={{ marginTop: '6rem' }}><Message>Ľutujeme, tento produkt bol vymazaný.</Message></div> :
+                        (
+                            <div className='pt-4'>
+                                <Row>
+                                    <Col md='6'>
+                                        <Link to='/'><i className="fas fa-home" /></Link> &gt; <Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link> &gt; <i>{getCategoryName(product.category)}</i> &gt; {product.name}
+                                    </Col>
+                                </Row>
 
-                            <Row className='mt-3'>
-                                {/* LAVA CAST OBRAZOVKY */}
-                                <Col md='6' className='mb-2'>
-                                    <ImageCarousel images={product.images} />
-                                </Col>
+                                <Row className='mt-3'>
+                                    {/* LAVA CAST OBRAZOVKY */}
+                                    <Col md='6' className='mb-2'>
+                                        <ImageCarousel images={product.images} />
+                                    </Col>
 
-                                {/* PRAVA CAST OBRAZOVKY */}
-                                <Col md='6' >
+                                    {/* PRAVA CAST OBRAZOVKY */}
+                                    <Col md='6' >
 
-                                    <div className='border px-4 py-4'>
-                                        <h3 className=' fw-400 mb-3'>{product.name} </h3>
+                                        <div className='border px-4 py-4'>
+                                            <h3 className=' fw-400 mb-3'>{product.name} </h3>
 
-                                        <Row>
-                                            <Col md={6}>
-                                                <h2 className=' fw-500 mb-3'>
-                                                {product.price !== 0 ? (product.classification === 'demand' ? 'Dohodou' : `${product.price}€  / ks`)
-                                                    : 'Zadarmo'}
-                                                    {/* {product.price === 0 ? 'Zadarmo' : `${product.price}€ / ks`} */}
-                                                </h2>
-                                                <span>dostupnosť: {product.countInStock} ks</span>
-                                            </Col>
-                                            <Col md={6}>
-                                                {formSubmitSuccessful
-                                                    ? <span> Správa bola úspešne odoslaná! </span>
-                                                    :
-                                                    userInfo &&
-                                                    <button className='my-btn-primary mt-4 fw-500' style={{ float: 'right' }} onClick={onClickHandler}>
-                                                        <i className="far fa-paper-plane mr-1"></i> Mám záujem</button>
-                                                }
-                                            </Col>
+                                            <Row>
+                                                <Col md={6}>
+                                                    <h2 className=' fw-500 mb-3'>
+                                                        {product.price !== 0 ? (product.classification === 'demand' ? 'Dohodou' : `${product.price}€  / ks`)
+                                                            : 'Zadarmo'}
+                                                        {/* {product.price === 0 ? 'Zadarmo' : `${product.price}€ / ks`} */}
+                                                    </h2>
+                                                    <span>dostupnosť: {product.countInStock} ks</span>
+                                                </Col>
+                                                <Col md={6}>
+                                                    {formSubmitSuccessful
+                                                        ? <span> Správa bola úspešne odoslaná! </span>
+                                                        :
+                                                        userInfo &&
+                                                        <button className='my-btn-primary mt-4 fw-500' style={{ float: 'right' }} onClick={onClickHandler}>
+                                                            <i className="far fa-paper-plane mr-1"></i> Mám záujem</button>
+                                                    }
+                                                </Col>
+                                            </Row>
+
+
+                                        </div>
+
+                                        <Row style={{ margin: 'inherit', backgroundColor: '#e9ecef' }} className='text-center py-2'>
+                                            <Col lg={3} className='py-1 m-auto fs-14px'> <i className="far fa-user mr-1"></i> {product.user.name} </Col>
+                                            <Col lg={3} className='py-1 m-auto fs-14px'> <i className="far fa-clock mr-1"></i> {product.createdAt && transformDate(product.createdAt.substring(0, 10))} </Col>
+                                            <Col lg={3} className='py-1 m-auto fs-14px fw-500' style={{ letterSpacing: '0' }}> <i className="fas fa-tag mr-1"></i> {translateClassification(product.classification)} </Col>
+                                            <Col lg={3} className='py-1 m-auto fs-14px fw-500' style={{ letterSpacing: '0' }}> <i className="far fa-gem mr-1"></i> {translateCondition(product.condition)} </Col>
                                         </Row>
 
-
-                                    </div>
-
-                                    <Row style={{ margin: 'inherit', backgroundColor: '#e9ecef' }} className='text-center py-2'>
-                                        <Col lg={3} className='py-1 m-auto fs-14px'> <i className="far fa-user mr-1"></i> {product.user.name} </Col>
-                                        <Col lg={3} className='py-1 m-auto fs-14px'> <i className="far fa-clock mr-1"></i> {product.createdAt && transformDate(product.createdAt.substring(0, 10))} </Col>
-                                        <Col lg={3} className='py-1 m-auto fs-14px fw-500' style={{ letterSpacing: '0' }}> <i className="fas fa-tag mr-1"></i> {translateClassification(product.classification)} </Col>
-                                        <Col lg={3} className='py-1 m-auto fs-14px fw-500' style={{ letterSpacing: '0' }}> <i className="far fa-gem mr-1"></i> {translateCondition(product.condition)} </Col>
-                                    </Row>
-
-                                    <div>
-                                        <MDBNav className="nav-tabs mt-5">
-                                            <MDBNavItem>
-                                                <MDBNavLink link to="#" active={activeItem === '1'} onClick={toggle("1")} role="tab" >
-                                                    Popis
+                                        <div>
+                                            <MDBNav className="nav-tabs mt-5">
+                                                <MDBNavItem>
+                                                    <MDBNavLink link to="#" active={activeItem === '1'} onClick={toggle("1")} role="tab" >
+                                                        Popis
                                             </MDBNavLink>
-                                            </MDBNavItem>
-                                            <MDBNavItem>
-                                                <MDBNavLink link to="#" active={activeItem === '2'} onClick={toggle("2")} role="tab" >
-                                                    Špecifikácia
+                                                </MDBNavItem>
+                                                <MDBNavItem>
+                                                    <MDBNavLink link to="#" active={activeItem === '2'} onClick={toggle("2")} role="tab" >
+                                                        Špecifikácia
                                             </MDBNavLink>
-                                            </MDBNavItem>
-                                            <MDBNavItem>
-                                                <MDBNavLink link to="#" active={activeItem === '3'} onClick={toggle("3")} role="tab" >
-                                                    Doprava a doručenie
+                                                </MDBNavItem>
+                                                <MDBNavItem>
+                                                    <MDBNavLink link to="#" active={activeItem === '3'} onClick={toggle("3")} role="tab" >
+                                                        Doprava a doručenie
                                                     {/* poštovné */}
-                                                </MDBNavLink>
-                                            </MDBNavItem>
-                                        </MDBNav>
-                                        <MDBTabContent activeItem={activeItem} >
-                                            <MDBTabPane tabId="1" role="tabpanel">
-                                                <p className="mt-3 px-1 text-justify fs-15px">
-                                                    {product.description}
-                                                </p>
-                                            </MDBTabPane>
+                                                    </MDBNavLink>
+                                                </MDBNavItem>
+                                            </MDBNav>
+                                            <MDBTabContent activeItem={activeItem} >
+                                                <MDBTabPane tabId="1" role="tabpanel">
+                                                    <p className="mt-3 px-1 text-justify fs-15px">
+                                                        {product.description}
+                                                    </p>
+                                                </MDBTabPane>
 
 
-                                            <MDBTabPane tabId="2" role="tabpanel">
-                                                <h6 className='text-uppercase fw-600 mt-3'>Základné vlastnosti</h6>
-                                                <Table striped size='sm' className='mt-2'>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>pôvod</td>
-                                                            <td>{product.origin}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>výrobca</td>
-                                                            <td>{product.brand === '' ? '-' : product.brand}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>šírka x výška x hĺbka</td>
-                                                            {product.measures !== undefined &&
-                                                                <td>{product.measures.width === '' ? '-' : product.measures.width + 'cm'} x {product.measures.height === '' ? '-' : product.measures.height + 'cm'} x {product.measures.depth === '' ? '-' : product.measures.depth + 'cm'}</td>}
-                                                        </tr>
-                                                        <tr>
-                                                            <td>hmotnosť</td>
-                                                            {(product.measures !== undefined) && <td>{product.measures.weight === '' ? '-' : product.measures.weight + 'g'} </td>}
-                                                        </tr>
-                                                    </tbody>
-                                                </Table>
+                                                <MDBTabPane tabId="2" role="tabpanel">
+                                                    <h6 className='text-uppercase fw-600 mt-3'>Základné vlastnosti</h6>
+                                                    <Table striped size='sm' className='mt-2'>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>pôvod</td>
+                                                                <td>{product.origin}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>výrobca</td>
+                                                                <td>{product.brand === '' ? '-' : product.brand}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>šírka x výška x hĺbka</td>
+                                                                {product.measures !== undefined &&
+                                                                    <td>{product.measures.width === '' ? '-' : product.measures.width + 'cm'} x {product.measures.height === '' ? '-' : product.measures.height + 'cm'} x {product.measures.depth === '' ? '-' : product.measures.depth + 'cm'}</td>}
+                                                            </tr>
+                                                            <tr>
+                                                                <td>hmotnosť</td>
+                                                                {(product.measures !== undefined) && <td>{product.measures.weight === '' ? '-' : product.measures.weight + 'g'} </td>}
+                                                            </tr>
+                                                        </tbody>
+                                                    </Table>
 
-                                                <h6 className='text-uppercase fw-600 mt-3'>Ďalšie vlastnosti</h6>
+                                                    <h6 className='text-uppercase fw-600 mt-3'>Ďalšie vlastnosti</h6>
 
-                                                {product.moreProperties !== undefined &&
-                                                    // product.moreProperties.length === 0 ?
-                                                    // <Message variant='info'>Tato cast je prazdna</Message>
-                                                    // :
-                                                    <>
-                                                        {product.moreProperties.length === 0 && <div className='mt-2'><Message variant='info'>Tato cast je prazdna</Message></div>}
+                                                    {product.moreProperties !== undefined &&
+                                                        // product.moreProperties.length === 0 ?
+                                                        // <Message variant='info'>Tato cast je prazdna</Message>
+                                                        // :
+                                                        <>
+                                                            {product.moreProperties.length === 0 && <div className='mt-2'><Message variant='info'>Táto časť je prázdna</Message></div>}
 
-                                                        <Table striped size='sm' className='mt-2'>
-                                                            <tbody>
-                                                                {product.moreProperties.map((item, index) =>
-                                                                    <tr key={index}>
-                                                                        <td>{item.key}</td>
-                                                                        <td>{item.val}</td>
-                                                                    </tr>
-                                                                )}
-                                                            </tbody>
-                                                        </Table>
-                                                    </>
-                                                }
+                                                            <Table striped size='sm' className='mt-2'>
+                                                                <tbody>
+                                                                    {product.moreProperties.map((item, index) =>
+                                                                        <tr key={index}>
+                                                                            <td>{item.key}</td>
+                                                                            <td>{item.val}</td>
+                                                                        </tr>
+                                                                    )}
+                                                                </tbody>
+                                                            </Table>
+                                                        </>
+                                                    }
 
-                                                {/* } */}
-                                            </MDBTabPane>
+                                                    {/* } */}
+                                                </MDBTabPane>
 
 
-                                            <MDBTabPane tabId="3" role="tabpanel">
-                                                {product.shipping !== undefined &&
-                                                    // product.moreProperties.length === 0 ?
-                                                    // <Message variant='info'>Tato cast je prazdna</Message>
-                                                    // :
-                                                    <>
-                                                        {product.shipping.length === 0 && <div className='mt-3'><Message variant='info'>Tato cast shipping prazdna</Message></div>}
+                                                <MDBTabPane tabId="3" role="tabpanel">
+                                                    {product.shipping !== undefined &&
+                                                        // product.moreProperties.length === 0 ?
+                                                        // <Message variant='info'>Tato cast je prazdna</Message>
+                                                        // :
+                                                        <>
+                                                            {product.shipping.length === 0 && <div className='mt-3'><Message variant='info'>Táto časť je prázdna</Message></div>}
 
-                                                        <Table striped size='sm' className='mt-3'>
-                                                            <tbody>
-                                                                {product.shipping.map((item, index) =>
-                                                                    <tr key={index}>
-                                                                        <td>{item.typ}</td>
-                                                                        <td>{item.price}</td>
-                                                                    </tr>
-                                                                )}
-                                                            </tbody>
-                                                        </Table>
-                                                    </>
-                                                }
+                                                            <Table striped size='sm' className='mt-3'>
+                                                                <tbody>
+                                                                    {product.shipping.map((item, index) =>
+                                                                        <tr key={index}>
+                                                                            <td>{item.typ}</td>
+                                                                            <td>{item.price}</td>
+                                                                        </tr>
+                                                                    )}
+                                                                </tbody>
+                                                            </Table>
+                                                        </>
+                                                    }
 
-                                            </MDBTabPane>
-                                        </MDBTabContent>
-                                    </div>
-                                </Col>
-                            </Row>
+                                                </MDBTabPane>
+                                            </MDBTabContent>
+                                        </div>
+                                    </Col>
+                                </Row>
 
-                        </div>
-                    )
+                            </div>
+                        )
             }
         </Container>
     </>

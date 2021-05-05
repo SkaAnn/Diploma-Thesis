@@ -284,7 +284,8 @@ const ProfileUpdateScreen = ({ history }) => {
                                         placeholder='' rows={4} />
                                 </Form.Group>
 
-                                <Form.Label className='fs-14px mb-3'>Zmeniť heslo</Form.Label>
+                                <Form.Label className='fs-14px mb-0'>Zmeniť heslo</Form.Label>
+                                <Form.Text id="passwordBlock" muted className='mb-3'>Musí byť dlhé min 8 znakov a obsahovať aspoň 1 veľké písmeno, 1 malé písmeno a 1 číslo!</Form.Text>
                                 {message && <Message>{message}</Message>}
 
                                 {/* <div style={{visibility: 'hidden'}}> */}

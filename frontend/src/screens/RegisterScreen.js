@@ -132,10 +132,11 @@ const RegisterScreen = ({ location, history }) => {
 
                         <Form.Group controlId='password'>
                             <Form.Label className='mb-0 fs-14px'>Heslo</Form.Label>
+                            <Form.Text id="passwordBlock" muted>Musí byť dlhé min 8 znakov a obsahovať aspoň 1 veľké písmeno, 1 malé písmeno a 1 číslo!</Form.Text>
                             <Row>
                                 <Col sm={6} className='pr-1'>
                                     <Form.Control type='password' className="mainLoginInput login-control mb-2" placeholder="&#61475;  heslo" value={password}
-                                        onChange={(e) => setPassword(e.target.value)} required>
+                                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" onChange={(e) => setPassword(e.target.value)} required>
                                     </Form.Control>
                                 </Col>
                                 <Col sm={6} className='pl-1'>
