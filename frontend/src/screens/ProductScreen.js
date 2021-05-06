@@ -94,8 +94,10 @@ const ProductScreen = ({ match }) => {
 
         // TODO: receiver (owner of product) and sender (logged user) email
         // ale vzdy to tomu uzivatelovi dojde z mojho mailu co mam nastaveny v programe
-        const receiverEmail = 'askachova@gmail.com'
-        const senderEmail = 'skaann.dev@gmail.com' //userInfo.email// userinfi
+        console.log('EMAIL ', product.user)
+        console.log('EMAIL ', product.user.email)
+        const receiverEmail = product.user.email //'skaann.dev@gmail.com'
+        const senderEmail = userInfo.email //'skaann.dev@gmail.com' //userInfo.email// userinfi
 
         sendFeedback({
             templateId,

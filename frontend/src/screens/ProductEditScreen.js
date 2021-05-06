@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Form, Button, Row, Col } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 import { PRODUCT_DETAILS_RESET } from '../constants/productConstants'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -206,22 +207,25 @@ const ProductEditScreen = ({ match, history }) => {
                 : error ? <Message variant='danger'>{error}</Message>
                     : (
                         <>
-                            <h2 className='mb-4 pt-4 fw-600'><i className="far fa-edit mr-1" style={{ color: '#007bff' }}></i> Upraviť produkt {product._id}</h2>
+                            <h2 className='pt-4 fw-600'><i className="far fa-edit mr-1" style={{ color: '#007bff' }}></i> Upraviť produkt {product._id}</h2>
+                            <LinkContainer to='/my/profile' >
+                                <h6 className='mb-4 pt-3 fw-600 curs-pointer'><i className="fas fa-arrow-left"></i> Späť</h6>
+                            </LinkContainer>
                             <Form onSubmit={submitHandler}>
 
-                                <div style={{ backgroundColor: 'rgb(51, 74, 136)', color:'#f8f9fa' }} className='px-4 pt-4 pb-2'>
+                                <div style={{ backgroundColor: 'rgb(51, 74, 136)', color: '#f8f9fa' }} className='px-4 pt-4 pb-2'>
                                     <Form.Group as={Row} controlId='screen1' className='text-center'>
                                         <Col sm="3">
                                             <Form.Label className='my-form-label'>Kategória </Form.Label>
-                                            <Form.Control className='text-center' style={{color:'#f8f9fa'}} plaintext readOnly value={getCategoryName(category)} />
+                                            <Form.Control className='text-center' style={{ color: '#f8f9fa' }} plaintext readOnly value={getCategoryName(category)} />
                                         </Col>
                                         <Col size="2">
                                             <Form.Label className='my-form-label'>Typ </Form.Label>
-                                            <Form.Control className='text-center' style={{color:'#f8f9fa'}} plaintext readOnly value={translateClassification(classification)} />
+                                            <Form.Control className='text-center' style={{ color: '#f8f9fa' }} plaintext readOnly value={translateClassification(classification)} />
                                         </Col>
                                         <Col size="2">
                                             <Form.Label className='my-form-label'>Stav </Form.Label>
-                                            <Form.Control className='text-center' style={{color:'#f8f9fa'}} plaintext readOnly value={translateCondition(condition)} />
+                                            <Form.Control className='text-center' style={{ color: '#f8f9fa' }} plaintext readOnly value={translateCondition(condition)} />
                                         </Col>
                                         <Col size="2">
                                             <Form.Label className='my-form-label pb-1'>Dátum pridania </Form.Label>
@@ -252,7 +256,7 @@ const ProductEditScreen = ({ match, history }) => {
                                             {classification && classification === 'donor' ?
                                                 <Form.Control plaintext readOnly value="Zadarmo" />
                                                 :
-                                                <Form.Control type='number' step={'.01'} min={0}
+                                                <Form.Control type='number' step={'.01'} min={0} value={product.price}
                                                     onChange={(e) => setPrice(Number(e.target.value))} />
                                             }
                                             {classification && classification === 'demand' &&
@@ -271,6 +275,7 @@ const ProductEditScreen = ({ match, history }) => {
                                             {reload &&
                                                 <Form.Group controlId='images'>
                                                     <Form.Label className='my-form-label'>Fotky</Form.Label>
+                                                    <Form.Text id="photosBlock" muted className=''>Vložte max 10 obrázkov. Kliknutím na miniatúru obrázku ho vymažete. </Form.Text>
                                                     {product.images.length === 0 && <div>Žiadne fotky</div>}
                                                     {/* <Form.Control type='text' value={images} onChange={(e) => setImages(e.target.value)} /> */}
                                                     <UploadMultipleImages2 images={product.images} userId={userInfo._id} onLoad={(val) => setImages(val)} onUpload={(val) => setImages(val)} />

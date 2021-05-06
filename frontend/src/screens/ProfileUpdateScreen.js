@@ -75,6 +75,12 @@ const ProfileUpdateScreen = ({ history }) => {
         }
     }, [dispatch, userInfo, user, success, history])
 
+    const deleteImage = () => {
+        console.log('DeleteImage')
+        setProfileImage('')
+        setImage('')
+    }
+
     const uploadFileHandler = async (e) => {
         const file = image//e.target.files[0]  // can upload multiple files
         const formData = new FormData()
@@ -149,7 +155,11 @@ const ProfileUpdateScreen = ({ history }) => {
                         imgUrl = image
                     }
                     else {
-                        imgUrl = await uploadFileHandler()
+                        if (image !== '') {
+                            imgUrl = await uploadFileHandler()
+                        } else {
+                            imgUrl = '/images/profile-photo.png'
+                        }
                     }
 
                     const updatedUser = {
@@ -171,7 +181,11 @@ const ProfileUpdateScreen = ({ history }) => {
                 imgUrl = image
             }
             else {
-                imgUrl = await uploadFileHandler()
+                if (image !== '') {
+                    imgUrl = await uploadFileHandler()
+                } else {
+                    imgUrl = '/images/profile-photo.png'
+                }
             }
 
             const updatedUser = {
@@ -201,17 +215,9 @@ const ProfileUpdateScreen = ({ history }) => {
                             <Col sm={5} className='px-5 py-5' style={{ backgroundColor: '#EEEEEE' }}>
                                 <h2 className='fw-600 text-center' style={{ marginBottom: '2.2rem' }}> Môj profil</h2>
 
-                                {/* 
-                                className='fw-500 text-uppercase text-center'
-                                <Form.Group controlId="profileTypeBox ">
-                            <Form.Label className='fs-14px form-check-inline'>Typ profilu</Form.Label>
-                            <Form.Control className='form-check-inline ml-2' style={{ width: '130px' }}
-                                plaintext readOnly value={profileType === 'user' ? 'fyzická osoba' : 'organizácia'} />
-                        </Form.Group> */}
-
                                 <Form.Group controlId='profile-image' className='mt-4 mb-4'>
-                                    <div style={{ marginBottom: '2.2rem' }}>
-                                        <img src={profileImage} className='profile-pic mx-auto' />
+                                    <div style={{ marginBottom: '2.2rem' }} onClick={deleteImage}>
+                                        <img src={profileImage !== '' ? profileImage : '/images/profile-photo.png'} className='profile-pic mx-auto' />
                                     </div>
 
                                     <Row className='mt-4'>
@@ -250,7 +256,7 @@ const ProfileUpdateScreen = ({ history }) => {
                                             <Form.Label className='fs-14px'>Email </Form.Label>
                                             <Form.Control plaintext readOnly value={email} />
                                             <Form.Check inline type='checkbox' name='displayEmail' checked={display.email}
-                                        onChange={(e) => setDisplay({ ...display, email: !display.email })} label="zobrazovať verejnosti" className='mt-2 fs-13px' />
+                                                onChange={(e) => setDisplay({ ...display, email: !display.email })} label="zobrazovať verejnosti" className='mt-2 fs-13px' />
                                         </Form.Group>
                                     </Col>
 
@@ -261,7 +267,7 @@ const ProfileUpdateScreen = ({ history }) => {
                                             <Form.Control type='text' value={phoneNumber}
                                                 onChange={(e) => setPhoneNumber(e.target.value)} ></Form.Control>
                                             <Form.Check inline type='checkbox' name='displayPhone' checked={display.phone}
-                                        onChange={(e) => setDisplay({ ...display, phone: !display.phone })} label="zobrazovať verejnosti" className='mt-2 fs-13px' />
+                                                onChange={(e) => setDisplay({ ...display, phone: !display.phone })} label="zobrazovať verejnosti" className='mt-2 fs-13px' />
                                         </Form.Group>
                                     </Col>
 

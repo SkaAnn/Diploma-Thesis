@@ -17,7 +17,7 @@ const RegisterScreen = ({ location, history }) => {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [locality, setLocality] = useState('')
-    const [profileImage, setProfileImage] = useState('/images/sample-profile.svg')
+    const [profileImage, setProfileImage] = useState('/images/profile-photo.png')
     const [display, setDisplay] = useState({ email: true, phone: true })
     // Tieto spolu s fotkou neskor...
     // const [profileInfo, setProfileInfo] = useState('')

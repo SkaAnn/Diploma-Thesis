@@ -80,7 +80,7 @@ const getProducts = asyncHandler(async (req, res) => {
 // @route   GET /api/products/:id
 // @access  Public
 const getProductById = asyncHandler(async (req, res) => {
-    const product = await Product.findById(req.params.id).populate('user', 'id name')
+    const product = await Product.findById(req.params.id).populate('user', 'id name email')
     if (product) {
         res.json(product)
     } else {
