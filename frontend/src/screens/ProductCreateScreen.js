@@ -1,4 +1,5 @@
 import axios from 'axios'
+import DOMPurify from 'dompurify';
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Form, Row, Col } from 'react-bootstrap'
@@ -71,7 +72,7 @@ const ProductCreateScreen = ({ history }) => {
         // name errors
         if (!name || name === '') newErrors.name = 'cannot be blank!'
         else if (name.length < 3) newErrors.name = 'name is too short!'
-        else if (name.length > 100) newErrors.name = 'name is too long!'
+        else if (name.length > 300) newErrors.name = 'name is too long!'
         // comment errors
         if (!description || description === '') newErrors.description = 'cannot be blank!'
         else if (description.length < 3) newErrors.description = 'comment is too short!'
@@ -312,7 +313,8 @@ const ProductCreateScreen = ({ history }) => {
                             <Form.Group as={Row} controlId='name' className='my-5'>
                                 <Form.Label column sm="2" className='my-form-label'>Názov* </Form.Label>
                                 <Col sm="10">
-                                    <Form.Control type='text' onChange={e => setField('name', e.target.value)}
+                                
+                                    <Form.Control type='text' onChange={e => setField('name', DOMPurify.sanitize(e.target.value))}
                                         placeholder='Zadajte názov produktu' required
                                         isInvalid={!!errors.name}></Form.Control>
                                     <Form.Control.Feedback type='invalid'>
@@ -350,7 +352,7 @@ const ProductCreateScreen = ({ history }) => {
 
                             <Form.Group controlId='description' className='my-5'>
                                 <Form.Label className='my-form-label'>Popis* </Form.Label>
-                                <Form.Control as="textarea" onChange={(e) => setField('description', e.target.value)}
+                                <Form.Control as="textarea" onChange={(e) => setField('description', DOMPurify.sanitize(e.target.value))}
                                     isInvalid={!!errors.description}
                                     placeholder='Zadajte popis produktu' rows={4} required />
                                 <Form.Control.Feedback type='invalid'>

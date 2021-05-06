@@ -153,7 +153,7 @@ const ProductScreen = ({ match }) => {
                             <div className='pt-4'>
                                 <Row>
                                     <Col md='6'>
-                                        <Link to='/'><i className="fas fa-home" /></Link> &gt; <Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link> &gt; <i>{getCategoryName(product.category)}</i> &gt; {product.name}
+                                        <Link to='/'><i className="fas fa-home" /></Link> &gt; <Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link> &gt; <strong>{getCategoryName(product.category)}</strong> &gt; {product.name}
                                     </Col>
                                 </Row>
 
