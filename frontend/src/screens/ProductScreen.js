@@ -120,7 +120,7 @@ const ProductScreen = ({ match }) => {
 
     return (<>
 
-        < div className="fadeMe" style={{ display: `${show ? 'block' : 'none'}`, verticalAlign: 'middle' }}>
+        <div className="fadeMe" style={{ display: `${show ? 'block' : 'none'}`, verticalAlign: 'middle' }}>
             <i className="fas fa-times fa-3x"
                 style={{ position: 'absolute', top: '1.5rem', right: '10%', cursor: 'pointer', color: 'gray' }}
                 onClick={onClickHandler} />
@@ -131,17 +131,19 @@ const ProductScreen = ({ match }) => {
                     verticalAlign: 'middle'
                 }}>
 
-                    <div className='p-4' style={{ backgroundColor: 'white', width: '50%', minHeight: '50%', margin: 'auto', minWidth: '350px' }}>
-                        <h2 className='fw-400 mb-3'>  <i className="far fa-paper-plane mr-2"></i> Správa pre používateľa <span className='fw-800'>{product && product.user.name}</span></h2>
-                        <p className='text-justify'>Ak máte záujem produkt <strong>{product && product.name}</strong>, napíšte správu predajcovi/kupcovi/darcovi. V správe nezabudnite pekné oslovenie. :)</p>
+                    {formSubmitted ? <Loader /> :
+                        <div className='p-4' style={{ backgroundColor: 'white', width: '50%', minHeight: '50%', margin: 'auto', minWidth: '350px' }}>
+                            <h2 className='fw-400 mb-3'>  <i className="far fa-paper-plane mr-2"></i> Správa pre používateľa <span className='fw-800'>{product && product.user.name}</span></h2>
+                            <p className='text-justify'>Ak máte záujem o produkt <strong>{product && product.name}</strong>, napíšte správu vlastníkovi. V správe nezabudnite na pekné oslovenie. :)</p>
 
-                        <Form onSubmit={submitHandler}>
-                            <Form.Label>Text správy</Form.Label>
-                            <Form.Control as="textarea" onChange={(e) => setFeedback(e.target.value)}
-                                placeholder='Dobrý deň, ...' rows={6} required className='mb-3' />
-                            <div className='text-center'><button type='submit' className='my-btn-primary fw-500 w-100 fs-18px'> Odoslať </button></div>
-                        </Form>
-                    </div>
+                            <Form onSubmit={submitHandler}>
+                                <Form.Label><strong>Text správy</strong></Form.Label>
+                                <Form.Control as="textarea" onChange={(e) => setFeedback(e.target.value)}
+                                    placeholder='Dobrý deň, ...' rows={6} required className='mb-3' />
+                                <div className='text-center'><button type='submit' className='my-btn-primary fw-500 w-100 fs-18px'> Odoslať </button></div>
+                            </Form>
+                        </div>
+                    }
                 </div>
             </div>
         </div >
@@ -180,7 +182,7 @@ const ProductScreen = ({ match }) => {
                                                     </h2>
                                                     <span>dostupnosť: {product.countInStock} ks</span>
                                                 </Col>
-                                                <Col md={6}>
+                                                <Col md={6} styles={{paddingTop: '20px'}}>
                                                     {formSubmitSuccessful
                                                         ? <span> Správa bola úspešne odoslaná! </span>
                                                         :

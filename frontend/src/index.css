@@ -727,3 +727,9 @@ padding-top: 2px;
   #email.form-check-input,  #phoneNumber.form-check-input{
       margin-right: 0.7rem;
   }
+
+  ul.pagination li a {
+      color: (var(--primaryColorDarken));
+      font-size: 17px;
+      font-weight: 500;
+  }

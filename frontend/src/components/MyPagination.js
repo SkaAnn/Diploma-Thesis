@@ -33,7 +33,7 @@ class MyPagination extends Component {
 
   render() {
     return (
-      <div>
+      <div className='mt-3'>
         <Pagination
           activePage={this.state.activePage}
           itemsCountPerPage={this.props.itemsCountPerPage}

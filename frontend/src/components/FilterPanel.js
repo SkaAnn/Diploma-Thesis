@@ -87,7 +87,8 @@ const FilterPanel = ({ history, keyword, sortKey }) => {
             {/* 
             <div>{JSON.stringify(classification)}</div>
             <div>{JSON.stringify(condition)}</div> */}
-            <Button type='submit' variant='indigo' >Použiť filter!</Button>
+            {/* <Button type='submit' variant='indigo' >Použiť filter!</Button> */}
+            <button className='my-btn-primary fw-500' type='submit'>Použiť filter!</button>
         </Form>
 
     )

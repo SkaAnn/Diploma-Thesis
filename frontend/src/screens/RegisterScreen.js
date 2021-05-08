@@ -148,7 +148,7 @@ const RegisterScreen = ({ location, history }) => {
 
 
                         {/* <Button  variant='primary'>Prihlásiť!</Button> */}
-                        <button type='submit' className='my-btn-big my-3 text-uppercase' style={{ width: '100%' }}> Zaregistruj! </button>
+                        <button type='submit' className='my-btn-big my-3 text-uppercase' style={{ width: '100%' }}> Zaregistrovať! </button>
                     </Form>
 
 

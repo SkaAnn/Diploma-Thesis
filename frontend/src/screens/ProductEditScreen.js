@@ -256,7 +256,7 @@ const ProductEditScreen = ({ match, history }) => {
                                             {classification && classification === 'donor' ?
                                                 <Form.Control plaintext readOnly value="Zadarmo" />
                                                 :
-                                                <Form.Control type='number' step={'.01'} min={0} value={product.price}
+                                                <Form.Control type='number' step={'.01'} min={0} value={price}
                                                     onChange={(e) => setPrice(Number(e.target.value))} />
                                             }
                                             {classification && classification === 'demand' &&
@@ -439,7 +439,7 @@ const ProductEditScreen = ({ match, history }) => {
                                         </Col>
                                     </Form.Group>
                                 </div>
-                                <button type='submit' className='w-100 mt-4 my-form-checkout-btn' > Uložiť </button>
+                                <button type='submit' className='w-100 mt-4 my-form-checkout-btn' > Aktualizovať! </button>
                             </Form>
                         </>
                     )
