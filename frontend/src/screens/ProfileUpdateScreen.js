@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Form, Image, Row, Col, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { LinkContainer } from 'react-router-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
@@ -205,10 +206,12 @@ const ProfileUpdateScreen = ({ history }) => {
             <div>
 
                 {error && <Message>{error}</Message>}
-
+                <LinkContainer to='/my/profile' >
+                    <h6 className=' pt-4 fw-600 curs-pointer'><i className="fas fa-arrow-left"></i> Späť</h6>
+                </LinkContainer>
                 <Container style={{
-                    border: '1px solid rgba(0,0,0,.125)', borderRadius: '0.25rem', marginTop: '15vh'
-                }} className='card-style'>
+                    border: '1px solid rgba(0,0,0,.125)', borderRadius: '0.25rem', marginTop: '1.7rem'
+                }} className='card-style mb-4'>
                     <Form onSubmit={submitHandler}>
                         <Row>
 

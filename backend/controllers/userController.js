@@ -106,6 +106,7 @@ const getUserById = asyncHandler(async (req, res) => {
             phoneNumber: user.phoneNumber,
             locality: user.locality,
             profileImage: user.profileImage,
+            profileType: user.profileType,
             profileInfo: user.profileInfo,
             marketPolicy: user.marketPolicy,
             display: user.display,

@@ -120,7 +120,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
                                 <div style={{ border: '0', boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)' }}>
                                     <UserInfoPanel user={user} />
                                     <div className='px-2'>
-                                        <span className='my-btn-small my-3' style={{ width: '100%' }}> <i className='fas fa-edit'></i> <Link to={'/my/profile/update'}> Aktualizovať </Link> </span>
+                                        <span className='my-btn-small my-3' style={{ width: '100%', color: 'black' }}> <i className='fas fa-edit'></i> <Link to={'/my/profile/update'} style={{color: 'black'}}> Upraviť </Link> </span>
                                     </div>
                                 </div>
                             )}

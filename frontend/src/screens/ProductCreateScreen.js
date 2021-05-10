@@ -513,7 +513,7 @@ const ProductCreateScreen = ({ history }) => {
                                     );
                                 })}
 
-                            <button type='submit' className='w-100 mt-4 my-form-checkout-btn' style={{ float: 'right' }}> Uložiť </button>
+                            <button type='submit' className='w-100 mt-4 my-form-checkout-btn fs-600' style={{ float: 'right' }}> Uložiť! </button>
                             {/* <Button type='submit' variant='indigo' className='w-100 mt-4'>uložiť</Button> */}
                         </Form>
                     </div>

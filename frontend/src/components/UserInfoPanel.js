@@ -5,7 +5,7 @@ const UserInfoPanel = ({ user }) => {
     return (
 
         <ListGroup variant='flush'>
-            <ListGroup.Item key='1' className='text-center' style={{backgroundColor: '#FFD300', padding: '30px'}}>
+            <ListGroup.Item key='1' className='text-center' style={{backgroundColor: 'rgb(255 214 95)', padding: '30px'}}>
                 {/* <Image src={user.profileImage} roundedCircle fluid
                     style={{ maxHeight: '130px' }} className='mx-auto' /> */}
                     <img src={user.profileImage}  className='profile-pic mx-auto' />
@@ -21,7 +21,7 @@ const UserInfoPanel = ({ user }) => {
                 </Row>
             </ListGroup.Item>
             <ListGroup.Item key='4'>
-                <h6 className='fw-600'>Niečo o mne</h6>
+                <h6 className='fw-600'>Niečo o {user.profileType === "company" ? 'nás' : 'mne'}</h6>
                 <div className='fs-13px text-justify'>{user.profileInfo} </div>
             </ListGroup.Item>
             <ListGroup.Item key='5'>

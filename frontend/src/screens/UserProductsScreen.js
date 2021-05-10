@@ -39,7 +39,7 @@ const UserProductsScreen = ({ match }) => {
                         : error ? <div style={{ marginTop: '2.5rem' }}><Message>{error}</Message></div>
                             : user && (
                                 <div className='mb-3 pt-4'>
-                                    <h5 className='text-center lh-15'><span className='fw-600'>Profil</span> <span className='fw-400'><i>{user.name}</i></span></h5>
+                                    <h5 className='text-center lh-15'><span className='fw-400'>Profil</span> <span className='fw-600'>{user.name}</span></h5>
                                     <div style={{ border: '0', boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)' }}>
                                         <UserInfoPanel user={user} />
                                     </div>

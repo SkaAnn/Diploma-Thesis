@@ -207,10 +207,11 @@ const ProductEditScreen = ({ match, history }) => {
                 : error ? <Message variant='danger'>{error}</Message>
                     : (
                         <>
-                            <h2 className='pt-4 fw-600'><i className="far fa-edit mr-1" style={{ color: '#007bff' }}></i> Upraviť produkt {product._id}</h2>
                             <LinkContainer to='/my/profile' >
-                                <h6 className='mb-4 pt-3 fw-600 curs-pointer'><i className="fas fa-arrow-left"></i> Späť</h6>
+                                <h6 className=' pt-4 mb-3 fw-600 curs-pointer'><i className="fas fa-arrow-left"></i> Späť</h6>
                             </LinkContainer>
+                            <h2 className='mb-4 fw-600'><i className="far fa-edit mr-1" style={{ color: 'rgb(36 113 193)' }}></i> Upraviť produkt {product._id}</h2>
+
                             <Form onSubmit={submitHandler}>
 
                                 <div style={{ backgroundColor: 'rgb(51, 74, 136)', color: '#f8f9fa' }} className='px-4 pt-4 pb-2'>
@@ -238,7 +239,7 @@ const ProductEditScreen = ({ match, history }) => {
                                     </Form.Group>
                                 </div>
 
-                                <div style={{ backgroundColor: '#ffe773' }} className='px-4 pt-3 pb-2'>
+                                <div style={{ backgroundColor: 'rgb(255 243 185)' }} className='px-4 pt-3 pb-2'>
                                     <h4 className='mb-4 pt-4 fw-500'>Základné informácie</h4>
                                     <Form.Group as={Row} controlId='screen2-1'>
                                         <Col sm="6">
@@ -286,11 +287,11 @@ const ProductEditScreen = ({ match, history }) => {
                                     </Form.Group>
                                 </div>
 
-                                <div style={{ backgroundColor: 'hsl(53deg 100% 73%)' }} className='px-4 pt-3 pb-2'>
+                                <div style={{ backgroundColor: 'rgb(255 245 165)' }} className='px-4 pt-3 pb-2'>
                                     <h4 className='mb-4 pt-4 fw-500'>Špecifikácia</h4>
                                     <Form.Group as={Row} controlId='screen3'>
                                         <Col sm="6">
-                                            <Row>
+                                            <Row className='mb-4'>
                                                 <Col sm="6">
                                                     <Form.Label className='my-form-label'>Pôvod</Form.Label>
 
@@ -302,7 +303,7 @@ const ProductEditScreen = ({ match, history }) => {
 
                                                     <Form.Control type='text' value={brand} onChange={(e) => setBrand(e.target.value)}
                                                         placeholder='Značka produktu' ></Form.Control>
-                                                    <Form.Text id="brandBlock" muted> Ak nie je známa alebo na nej nezáleží zadajte pomlčku </Form.Text>
+                                                    {/* <Form.Text id="brandBlock" muted> Ak nie je známa alebo na nej nezáleží zadajte pomlčku </Form.Text> */}
 
                                                 </Col>
                                             </Row>
@@ -439,7 +440,7 @@ const ProductEditScreen = ({ match, history }) => {
                                         </Col>
                                     </Form.Group>
                                 </div>
-                                <button type='submit' className='w-100 mt-4 my-form-checkout-btn' > Aktualizovať! </button>
+                                <button type='submit' className='w-100 my-form-checkout-btn' > Aktualizovať! </button>
                             </Form>
                         </>
                     )

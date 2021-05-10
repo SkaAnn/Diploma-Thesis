@@ -45,8 +45,8 @@ const FavoriteProductsScreen = ({ history, match }) => {
                                             <th className='fw-600 pl-table-td' style={{ width: '24%' }}>Názov</th>
                                             <th className='fw-600' style={{ width: '24%' }}>Kategória</th>
                                             <th className='fw-600' style={{ width: '12%' }}>Cena</th>
-                                            <th className='fw-600' style={{ width: '14%' }}>Dátum pridania</th>
-                                            <th className='fw-600' style={{ width: '17%' }} >Vlastník</th>
+                                            <th className='fw-600 text-center' style={{ width: '14%' }}>Dátum pridania</th>
+                                            <th className='fw-600 text-center' style={{ width: '17%' }} >Vlastník</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,10 +55,10 @@ const FavoriteProductsScreen = ({ history, match }) => {
                                                 <td className='vert-align-midd'> <Image src={product.images.length !== 0 ? product.images[0] : '/images/bez-fotky.jpg'} alt={product.name} fluid rounded style={{ maxWidth: '80px' }} /></td>
                                                 <td className='vert-align-midd fw-600 pl-table-td'><Link to={`/product/${product._id}`}>{product.name}</Link></td>
                                                 <td className='vert-align-midd'>{getCategoryName(product.category)}</td>
-                                                <td className='vert-align-midd'>{product.price !== 0 ? (product.classification === 'demand' ? 'dohodou' : `${product.price}€`)
+                                                <td className='vert-align-midd fw-400'>{product.price !== 0 ? (product.classification === 'demand' ? 'dohodou' : `${product.price}€`)
                                                     : 'zadarmo'}</td>
-                                                <td className='vert-align-midd'>{product.createdAt && transformDate(product.createdAt.substring(0, 10))}</td>
-                                                <td className='vert-align-midd'><Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link></td>
+                                                <td className='vert-align-midd text-center'>{product.createdAt && transformDate(product.createdAt.substring(0, 10))}</td>
+                                                <td className='vert-align-midd text-center'><Link to={`/products/user/${product.user._id}`}>{product.user.name}</Link></td>
                                             </tr>
                                         ))}
                                     </tbody>

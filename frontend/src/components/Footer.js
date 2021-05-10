@@ -10,7 +10,7 @@ const Footer = () => {
                         <span className='fw-600'>Bc. Anna Skachová </span> <br/>
 
                         <a href='https://github.com/SkaAnn/' style={{color: 'white'}}> 
-                            <i className="fas fa-at fa-lg mr-1"></i> skachova@stuba.sk
+                            <i className="fas fa-at fa-lg mr-1"></i> xskachova@stuba.sk
                         </a> <br/>
                         <a href='https://github.com/SkaAnn/' style={{color: 'white'}}>
                             <i className="fab fa-github fa-lg  mr-1"></i> SkaAnn

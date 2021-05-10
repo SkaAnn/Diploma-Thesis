@@ -607,7 +607,7 @@ padding-top: 2px;
     font-size: 18px;
     font-weight: 600;
     /* line-height: 1.17; */
-    background-color: rgb(255, 244, 191);
+    background-color: #FFE773; /*rgb(255, 244, 191);*/
     border: none;
     /* box-shadow: inset 1px 1px 0 1px #fff; */
     /* -webkit-transition: all .25s ease;
