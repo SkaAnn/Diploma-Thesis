@@ -1,5 +1,5 @@
 import axios from 'axios'
-import DOMPurify from 'dompurify';
+import DOMPurify from 'dompurify'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Form, Row, Col } from 'react-bootstrap'
@@ -70,14 +70,14 @@ const ProductCreateScreen = ({ history }) => {
         const { name, description } = form
         const newErrors = {}
         // name errors
-        if (!name || name === '') newErrors.name = 'cannot be blank!'
-        else if (name.length < 3) newErrors.name = 'name is too short!'
-        else if (name.length > 300) newErrors.name = 'name is too long!'
+        if (!name || name === '') newErrors.name = 'Nesmie byť prázdne!'
+        else if (name.length < 3) newErrors.name = 'Názov je príliš krátky!'
+        else if (name.length > 100) newErrors.name = 'Názov je príliš dlhý!'
         // comment errors
-        if (!description || description === '') newErrors.description = 'cannot be blank!'
-        else if (description.length < 3) newErrors.description = 'comment is too short!'
-        else if (description.length > 500) newErrors.description = 'comment is too long!'
-
+        if (!description || description === '') newErrors.description = 'Nesmie byť prázdne!'
+        else if (description.length < 3) newErrors.description = 'Popis je príliš krátky!'
+        else if (description.length > 1000) newErrors.description = 'Popis je príliš dlhý!'
+        // origin and brand errors
         return newErrors
     }
 
@@ -196,7 +196,7 @@ const ProductCreateScreen = ({ history }) => {
         const blankPropList = isBlankPropList()
         const blankShippingList = isBlankShippingList()
         if (blankPropList || blankShippingList) {
-            if (blankShippingList) setMessage('Položky v časti Shipping nesmú byť prázdne')
+            if (blankShippingList) setMessage('Položky v tejto časti nesmú byť prázdne')
             if (blankPropList) setMessage2('Položky v tejto časti nesmú byť prázdne')
         }
         else {
@@ -285,7 +285,7 @@ const ProductCreateScreen = ({ history }) => {
                                 </Col>
                             </Form.Group>
 
-                            <Form.Group as={Row} controlId="classificationBox" className='my-5' onChange={(e) => setField('classification', e.target.value)}>
+                            <Form.Group as={Row} className='my-5' onChange={(e) => setField('classification', e.target.value)}>
                                 <Form.Label column sm="3" className='my-form-label'>Typ*</Form.Label>
                                 <Col sm="9">
                                     <Form.Check className="form-check-inline mr-3" type="radio" name='classification' value='supply' label="ponuka" required />
@@ -294,7 +294,7 @@ const ProductCreateScreen = ({ history }) => {
                                 </Col>
                             </Form.Group>
 
-                            <Form.Group as={Row} controlId="conditionBox" className='my-5' onChange={(e) => setField('condition', e.target.value)}>
+                            <Form.Group as={Row} className='my-5' onChange={(e) => setField('condition', e.target.value)}>
                                 <Form.Label column sm="3" className='my-form-label'>Stav tovaru*</Form.Label>
                                 <Col sm="9">
                                     <Form.Check className="form-check-inline mr-3" type="radio" name='condition' value='new' label="nový" required />
@@ -368,10 +368,11 @@ const ProductCreateScreen = ({ history }) => {
                         <h2 className='text-uppercase fw-500 mb-4'> Špecifikácia produktu </h2>
                         <Form onSubmit={submitAllHandler}>
                             <Form.Group as={Row} controlId='originAndBrand' className='my-5'>
-                                <Form.Label column sm="2" className='my-form-label'>Pôvod</Form.Label>
+                                <Form.Label column sm="2" className='my-form-label'>Pôvod*</Form.Label>
                                 <Col sm="4">
                                     <Form.Control type='text' onChange={(e) => setField('origin', e.target.value)}
                                         placeholder='Vyrobené v...' required ></Form.Control>
+                                        <Form.Text id="originBlock" muted> Zadajte krajinu alebo "neznámy"</Form.Text>
                                 </Col>
 
                                 <Form.Label column sm="2" className='my-form-label'>Výrobca</Form.Label>
@@ -379,6 +380,7 @@ const ProductCreateScreen = ({ history }) => {
                                 <Col sm="4">
                                     <Form.Control type='text' onChange={(e) => setField('brand', e.target.value)}
                                         placeholder='Značka produktu' ></Form.Control>
+                                        <Form.Text id="brandBlock" muted> Zadajte výrobcu produktu alebo pomlčku</Form.Text>
                                     {/* <Form.Text id="brandBlock" muted> Ak nie je známa alebo na nej nezáleží zadajte pomlčku </Form.Text> */}
                                 </Col>
                             </Form.Group>
@@ -416,7 +418,7 @@ const ProductCreateScreen = ({ history }) => {
 
 
                             <Form.Group controlId="shipping">
-                                <Form.Label className='my-form-label'>Spôsoby dodania</Form.Label>
+                                <Form.Label className='my-form-label'>Spôsoby doručenia</Form.Label>
                                 <Form.Text id="propBlock" muted> Zvoľte spôsob a cenu doručenia produktu. napr. osobný odber - zadarmo, Slovenská pošta - 1.5e </Form.Text>
                             </Form.Group>
                             {message && <Message>{message}</Message>}

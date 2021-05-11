@@ -30,9 +30,8 @@ const SortPanel = ({ history, keyword, filter, prevProps }) => {
     ]
 
     const componentDidUpdate = (prevProps) => {
-        if (oldKeyword !== keyword) {//match.params.pageNumber) {
-            setOldKeyword(keyword)//match.params.pageNumber);
-            // vynulovat
+        if (oldKeyword !== keyword) {
+            setOldKeyword(keyword)
             setSortKey('')
             setState({ selectedOption: '' })
             return true
@@ -48,10 +47,8 @@ const SortPanel = ({ history, keyword, filter, prevProps }) => {
                 let url = ''
                 if (sortKey === 'time_asc') {
                     url += '/sort/time_asc'
-                    // history.push(`/sort/time_asc/search/${keyword}/page/1`)
                 } else {
                     url += `/sort/${sortKey}`
-                    // history.push(`/sort/${sortKey}/search/${keyword}/page/1`)
                 }
 
                 if (keyword) url += `/search/${keyword}`

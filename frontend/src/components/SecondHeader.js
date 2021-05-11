@@ -6,12 +6,10 @@ import FilterPanel from './FilterPanel'
 const SecondHeader = ({ history, match, keyword }) => {
     const [show, setShow] = useState(false)
 
-    // tu tahat z url hotnoty sortkey a filter
     const sortKey = match.params.sortKey
     const filter = match.params.filter
 
     return (
-        // pohyblivy div -> vonkajsi div (farba2) -> vnutorny kontajner (farba1)
         <div className="sticky-top">
             <div style={{ backgroundColor: 'rgb(51 74 136)', color: 'white' }}>
                 <MDBContainer className='py-3 mt-3'>
@@ -25,7 +23,7 @@ const SecondHeader = ({ history, match, keyword }) => {
 
                                 <MDBCol size='12' className='my-auto'>
                                     <div className={`py-3 ${show ? 'd-block' : 'd-none'}`} >
-                                        <FilterPanel history={history} keyword={keyword} sortKey={sortKey ? sortKey : ''} />
+                                        <FilterPanel history={history} keyword={keyword} sortKey={sortKey ? sortKey : ''} onFilter={(val) => setShow(val)}/>
                                     </div>
                                 </MDBCol>
                             </MDBRow>
@@ -35,17 +33,15 @@ const SecondHeader = ({ history, match, keyword }) => {
 
                             <MDBRow>
                                 <MDBCol lg='3' className='my-auto'><span className='text-uppercase fw-600 fs-15px'>Zoradiť </span></MDBCol>
-                                <MDBCol lg='9' className='fs-13px fw-500 text-uppercase' style={{color: 'black'}}>
+                                <MDBCol lg='9' className='fs-13px fw-500 text-uppercase' style={{ color: 'black' }}>
                                     <SortPanel history={history} keyword={keyword} filter={filter ? filter : ''} />
                                 </MDBCol>
                             </MDBRow>
 
                         </MDBCol>
                     </MDBRow>
-
                 </MDBContainer>
             </div>
-
         </div >
     )
 }

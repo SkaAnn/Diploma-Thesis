@@ -8,7 +8,7 @@ const UserInfoPanel = ({ user }) => {
             <ListGroup.Item key='1' className='text-center' style={{backgroundColor: 'rgb(255 214 95)', padding: '30px'}}>
                 {/* <Image src={user.profileImage} roundedCircle fluid
                     style={{ maxHeight: '130px' }} className='mx-auto' /> */}
-                    <img src={user.profileImage}  className='profile-pic mx-auto' />
+                    <img src={user.profileImage} alt='profilePhoto'  className='profile-pic mx-auto' />
             </ListGroup.Item>
             <ListGroup.Item key='2'>
                 <Row className='fs-14px lh-2'>

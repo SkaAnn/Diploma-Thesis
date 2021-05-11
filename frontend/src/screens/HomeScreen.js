@@ -13,7 +13,7 @@ import ProductCard from '../components/ProductCard'
 import { listProducts } from '../actions/productActions'
 
 
-const HomeScreen = ({ match }) => {
+const HomeScreen = ({ match, history }) => {
     const pageSize = 8
     const keyword = match.params.keyword
     const sortKey = match.params.sortKey
@@ -32,12 +32,13 @@ const HomeScreen = ({ match }) => {
     useEffect(() => {
         // @GET all products from db
         // FIRE OFF the action listProducts action
+        console.log('history ', history.location.pathname)
         dispatch(listProducts(sortKey, keyword, filter, pageNumber, pageSize))
-    }, [dispatch, sortKey, keyword, filter, pageNumber])
+    }, [dispatch, history, sortKey, keyword, filter, pageNumber])
 
     return (
         <>
-
+            
             <Route render={({ history, match }) => <SecondHeader history={history} match={match} keyword={keyword ? keyword : ''} />} />
 
             <Container className='mt-3'>

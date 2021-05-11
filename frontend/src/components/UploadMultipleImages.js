@@ -18,12 +18,7 @@ export default class UploadMultipleImages extends Component {
     }
 
     uploadMultipleFiles(e) {
-        // if (this.fileObj.length === 0) { 
-        //     this.fileObj.push(e.target.files) 
-        // } else {
         Array.from(e.target.files).forEach(file => { this.fileObj.push(file) });
-        //e.target.files.map(file => this.fileObj.push(file))
-        // }
         this.fileArray = []
         for (let i = 0; i < this.fileObj.length; i++) {
             this.fileArray.push(URL.createObjectURL(this.fileObj[i]))
@@ -31,18 +26,6 @@ export default class UploadMultipleImages extends Component {
         this.setState({ file: this.fileArray })
         this.props.onUpload(this.fileObj)
     }
-
-
-    // uploadMultipleFiles(e) {
-    //     this.fileObj.push(e.target.files)
-    //     for (let i = 0; i < this.fileObj[0].length; i++) {
-    //         this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
-    //     }
-    //     this.setState({ file: this.fileArray })
-    //     this.setState({ imgCollection: e.target.files })
-    //     this.props.onUpload(this.imgCollection) //this.fileArray)
-    //     this.fileObj = []
-    // }
 
     uploadFiles(e) {
         e.preventDefault()
@@ -67,11 +50,9 @@ export default class UploadMultipleImages extends Component {
                         <img src={url} alt={index} key={index} onClick={(e) => { this.deleteImage(e, index) }} />
                     ))}
                 </div>
-
                 <div className="form-group">
                     <input type="file" accept="image/*" name='photos' className="form-control pb-5" onChange={this.uploadMultipleFiles} multiple />
                 </div>
-                {/* <button type="button" className="btn btn-danger btn-block" onClick={this.uploadFiles}>Upload</button> */}
             </ >
         )
     }

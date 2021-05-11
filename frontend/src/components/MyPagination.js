@@ -38,8 +38,7 @@ class MyPagination extends Component {
           activePage={this.state.activePage}
           itemsCountPerPage={this.props.itemsCountPerPage}
           totalItemsCount={this.props.totalItemsCount}
-          // pageRangeDisplayed= {5}
-          pageRangeDisplayed={3}  // množstvo zobrazených stránok na klikanie
+          pageRangeDisplayed={3}  // {5} amount of pages displayed in row
           onChange={this.handlePageChange.bind(this)}
         />
       </div>

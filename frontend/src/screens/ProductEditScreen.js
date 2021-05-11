@@ -1,15 +1,16 @@
 import axios from 'axios'
+import DOMPurify from 'dompurify'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, Form, Button, Row, Col } from 'react-bootstrap'
+import { Container, Form, Row, Col } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import { PRODUCT_DETAILS_RESET } from '../constants/productConstants'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import UploadMultipleImages2 from '../components/UploadMultipleImages2'
+import UploadExistMultipleImages from '../components/UploadExistMultipleImages'
 import { listProductDetails, updateProduct } from '../actions/productActions'
 import { hintOptions } from '../utils/options'
 import { getCategoryName, translateClassification, translateCondition, transformDate } from '../utils/translate'
+import { PRODUCT_DETAILS_RESET } from '../constants/productConstants'
 
 const ProductEditScreen = ({ match, history }) => {
     const productId = match.params.id
@@ -26,9 +27,7 @@ const ProductEditScreen = ({ match, history }) => {
     const [images, setImages] = useState([])
     const [shippingList, setShippingList] = useState([])
     const [propsList, setPropsList] = useState([])
-    // cannot change
-    // category, classification, condition
-    // Cannot edit 
+    // Cannot edit category, classification, condition
     const [category, setCategory] = useState('')
     const [classification, setClassification] = useState('')
     const [condition, setCondition] = useState('')
@@ -45,8 +44,7 @@ const ProductEditScreen = ({ match, history }) => {
     const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate
 
     const uploadFiles = async (e) => {
-
-        // Zisti na ktorych indexoch su nove Image Files
+        // Get indexes where are new image files 
         const newImgFiles = []
         for (var i = 0; i < images.length; i++) {
             if (typeof images[i] !== 'string') {
@@ -55,14 +53,13 @@ const ProductEditScreen = ({ match, history }) => {
         }
 
         if (newImgFiles.length !== 0) {
-            // ak boli pridane nove fotky
-            // dovtedy budu stare images - do prveho indexu vo newImgFiles
+            // if were added some images
             const oldImgs = []
             for (var j = 0; j < newImgFiles[0]; j++) {
                 oldImgs.push(images[j])
             }
 
-            // UPLOADNI NOVE IMG FILES
+            // UPLOAD NEW IMG FILES
             const formData = new FormData()
             formData.append('userId', userInfo._id);
             for (var k = 0; k < newImgFiles.length; k++) {
@@ -85,11 +82,10 @@ const ProductEditScreen = ({ match, history }) => {
             }
 
         } else {
-            // ak len bola odstranena nejaka z povodnych fotiek 
+            // if were deleted some existing images
             return images
         }
     }
-
 
     useEffect(() => {
         if (!userInfo) {
@@ -145,6 +141,7 @@ const ProductEditScreen = ({ match, history }) => {
     const handleAddClick = () => {
         setPropsList([...propsList, { key: '', val: '' }]);
     };
+
     ////////////////////////////
     // MORE SHIPPING FUNCTIONS 
     // Handle input change
@@ -171,24 +168,16 @@ const ProductEditScreen = ({ match, history }) => {
     const submitHandler = async (e) => {
         e.preventDefault()
 
-        // ak ImagesFiles je prazdne tak to treba len vlozit product.images
-
-        // zisti ci images == product.images
-        // ak sa nerovnaju tak vtedy zavolaj uploadFiles
-        // zisti kolko je novych Files v images
-
         let imagesArr
         if (images === product.images) {
-            // ziadne fotky sa nezmenili
+            // no photos were added
             imagesArr = images
         } else {
-            // Su nejake nove/zmazane fotky
-            // UPLOAD IMAGES
+            // some new photos
             imagesArr = await uploadFiles()
         }
 
         // DISPATCH UPDATE PRODUCT
-        // ak nie su undefined tak ich treba pushnut
         const newProduct = {
             _id: productId, name, description, price,
             category, classification, condition,
@@ -197,7 +186,6 @@ const ProductEditScreen = ({ match, history }) => {
             shipping: shippingList,
             moreProperties: propsList,
         }
-
         dispatch(updateProduct(newProduct))
     }
 
@@ -244,7 +232,7 @@ const ProductEditScreen = ({ match, history }) => {
                                     <Form.Group as={Row} controlId='screen2-1'>
                                         <Col sm="6">
                                             <Form.Label className='my-form-label'>Názov* </Form.Label>
-                                            <Form.Control type='text' value={name} onChange={(e) => setName(e.target.value)}
+                                            <Form.Control type='text' value={name} onChange={(e) => setName(DOMPurify.sanitize(e.target.value))}
                                                 placeholder='Zadajte názov produktu' required></Form.Control>
                                         </Col>
                                         <Col sm="3">
@@ -269,17 +257,16 @@ const ProductEditScreen = ({ match, history }) => {
                                     <Form.Group as={Row} controlId='screen2-2'>
                                         <Col sm="6">
                                             <Form.Label className='my-form-label'>Popis* </Form.Label>
-                                            <Form.Control as="textarea" value={description} onChange={(e) => setDescription(e.target.value)}
-                                                placeholder='Zadajte popis produktu' rows={4} required />
+                                            <Form.Control as="textarea" value={description} onChange={(e) => setDescription(DOMPurify.sanitize(e.target.value))}
+                                                placeholder='Zadajte popis produktu' rows={5} required />
                                         </Col>
                                         <Col sm="6">
                                             {reload &&
                                                 <Form.Group controlId='images'>
                                                     <Form.Label className='my-form-label'>Fotky</Form.Label>
-                                                    <Form.Text id="photosBlock" muted className=''>Vložte max 10 obrázkov. Kliknutím na miniatúru obrázku ho vymažete. </Form.Text>
+                                                    <Form.Text id="photosBlock" muted className='mb-2'>Vložte max 10 obrázkov. Kliknutím na miniatúru obrázku ho vymažete. </Form.Text>
                                                     {product.images.length === 0 && <div>Žiadne fotky</div>}
-                                                    {/* <Form.Control type='text' value={images} onChange={(e) => setImages(e.target.value)} /> */}
-                                                    <UploadMultipleImages2 images={product.images} userId={userInfo._id} onLoad={(val) => setImages(val)} onUpload={(val) => setImages(val)} />
+                                                    <UploadExistMultipleImages images={product.images} userId={userInfo._id} onLoad={(val) => setImages(val)} onUpload={(val) => setImages(val)} />
                                                 </Form.Group>
                                             }
 
@@ -293,51 +280,48 @@ const ProductEditScreen = ({ match, history }) => {
                                         <Col sm="6">
                                             <Row className='mb-4'>
                                                 <Col sm="6">
-                                                    <Form.Label className='my-form-label'>Pôvod</Form.Label>
+                                                    <Form.Label className='my-form-label'>Pôvod*</Form.Label>
 
-                                                    <Form.Control type='text' value={origin} onChange={(e) => setOrigin(e.target.value)}
+                                                    <Form.Control type='text' value={origin} onChange={(e) => setOrigin(DOMPurify.sanitize(e.target.value))}
                                                         placeholder='Vyrobené v...' required ></Form.Control>
                                                 </Col>
                                                 <Col sm="6">
                                                     <Form.Label className='my-form-label'>Výrobca</Form.Label>
 
-                                                    <Form.Control type='text' value={brand} onChange={(e) => setBrand(e.target.value)}
+                                                    <Form.Control type='text' value={brand} onChange={(e) => setBrand(DOMPurify.sanitize(e.target.value))}
                                                         placeholder='Značka produktu' ></Form.Control>
                                                     {/* <Form.Text id="brandBlock" muted> Ak nie je známa alebo na nej nezáleží zadajte pomlčku </Form.Text> */}
-
                                                 </Col>
                                             </Row>
 
                                             <Row>
                                                 <Form.Label column sm="12" className='my-form-label'>Rozmery výrobku</Form.Label>
                                                 {/* šírka, výška, hĺbka, váha */}
-
                                                 <Col sm='12' className='mb-2'>
                                                     <div className='form-check-inline w-5r'>šírka </div>
                                                     <Form.Control className='form-check-inline w-50 pad-control' type='text'
                                                         value={measures.width} onChange={(e) => setMeasures({ ...measures, width: e.target.value })}
                                                         placeholder='' /> cm
-                                        </Col>
+                                                </Col>
                                                 <Col sm='12' className='mb-2'>
                                                     <div className='form-check-inline w-5r'>výška</div>
                                                     <Form.Control className='form-check-inline w-50 pad-control' type='text'
                                                         value={measures.height} onChange={(e) => setMeasures({ ...measures, height: e.target.value })}
                                                         placeholder='' /> cm
-                                    </Col>
+                                                </Col>
                                                 <Col sm='12' className='mb-2'>
                                                     <div className='form-check-inline w-5r'>hĺbka</div>
                                                     <Form.Control className='form-check-inline w-50 pad-control' type='text'
                                                         value={measures.depth} onChange={(e) => setMeasures({ ...measures, depth: e.target.value })}
                                                         placeholder='' /> cm
-                                    </Col>
+                                                </Col>
                                                 <Col sm='12' className='mb-2'>
                                                     <div className='form-check-inline w-5r'>hmotnosť</div>
                                                     <Form.Control className='form-check-inline w-50 pad-control' type='text'
                                                         value={measures.weight} onChange={(e) => setMeasures({ ...measures, weight: e.target.value })}
                                                         placeholder='' /> g
-                                    </Col>
+                                                </Col>
                                             </Row>
-
                                         </Col>
 
                                         <Col sm="6">

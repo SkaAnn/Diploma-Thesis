@@ -3,18 +3,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Table, Image } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link, Route } from 'react-router-dom'
+
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listMyProducts, deleteProduct } from '../actions/productActions'
-import { getUserProfile } from '../actions/userActions'
-import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
-import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants'
 import UserInfoPanel from '../components/UserInfoPanel'
-import { translateClassification, transformDate } from '../utils/translate'
 import MyPagination from '../components/MyPagination'
 
+import { listMyProducts, deleteProduct } from '../actions/productActions'
+import { getUserProfile } from '../actions/userActions'
+import { translateClassification, transformDate } from '../utils/translate'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
+import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants'
+
 const UserProfileScreen = ({ history, match, prevProps }) => {
-    const pageSize = 5  // TODO 10
+    const pageSize = 5  
     const pageNumber = match.params.pageNumber || 1
     // ked nastavim useState na 1, tak sa nebude nacitavat pri Moj profil(lenze to i zosatne na poslednej prezeranej strane...)
     const [newPageNumber, setNewPageNumber] = useState(0)   // TODO: rename oldPage
@@ -48,7 +50,7 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
 
     // deleted product
     const productDelete = useSelector(state => state.productDelete)
-    const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
+    const { success: successDelete } = productDelete
 
     const componentDidUpdate = (prevProps) => {
         if (newPageNumber !== pageNumber) {//match.params.pageNumber) {
@@ -84,20 +86,6 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
             }
 
             componentDidUpdate(prevProps)
-
-            // if (pageNumber){
-            // }
-
-            // if (!user || !user.name || success || productCreateSuccess || productUpdateSuccess || successDelete) {
-            //     dispatch({ type: PRODUCT_CREATE_RESET })
-            //     dispatch({ type: PRODUCT_UPDATE_RESET })
-            //     dispatch({ type: PRODUCT_DELETE_RESET })
-            //     dispatch({ type: USER_UPDATE_PROFILE_RESET })
-            //     // DISPATCH USER DETAILS
-            //     dispatch(getUserProfile())
-            //     // DISPATCH USER PRODUCTS
-            //     dispatch(listMyProducts())
-            // }
         }
     }, [dispatch, userInfo, user, success, productCreateSuccess, productUpdateSuccess, successDelete, pageNumber, history])
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 
-const FilterPanel = ({ history, keyword, sortKey }) => {
+const FilterPanel = ({ history, keyword, sortKey, onFilter }) => {
     const [classification, setClassification] = useState({
         'supply': true,
         'demand': true,
@@ -15,7 +15,7 @@ const FilterPanel = ({ history, keyword, sortKey }) => {
     })
 
     useEffect(() => {
-        // obnovit hodnoty vo filter panely
+        // restore values in panel
         setClassification({ 'supply': true, 'demand': true, 'donor': true })
         setCondition({ 'new': true, 'used': true, 'handmade': true })
     }, [keyword])
@@ -41,6 +41,8 @@ const FilterPanel = ({ history, keyword, sortKey }) => {
             url += `/search/${keyword}`
         }
 
+        onFilter(false);
+
         if (filterStr !== '111111') {
             url += `/filter/${filterStr}/page/1`
             history.push(url)
@@ -53,7 +55,7 @@ const FilterPanel = ({ history, keyword, sortKey }) => {
     return (
         <Form onSubmit={submitHandler}>
 
-            <Form.Group as={Row} controlId="classificationBox" className='mb-0' >
+            <Form.Group as={Row} className='mb-0' >
                 <Form.Label column sm="1">Typ</Form.Label>
                 <Col sm="6">
                     <Form.Check inline type='checkbox' name='classification' checked={classification.supply}
@@ -65,11 +67,10 @@ const FilterPanel = ({ history, keyword, sortKey }) => {
                     <Form.Check inline type='checkbox' name='classification' checked={classification.donor}
                         onChange={(e) => setClassification({ ...classification, donor: !classification.donor })}
                         label="darujem" />
-                    {/* </Form.Group> */}
                 </Col>
             </Form.Group >
 
-            <Form.Group as={Row} controlId="conditionBox" >
+            <Form.Group as={Row} >
                 <Form.Label column sm="1">Stav</Form.Label>
                 <Col sm="11">
                     <Form.Check inline type='checkbox' name='condition' checked={condition.new}
@@ -81,13 +82,10 @@ const FilterPanel = ({ history, keyword, sortKey }) => {
                     <Form.Check inline type='checkbox' name='condition' checked={condition.handmade}
                         onChange={(e) => setCondition({ ...condition, handmade: !condition.handmade })}
                         label="ručná výroba" />
-                    {/* </Form.Group> */}
+                    
                 </Col>
             </Form.Group>
-            {/* 
-            <div>{JSON.stringify(classification)}</div>
-            <div>{JSON.stringify(condition)}</div> */}
-            {/* <Button type='submit' variant='indigo' >Použiť filter!</Button> */}
+
             <button className='my-btn-primary fw-500' type='submit'>Použiť filter!</button>
         </Form>
 

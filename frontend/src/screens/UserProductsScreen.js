@@ -13,7 +13,7 @@ import { listUserProducts } from '../actions/productActions'
 import { listUserDetails } from '../actions/userActions'
 
 const UserProductsScreen = ({ match }) => {
-    const pageSize = 6 // TODO 10
+    const pageSize = 6
     const pageNumber = match.params.pageNumber || 1
 
     const dispatch = useDispatch()
@@ -52,7 +52,6 @@ const UserProductsScreen = ({ match }) => {
                             : (
                                 <>
                                     <h2 className='mb-3 pt-4 fw-600'>Produkty</h2>
-                                    {/* <h2 className='text-uppercase fw-400 mb-2'>Produkty</h2> */}
                                     <Row>
                                         {products.map(product => (
                                             <Col key={product._id} xl={4} lg={5} md={6}>

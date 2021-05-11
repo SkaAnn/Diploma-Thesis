@@ -17,7 +17,7 @@ const ProductCard = ({ product }) => {
 
     useEffect(() => {
         if (userInfo && onLoad) {
-            // zisti ci ma produkt medzi oblubenymi
+            // Is product favorite?
             const isFollower = product.followers.some(item => userInfo._id.toString() === item.toString());
             if (isFollower) setIsFavorite(true)
             setOnLoad(false)
@@ -39,15 +39,9 @@ const ProductCard = ({ product }) => {
 
     return (
 
-        // border: 5px solid rgba(0,0,0,.125)
-        // box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)
         <MDBCard style={{ width: "16rem" }} className='mx-auto my-3'>
-
-
             <MDBView className='view-background'>
-                {/* <LinkContainer to={`/product/${product._id}`}> */}
                 <img
-                    // src="https://mdbootstrap.com/img/Others/documentation/img%20(131)-mini.jpg"
                     src={product.images.length !== 0 ? product.images[0] : '/images/bez-fotky.jpg'}
                     className="mx-auto img-fluid"
                     alt={product.name}
@@ -55,21 +49,12 @@ const ProductCard = ({ product }) => {
                 />
 
                 <MDBMask
-                    // pattern={1}
                     className="flex-top mt-2 px-3">
                     <span className="badge text-uppercase" style={{ backgroundColor: '#6d85c5' }}>{translateClassification(product.classification)}</span>
-
-                    {/* <span style={{ float: 'right', zIndex: '100' }} onClick={addOrRemoveHandler} className='card-wrapper'>
-                            {isFavorite ?
-                                <i className="fas fa-heart fa-lg"></i>
-                                : <i className="far fa-heart fa-lg"></i>}
-                        </span> */}
                 </MDBMask>
                 <MDBMask
-                    // pattern={1}
                     className="flex">
                     <div className="fixed-right-bottom triangle" style={{ borderColor: ` transparent transparent ${triangleColor(product.condition)}  transparent` }} >
-                        {/* <span className='text-uppercase' style={{ zIndex: '2' }}>Novy</span> */}
                     </div>
                 </MDBMask>
             </MDBView>
@@ -87,10 +72,7 @@ const ProductCard = ({ product }) => {
                 </Link>
                 <div className='mb-1' style={{ fontSize: '20px' }}><strong>{
                     product.price !== 0 ? (product.classification === 'demand' ? 'Dohodou' : `${product.price}€`)
-                        : 'Zadarmo'}
-
-                    {/* product.price !== 0 ? `${product.price}€` : product.classification === 'donor' ? 'Zadarmo' : 'Dohodou'} */}
-                </strong></div>
+                        : 'Zadarmo'}</strong></div>
                 <Link to={`/products/user/${product.user._id}`}>
                     <div className='text-muted' style={{ fontSize: '14px' }}>{product.user.name}</div>
                 </Link>

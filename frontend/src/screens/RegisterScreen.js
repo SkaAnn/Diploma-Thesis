@@ -1,11 +1,12 @@
+import DOMPurify from 'dompurify'
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Container, Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Container, Form, Row, Col } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { register } from '../actions/userActions'
 import FormContainerSmall from '../components/FormContainerSmall'
+import { register } from '../actions/userActions'
 
 const RegisterScreen = ({ location, history }) => {
     // Component level state
@@ -17,12 +18,7 @@ const RegisterScreen = ({ location, history }) => {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [locality, setLocality] = useState('')
-    const [profileImage, setProfileImage] = useState('/images/profile-photo.png')
     const [display, setDisplay] = useState({ email: true, phone: true })
-    // Tieto spolu s fotkou neskor...
-    // const [profileInfo, setProfileInfo] = useState('')
-    // const [marketPolicy, setMarketPolicy] = useState('')
-    // favoriteProducts set automatically
 
     const [message, setMessage] = useState('')
 
@@ -48,11 +44,11 @@ const RegisterScreen = ({ location, history }) => {
             setMessage('Heslá sa nezhodujú!')
         } else {
             // DISPATCH REGISTER ACTION
+            const profileImage = '/images/profile-photo.png'
             const newUser = {
                 name, email, password,
                 phoneNumber, profileImage, profileType,
                 locality, display
-                // profileInfo, marketPolicy
             }
             dispatch(register(newUser))
         }
@@ -67,9 +63,7 @@ const RegisterScreen = ({ location, history }) => {
                     {error && <div className='mx-4 mb-0'><Message>{error}</Message></div>}
                     {loading && <Loader />}
                     <Form onSubmit={submitHandler} className='form-pad'>
-
                         <Form.Label className="mb-4 fs-14px text-center w-100" style={{ color: 'red' }}>Všetky položky sú povinné. <br /> Položky označené * sa nedajú zmeniť.</Form.Label>
-
 
                         <Form.Group controlId="profileTypeBox" value={profileType} onChange={(e) => setProfileType(e.target.value)}>
                             <Form.Label className="form-check-inline mb-0 fs-14px">Typ profilu* </Form.Label>
@@ -79,17 +73,10 @@ const RegisterScreen = ({ location, history }) => {
                             </div>
                         </Form.Group>
 
-                        {/* <Form.Group controlId='locality' className='form-check-inline mr-0 w-100'>
-                        <Form.Label className="form-check-inline mb-0 fs-14px font-italic">Lokalita* </Form.Label>
-                        <Form.Control type='text' className="mainLoginInput login-control ml-3" placeholder='napr. Bratislava, Slovenská republika' value={locality}
-                            onChange={(e) => setLocality(e.target.value)} required ></Form.Control>
-                    </Form.Group> */}
-
-                        {/* form-check-inline */}
                         <Form.Group controlId='name'>
                             <Form.Label className='mb-0 fs-14px'>Používateľské meno</Form.Label>
                             <Form.Control type='text' className="mainLoginInput login-control" placeholder="&#61447;  používateľské meno" value={name}
-                                onChange={(e) => setName(e.target.value)} required
+                                onChange={(e) => setName(DOMPurify.sanitize(e.target.value))} required
                                 style={{ marginBottom: '1.1rem' }}></Form.Control>
                         </Form.Group>
 
@@ -110,10 +97,9 @@ const RegisterScreen = ({ location, history }) => {
 
                         <Form.Group controlId='phoneNumber' style={{ marginBottom: '1.1rem' }}>
                             <Form.Label className='mb-0 fs-14px'>Telefónne číslo</Form.Label>
-                            {/* TODO: valid only digits onKeyPress */}
                             <Row>
                                 <Col md={8}>
-                                    <Form.Control type='text' className="mainLoginInput login-control" placeholder='&#x2706;  telefónne číslo' value={phoneNumber}
+                                    <Form.Control type='text' className="mainLoginInput login-control" placeholder='&#x2706;  telefónne číslo' value={phoneNumber} pattern='^[+]*[0-9]*$'
                                         onChange={(e) => setPhoneNumber(e.target.value)}></Form.Control>
                                 </Col>
                                 <Col md={4}>
@@ -126,7 +112,7 @@ const RegisterScreen = ({ location, history }) => {
                         <Form.Group controlId='locality'>
                             <Form.Label className="mb-0 fs-14px">Lokalita</Form.Label>
                             <Form.Control type='text' className="mainLoginInput login-control" placeholder='napr. Bratislava, Slovenská republika' value={locality}
-                                onChange={(e) => setLocality(e.target.value)} required
+                                onChange={(e) => setLocality(DOMPurify.sanitize(e.target.value))} required
                                 style={{ marginBottom: '1.1rem' }}></Form.Control>
                         </Form.Group>
 
@@ -146,12 +132,8 @@ const RegisterScreen = ({ location, history }) => {
                             </Row>
                         </Form.Group>
 
-
-                        {/* <Button  variant='primary'>Prihlásiť!</Button> */}
                         <button type='submit' className='my-btn-big my-3 text-uppercase' style={{ width: '100%' }}> Zaregistrovať! </button>
                     </Form>
-
-
 
                     <Row className='pb-3 pt-2'>
                         <Col className='text-center fs-14px'> Už máš konto? <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Prihlás sa!</Link></Col>

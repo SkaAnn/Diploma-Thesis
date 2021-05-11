@@ -1,12 +1,11 @@
 import axios from 'axios'
+import DOMPurify from 'dompurify'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Form, Image, Row, Col, Container } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Form, Row, Col, Container } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import FormContainer from '../components/FormContainer'
 import { getUserProfile, updateUserProfile } from '../actions/userActions'
 
 const ProfileUpdateScreen = ({ history }) => {
@@ -30,7 +29,7 @@ const ProfileUpdateScreen = ({ history }) => {
 
     const [message, setMessage] = useState('')
 
-    // TODO: profileImage
+    // ProfileImage
     const [profileImage, setProfileImage] = useState('')    // tu uskladnene url, blob
     const [image, setImage] = useState('')  // tu uskladneny File
     const [uploading, setUploading] = useState(false)
@@ -57,7 +56,6 @@ const ProfileUpdateScreen = ({ history }) => {
             } else {
 
                 if (!user || !user.name) {
-                    // dispatch({ type: USER_UPDATE_PROFILE_RESET })
                     // DISPATCH USER DETAILS
                     dispatch(getUserProfile())
                 } else {
@@ -83,10 +81,10 @@ const ProfileUpdateScreen = ({ history }) => {
     }
 
     const uploadFileHandler = async (e) => {
-        const file = image//e.target.files[0]  // can upload multiple files
+        const file = image // can upload multiple files
         const formData = new FormData()
         formData.append('userId', userInfo._id);
-        formData.append('avatar', file)    // image sa vola i v backend
+        formData.append('avatar', file)    // image is called avatar on backend
         setUploading(true)
 
         try {
@@ -97,7 +95,6 @@ const ProfileUpdateScreen = ({ history }) => {
             }
 
             const { data } = await axios.post(`/api/upload/profile`, formData, config)
-            // setImage(data)
             setUploading(false)
             return data
         } catch (error) {
@@ -115,7 +112,7 @@ const ProfileUpdateScreen = ({ history }) => {
                 }
             }
 
-            const { data } = await axios.post('/api/users/auth', { email, password }, config)
+            await axios.post('/api/users/auth', { email, password }, config)
             return true
         } catch (error) {
             console.error(error)
@@ -132,21 +129,18 @@ const ProfileUpdateScreen = ({ history }) => {
             handleImage(e)
             handlePhoto(e)
         }
-        // ale napriek tomu sa vypisuje stara hodnota :/
-        //await setImage(e.target.files[0])
-        //await setProfileImage(URL.createObjectURL(image))
     }
 
     const submitHandler = async (e) => {
         e.preventDefault()
 
-        // Chcem menit heslo 
+        // Want to change password 
         if (newPassword && confirmNewPassword) {
             if (newPassword !== confirmNewPassword) {
                 setMessage('Nové heslá sa nezhodujú!')
             } else {
-                // zisti ci je spravne aktualne heslo
-                // ak je nove heslo aj potvrdene tak zisti ci sa zhoduje stare heslo...
+                // Is new password correct?
+                // Is actual password corresponding with old password?
                 const isCorrectPassword = await authorizeUser()
 
                 if (isCorrectPassword) {
@@ -172,11 +166,11 @@ const ProfileUpdateScreen = ({ history }) => {
                     // DISPATCH UPDATE PROFILE
                     dispatch(updateUserProfile(updatedUser))
                 } else {
-                    setMessage('Nezadali ste spravne aktualne heslo!')
+                    setMessage('Nezadali ste správne aktuálne heslo!')
                 }
             }
         } else {
-            // Nechcem menit heslo
+            // Dont want to change password
             let imgUrl
             if (image === user.profileImage) {
                 imgUrl = image
@@ -204,7 +198,6 @@ const ProfileUpdateScreen = ({ history }) => {
     return (
         <Container className='mt-5rem'>
             <div>
-
                 {error && <Message>{error}</Message>}
                 <LinkContainer to='/my/profile' >
                     <h6 className=' pt-4 fw-600 curs-pointer'><i className="fas fa-arrow-left"></i> Späť</h6>
@@ -220,7 +213,7 @@ const ProfileUpdateScreen = ({ history }) => {
 
                                 <Form.Group controlId='profile-image' className='mt-4 mb-4'>
                                     <div style={{ marginBottom: '2.2rem' }} onClick={deleteImage}>
-                                        <img src={profileImage !== '' ? profileImage : '/images/profile-photo.png'} className='profile-pic mx-auto' />
+                                        <img src={profileImage !== '' ? profileImage : '/images/profile-photo.png'} alt='profilePhoto' className='profile-pic mx-auto' />
                                     </div>
 
                                     <Row className='mt-4'>
@@ -230,19 +223,19 @@ const ProfileUpdateScreen = ({ history }) => {
                                         <Col lg={8}>
                                             <Form.File className='mx-auto text-left' style={{ maxWidth: '17rem' }} id='image-file'
                                                 label='Vyberte fotografiu' custom onChange={imageChangeHandler}></Form.File>
+                                            <Form.Text id="photoBlock" muted>Kliknutím na profilovú fotku ju vymažete. </Form.Text>
                                         </Col>
                                     </Row>
-                                    {/* <Form.Control type='text' placeholder='Enter image url' value={image}></Form.Control> */}
+
                                     {uploading && <Loader />}
                                 </Form.Group>
 
                                 <Form.Group controlId='profileInfo'>
                                     <Form.Label className='fs-14px'>Informácie o {profileType && profileType === 'company' ? 'nás' : 'mne'}</Form.Label>
-                                    <Form.Control as="textarea" value={profileInfo} onChange={(e) => setProfileInfo(e.target.value)}
+                                    <Form.Control as="textarea" value={profileInfo} onChange={(e) => setProfileInfo(DOMPurify.sanitize(e.target.value))}
                                         placeholder='' rows={4} />
                                 </Form.Group>
                             </Col>
-
 
                             <Col sm={7} className='px-5 py-5'>
                                 <Row>
@@ -266,8 +259,7 @@ const ProfileUpdateScreen = ({ history }) => {
                                     <Col sm={4}>
                                         <Form.Group controlId='phoneNumber'>
                                             <Form.Label className='fs-14px'>Telefónne číslo</Form.Label>
-                                            {/* TODO: valid only digits onKeyPress */}
-                                            <Form.Control type='text' value={phoneNumber}
+                                            <Form.Control type='text' value={phoneNumber} pattern="^[+]*[0-9]*$"
                                                 onChange={(e) => setPhoneNumber(e.target.value)} ></Form.Control>
                                             <Form.Check inline type='checkbox' name='displayPhone' checked={display.phone}
                                                 onChange={(e) => setDisplay({ ...display, phone: !display.phone })} label="zobrazovať verejnosti" className='mt-2 fs-13px' />
@@ -281,15 +273,9 @@ const ProfileUpdateScreen = ({ history }) => {
                                     <Form.Control className='form-check-inline' plaintext readOnly value={locality} style={{ width: '80%' }} />
                                 </Form.Group>
 
-                                {/* <Form.Group controlId='profileInfo'>
-                            <Form.Label className='fs-14px'>Informácie o {profileType && profileType === 'company' ? 'nás' : 'mne'}</Form.Label>
-                            <Form.Control as="textarea" value={profileInfo} onChange={(e) => setProfileInfo(e.target.value)}
-                                placeholder='' rows={4} />
-                        </Form.Group> */}
-
                                 <Form.Group controlId='marketPolicy'>
                                     <Form.Label className='fs-14px'>Podmienky predaja/kúpy/daru</Form.Label>
-                                    <Form.Control as="textarea" value={marketPolicy} onChange={(e) => setMarketPolicy(e.target.value)}
+                                    <Form.Control as="textarea" value={marketPolicy} onChange={(e) => setMarketPolicy(DOMPurify.sanitize(e.target.value))}
                                         placeholder='' rows={4} />
                                 </Form.Group>
 
@@ -297,7 +283,6 @@ const ProfileUpdateScreen = ({ history }) => {
                                 <Form.Text id="passwordBlock" muted className='mb-3'>Musí byť dlhé min 8 znakov a obsahovať aspoň 1 veľké písmeno, 1 malé písmeno a 1 číslo!</Form.Text>
                                 {message && <Message>{message}</Message>}
 
-                                {/* <div style={{visibility: 'hidden'}}> */}
                                 <Row>
                                     <Col md={4} className='text-center'>
                                         <Form.Group controlId='password'>
@@ -309,7 +294,7 @@ const ProfileUpdateScreen = ({ history }) => {
                                     <Col md={4} className='text-center'>
                                         <Form.Group controlId='newPassword'>
                                             <Form.Control className='mainLoginInput mb-0' type='password' placeholder='&#61475;  nové heslo' value={newPassword}
-                                                onChange={(e) => setNewPassword(e.target.value)}></Form.Control>
+                                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" onChange={(e) => setNewPassword(e.target.value)}></Form.Control>
                                             <Form.Label className='fs-12px text-muted'>Nové heslo</Form.Label>
                                         </Form.Group>
                                     </Col>

@@ -260,6 +260,7 @@ const getFavoriteProducts = asyncHandler(async (req, res) => {
     const products = await Product.find({ followers: req.user._id, active: true }).populate('user', 'id name').select('-followers')
         .limit(pageSize)
         .skip(pageSize * (page - 1))
+        .sort({createdAt: -1})
 
     res.json({ products, count, page, pages: Math.ceil(count / pageSize) })
     //res.json(products)

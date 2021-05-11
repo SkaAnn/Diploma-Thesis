@@ -6,7 +6,6 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { logout } from '../actions/userActions'
 import SearchBox from './SearchBox'
 
-// #3f51b5
 // https://bootsnipp.com/snippets/mMynR
 const Header = () => {
 

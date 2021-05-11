@@ -1,3 +1,4 @@
+import DOMPurify from 'dompurify'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Form } from 'react-bootstrap'
@@ -138,7 +139,7 @@ const ProductScreen = ({ match }) => {
 
                             <Form onSubmit={submitHandler}>
                                 <Form.Label><strong>Text správy</strong></Form.Label>
-                                <Form.Control as="textarea" onChange={(e) => setFeedback(e.target.value)}
+                                <Form.Control as="textarea" onChange={(e) => setFeedback(DOMPurify.sanitize(e.target.value))}
                                     placeholder='Dobrý deň, ...' rows={6} required className='mb-3' />
                                 <div className='text-center'><button type='submit' className='my-btn-primary fw-500 w-100 fs-18px'> Odoslať </button></div>
                             </Form>

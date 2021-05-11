@@ -4,7 +4,6 @@ import { Container } from 'react-bootstrap'
 const My404Screen = () => {
     return (
         <Container>
-
             <h1 className='fw-500'
                 style={{
                     margin: '0',
