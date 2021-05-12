@@ -33,6 +33,9 @@ const ProductEditScreen = ({ match, history }) => {
     const [condition, setCondition] = useState('')
     const [reload, setReload] = useState(false)
 
+    const [message1, setMessage1] = useState('')
+    const [message2, setMessage2] = useState('')
+
     // Global states
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -165,28 +168,53 @@ const ProductEditScreen = ({ match, history }) => {
     };
     //////////////////////////////
 
+    const isBlankPropList = () => {
+        let isBlank = false
+        propsList.map((it) => (
+            (it.key === "" || it.val === "") && (isBlank = true)
+        ))
+        return isBlank
+    }
+
+    const isBlankShippingList = () => {
+        let isBlank = false
+        shippingList.map((it) => (
+            (it.typ === "" || it.price === "") && (isBlank = true)
+        ))
+        return isBlank
+    }
+
     const submitHandler = async (e) => {
         e.preventDefault()
+        setMessage1('')
+        setMessage2('')
 
-        let imagesArr
-        if (images === product.images) {
-            // no photos were added
-            imagesArr = images
+        const blankPropList = isBlankPropList()
+        const blankShippingList = isBlankShippingList()
+        if (blankPropList || blankShippingList) {
+            if (blankShippingList) setMessage1('Položky v tejto časti nesmú byť prázdne')
+            if (blankPropList) setMessage2('Položky v tejto časti nesmú byť prázdne')
         } else {
-            // some new photos
-            imagesArr = await uploadFiles()
-        }
+            let imagesArr
+            if (images === product.images) {
+                // no photos were added
+                imagesArr = images
+            } else {
+                // some new photos
+                imagesArr = await uploadFiles()
+            }
 
-        // DISPATCH UPDATE PRODUCT
-        const newProduct = {
-            _id: productId, name, description, price,
-            category, classification, condition,
-            countInStock, origin, brand, measures,
-            images: imagesArr,
-            shipping: shippingList,
-            moreProperties: propsList,
+            // DISPATCH UPDATE PRODUCT
+            const newProduct = {
+                _id: productId, name, description, price,
+                category, classification, condition,
+                countInStock, origin, brand, measures,
+                images: imagesArr,
+                shipping: shippingList,
+                moreProperties: propsList,
+            }
+            dispatch(updateProduct(newProduct))
         }
-        dispatch(updateProduct(newProduct))
     }
 
     return (
@@ -233,7 +261,7 @@ const ProductEditScreen = ({ match, history }) => {
                                         <Col sm="6">
                                             <Form.Label className='my-form-label'>Názov* </Form.Label>
                                             <Form.Control type='text' value={name} onChange={(e) => setName(DOMPurify.sanitize(e.target.value))}
-                                                placeholder='Zadajte názov produktu' required></Form.Control>
+                                                placeholder='Zadajte názov produktu' maxlength="100" required></Form.Control>
                                         </Col>
                                         <Col sm="3">
                                             <Form.Label className='my-form-label' >Počet kusov* </Form.Label>
@@ -258,7 +286,7 @@ const ProductEditScreen = ({ match, history }) => {
                                         <Col sm="6">
                                             <Form.Label className='my-form-label'>Popis* </Form.Label>
                                             <Form.Control as="textarea" value={description} onChange={(e) => setDescription(DOMPurify.sanitize(e.target.value))}
-                                                placeholder='Zadajte popis produktu' rows={5} required />
+                                                placeholder='Zadajte popis produktu' rows={5} maxlength="1000" required />
                                         </Col>
                                         <Col sm="6">
                                             {reload &&
@@ -283,13 +311,12 @@ const ProductEditScreen = ({ match, history }) => {
                                                     <Form.Label className='my-form-label'>Pôvod*</Form.Label>
 
                                                     <Form.Control type='text' value={origin} onChange={(e) => setOrigin(DOMPurify.sanitize(e.target.value))}
-                                                        placeholder='Vyrobené v...' required ></Form.Control>
+                                                        placeholder='Vyrobené v...' required maxlength="150" ></Form.Control>
                                                 </Col>
                                                 <Col sm="6">
                                                     <Form.Label className='my-form-label'>Výrobca</Form.Label>
-
                                                     <Form.Control type='text' value={brand} onChange={(e) => setBrand(DOMPurify.sanitize(e.target.value))}
-                                                        placeholder='Značka produktu' ></Form.Control>
+                                                        placeholder='Značka produktu' maxlength="100" ></Form.Control>
                                                     {/* <Form.Text id="brandBlock" muted> Ak nie je známa alebo na nej nezáleží zadajte pomlčku </Form.Text> */}
                                                 </Col>
                                             </Row>
@@ -329,7 +356,7 @@ const ProductEditScreen = ({ match, history }) => {
                                                 <Form.Label className='my-form-label'>Spôsoby dodania</Form.Label>
                                                 <Form.Text id="propBlock" muted> Zvoľte spôsob a cenu doručenia napr. osobný odber - zadarmo, Slovenská pošta - 1.5e </Form.Text>
                                             </Form.Group>
-                                            {/* {message && <Message>{message}</Message>} */}
+                                            {message1 && <Message>{message1}</Message>}
                                             {shippingList.length === 0
                                                 ? <button className='my-btn-small' onClick={handleAddClickShipping} style={{ width: '120px', borderRadius: '0' }}> <i className="fas fa-plus" /> Pridať</button>
                                                 :
@@ -377,7 +404,7 @@ const ProductEditScreen = ({ match, history }) => {
                                                 {hintOptions[category - 1] && hintOptions[category - 1] !== '' &&
                                                     <Form.Text id="propBlock" muted> napr. {hintOptions[category - 1]} </Form.Text>}
                                             </Form.Group>
-                                            {/* {message2 && <Message>{message2}</Message>} */}
+                                            {message2 && <Message>{message2}</Message>}
                                             {/* https://www.cluemediator.com/add-or-remove-input-fields-dynamically-with-reactjs */}
                                             {propsList.length === 0
                                                 ? <button className='my-btn-small' onClick={handleAddClick} style={{ width: '120px', borderRadius: '0' }}> <i className="fas fa-plus" /> Pridať</button>

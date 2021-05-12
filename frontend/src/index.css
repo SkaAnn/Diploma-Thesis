@@ -184,7 +184,7 @@ main {
 }
 
 .search-box{
-    --search-bg-color-hover: #9ff5df;
+    --search-bg-color-hover:  var(--secondaryColorLight);
     border: none !important;
     border-bottom: 1px solid #ced4da !important;
     border-radius: 0 !important;
@@ -276,8 +276,8 @@ main {
     color: var(--black-color) !important;
     --border-color: var(--black-color);
     --button-bg-color: #fff;
-    --button-bg-color-hover: #9ff5df;
-    --button-bg-color-active: #78f5d6;
+    --button-bg-color-hover: var(--secondaryColorLight);
+    --button-bg-color-active: var(--secondaryColorLight);
     display: -webkit-inline-box;
     display: inline-flex;
     -webkit-box-pack: center;
@@ -317,7 +317,7 @@ main {
     --button-bg-color: #fff;
     /* --button-bg-color-hover: #9ff5df; */
     --button-bg-color-hover: var(--secondaryColorLight);
-    --button-bg-color-active: #78f5d6;
+    --button-bg-color-active:  var(--secondaryColorLight);;
     display: -webkit-inline-box;
     display: inline-flex;
     -webkit-box-pack: center;
@@ -595,7 +595,7 @@ padding-top: 2px;
     color: var(--black-color) !important;
     --button-bg-color: #fff;
     --button-bg-color-hover: #FFE773;
-    --button-bg-color-active: #78f5d6;
+    --button-bg-color-active: #FFE773;/*var(--secondaryColorLight);*/
     display: -webkit-inline-box;
     display: inline-flex;
     -webkit-box-pack: center;
@@ -607,7 +607,7 @@ padding-top: 2px;
     font-size: 18px;
     font-weight: 600;
     /* line-height: 1.17; */
-    background-color: #FFE773; /*rgb(255, 244, 191);*/
+    background-color: rgb(255, 244, 191); /*#FFE773; *//*rgb(255, 244, 191);*/
     border: none;
     /* box-shadow: inset 1px 1px 0 1px #fff; */
     /* -webkit-transition: all .25s ease;
@@ -635,7 +635,7 @@ padding-top: 2px;
     border: 0;
     border-radius: .125rem;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
-    transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
     padding: .84rem 2.14rem;
     font-size: .81rem;
 }
@@ -646,7 +646,7 @@ padding-top: 2px;
 
 .my-btn-primary:hover {
     color: #fff !important;
-    background-color: #5a95f5 !important;
+    background-color: #2160c5 !important;
 }
 
 .my-btn-primary:hover, .my-btn-primary:focus, .my-btn-primary:active {
