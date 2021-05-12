@@ -93,10 +93,6 @@ const ProductScreen = ({ match }) => {
             REACT_APP_EMAILJS_USERID: user,
         } = env;
 
-        // TODO: receiver (owner of product) and sender (logged user) email
-        // ale vzdy to tomu uzivatelovi dojde z mojho mailu co mam nastaveny v programe
-        console.log('EMAIL ', product.user)
-        console.log('EMAIL ', product.user.email)
         const receiverEmail = product.user.email //'skaann.dev@gmail.com'
         const senderEmail = userInfo.email //'skaann.dev@gmail.com' //userInfo.email// userinfi
 
@@ -207,17 +203,17 @@ const ProductScreen = ({ match }) => {
                                         <div>
                                             <MDBNav className="nav-tabs mt-5">
                                                 <MDBNavItem>
-                                                    <MDBNavLink link to="#" active={activeItem === '1'} onClick={toggle("1")} role="tab" >
+                                                    <MDBNavLink style={{color:'rgb(63, 89, 158)'}} link to="#" active={activeItem === '1'} onClick={toggle("1")} role="tab" >
                                                         Popis
                                             </MDBNavLink>
                                                 </MDBNavItem>
                                                 <MDBNavItem>
-                                                    <MDBNavLink link to="#" active={activeItem === '2'} onClick={toggle("2")} role="tab" >
+                                                    <MDBNavLink style={{color:'rgb(63, 89, 158)'}} link to="#" active={activeItem === '2'} onClick={toggle("2")} role="tab" >
                                                         Špecifikácia
                                             </MDBNavLink>
                                                 </MDBNavItem>
                                                 <MDBNavItem>
-                                                    <MDBNavLink link to="#" active={activeItem === '3'} onClick={toggle("3")} role="tab" >
+                                                    <MDBNavLink style={{color:'rgb(63, 89, 158)'}} link to="#" active={activeItem === '3'} onClick={toggle("3")} role="tab" >
                                                         Doprava a doručenie
                                                     {/* poštovné */}
                                                     </MDBNavLink>

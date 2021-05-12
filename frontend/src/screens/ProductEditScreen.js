@@ -326,25 +326,25 @@ const ProductEditScreen = ({ match, history }) => {
                                                 {/* šírka, výška, hĺbka, váha */}
                                                 <Col sm='12' className='mb-2'>
                                                     <div className='form-check-inline w-5r'>šírka </div>
-                                                    <Form.Control className='form-check-inline w-50 pad-control' type='text'
+                                                    <Form.Control className='form-check-inline w-50 pad-control' type='number' step={'.01'} min={0}
                                                         value={measures.width} onChange={(e) => setMeasures({ ...measures, width: e.target.value })}
                                                         placeholder='' /> cm
                                                 </Col>
                                                 <Col sm='12' className='mb-2'>
                                                     <div className='form-check-inline w-5r'>výška</div>
-                                                    <Form.Control className='form-check-inline w-50 pad-control' type='text'
+                                                    <Form.Control className='form-check-inline w-50 pad-control' type='number' step={'.01'} min={0}
                                                         value={measures.height} onChange={(e) => setMeasures({ ...measures, height: e.target.value })}
                                                         placeholder='' /> cm
                                                 </Col>
                                                 <Col sm='12' className='mb-2'>
                                                     <div className='form-check-inline w-5r'>hĺbka</div>
-                                                    <Form.Control className='form-check-inline w-50 pad-control' type='text'
+                                                    <Form.Control className='form-check-inline w-50 pad-control' type='number' step={'.01'} min={0}
                                                         value={measures.depth} onChange={(e) => setMeasures({ ...measures, depth: e.target.value })}
                                                         placeholder='' /> cm
                                                 </Col>
                                                 <Col sm='12' className='mb-2'>
                                                     <div className='form-check-inline w-5r'>hmotnosť</div>
-                                                    <Form.Control className='form-check-inline w-50 pad-control' type='text'
+                                                    <Form.Control className='form-check-inline w-50 pad-control' type='number' step={'.01'} min={0}
                                                         value={measures.weight} onChange={(e) => setMeasures({ ...measures, weight: e.target.value })}
                                                         placeholder='' /> g
                                                 </Col>

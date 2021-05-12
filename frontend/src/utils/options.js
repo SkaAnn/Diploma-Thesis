@@ -14,6 +14,7 @@ export const categoryOptions = [
     { label: 'Počítače a TV', value: 13 },
     { label: 'Elektro', value: 14 },
     { label: 'Ostatné', value: 15 },
+    { label: 'Škola a kancelária', value: 16 },
 ].sort((a, b) => {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
     const nameA = a.label.toUpperCase(); 
@@ -31,12 +32,12 @@ export const hintOptions = [
 'rok výroby', // Starožitnosti a zberateľstvo
 '', // Starostlivosť o zvieratá
 'použitie (vonku, dnu)', // Šport
-'rok výroby, záruka', // Hudba
+'rok výroby, záručná doba', // Hudba
 '', // Dom a záhrada
 'účel použitia, záručná doba', // Zdravie
 '', // Šperky a dekorácie
 'príslušenstvo, veľkosť pamäte, kvalita fotoaparátu', // Mobily a tablety
 'veľkosť pamäte', // Počítače a TV
-'záruka', //Elektro
+'záručná doba', //Elektro
 '' // Ostatné
 ]

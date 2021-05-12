@@ -233,7 +233,7 @@ const ProfileUpdateScreen = ({ history }) => {
                                 <Form.Group controlId='profileInfo'>
                                     <Form.Label className='fs-14px'>Informácie o {profileType && profileType === 'company' ? 'nás' : 'mne'}</Form.Label>
                                     <Form.Control as="textarea" value={profileInfo} onChange={(e) => setProfileInfo(DOMPurify.sanitize(e.target.value))}
-                                        placeholder='' rows={4} />
+                                        placeholder='' rows={4} maxlength="2000"/>
                                 </Form.Group>
                             </Col>
 
@@ -243,7 +243,7 @@ const ProfileUpdateScreen = ({ history }) => {
                                         <Form.Group controlId='name'>
                                             <Form.Label className='fs-14px'>Užívateľské meno</Form.Label>
                                             <Form.Control type='text' placeholder='Enter name' value={name}
-                                                onChange={(e) => setName(e.target.value)} ></Form.Control>
+                                                onChange={(e) => setName(e.target.value)} maxlength="100"></Form.Control>
                                         </Form.Group>
                                     </Col>
 
@@ -276,7 +276,7 @@ const ProfileUpdateScreen = ({ history }) => {
                                 <Form.Group controlId='marketPolicy'>
                                     <Form.Label className='fs-14px'>Podmienky predaja/kúpy/daru</Form.Label>
                                     <Form.Control as="textarea" value={marketPolicy} onChange={(e) => setMarketPolicy(DOMPurify.sanitize(e.target.value))}
-                                        placeholder='' rows={4} />
+                                        placeholder='' rows={4} maxlength="2000"/>
                                 </Form.Group>
 
                                 <Form.Label className='fs-14px mb-0'>Zmeniť heslo</Form.Label>
