@@ -273,7 +273,7 @@ const ProductEditScreen = ({ match, history }) => {
                                             {classification && classification === 'donor' ?
                                                 <Form.Control plaintext readOnly value="Zadarmo" />
                                                 :
-                                                <Form.Control type='number' step={'.01'} min={0} value={price}
+                                                <Form.Control type='number' step={'.01'} min={0} value={price} required
                                                     onChange={(e) => setPrice(Number(e.target.value))} />
                                             }
                                             {classification && classification === 'demand' &&

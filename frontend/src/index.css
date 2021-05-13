@@ -27,7 +27,6 @@ main {
     width: 5rem !important;
 }
 
-/*media 576 */
 @media only screen and (min-width: 576px) {
     .pad-r1{
         padding-right: 1px !important;
@@ -118,9 +117,7 @@ main {
     text-align: center;
     font-size: 12px;
     font-weight: 700;
-    /* line-height: 1.17; */
     background-color: var(--button-bg-color);
-    /* box-shadow: inset 1px 1px 0 1px #fff; */
     -webkit-transition: all .25s ease;
     transition: all .25s ease;
     white-space: pre-wrap;
@@ -141,8 +138,6 @@ main {
 }
 
 .header-link {
-    /* color: var(--black-color) !important; */
-    /* --link-bg-color-hover: #9ff5df; */
     --link-text-color-hover: var(--black-color);
     --link-bg-color-hover: var(--secondaryColorLight);
     display: block;
@@ -155,8 +150,6 @@ main {
 }
 
 .header-link-black {
-    /* color: var(--black-color) !important; */
-    /* --link-bg-color-hover: #9ff5df; */
     --link-text-color-hover: var(--black-color);
     --link-bg-color-hover: var(--secondaryColorLight);
     display: block;
@@ -412,7 +405,6 @@ main {
 	width: 0;
 	height: 0;
 	border-width: 0 0 50px 50px;
-	/* border-color: transparent transparent #e59bdf transparent; */
 	border-style: solid;
     z-index: 1;
 }
@@ -429,7 +421,6 @@ main {
 .mainLoginInput{
   height: 40px;
   padding: 0px;
-  /* font-size: 30px; */
   margin: 5px 0;
 }
 
@@ -441,7 +432,6 @@ vertical-align: top;
 display: inline-block !important;
 padding-left: 5px;
 padding-top: 2px;
-/* color: hsl(9, 40%, 60%); */
 }
 
 .mainLoginInput::-moz-placeholder  { 
@@ -452,7 +442,6 @@ vertical-align: top;
 display: inline-block !important;
 padding-left: 5px;
 padding-top: 2px;
-/* color: hsl(9, 40%, 60%); */
 }
 
 .mainLoginInput:-ms-input-placeholder  { 
@@ -463,7 +452,6 @@ vertical-align: top;
 display: inline-block !important;
 padding-left: 5px;
 padding-top: 2px;
-/* color: hsl(9, 40%, 60%); */
 }
 
 .login-control{
@@ -526,9 +514,6 @@ padding-top: 2px;
     margin-top: 5rem;
 }
 
-
-
-
 /******** PRODUCT CREATE SCREEN ***************/
 @media only screen and (max-width: 768px) {
     .my-form-section {
@@ -548,10 +533,7 @@ padding-top: 2px;
 
 .my-form-section {
     cursor: pointer;
-    
     padding: 2rem 0.5rem;
-    /* color: var(--black-color) !important; */
-    /* display: block; */
     --my-form-section-bg-color: (var(--primaryColorDarken));
     --my-form-section-bg-color-hover: #FFE773;
     background-color: var(--my-form-section-bg-color);
@@ -570,14 +552,11 @@ padding-top: 2px;
 
 
 .my-form-label {
-    /* color: var(--black-color) !important; */
-    /* display: block; */
     font-size: 14px !important;
     font-weight: 600;
     letter-spacing: -.09px;
     color: inherit;
     text-transform: uppercase;
-
     transition: color .3s;
 }
 
@@ -595,7 +574,7 @@ padding-top: 2px;
     color: var(--black-color) !important;
     --button-bg-color: #fff;
     --button-bg-color-hover: #FFE773;
-    --button-bg-color-active: #FFE773;/*var(--secondaryColorLight);*/
+    --button-bg-color-active: #FFE773;
     display: -webkit-inline-box;
     display: inline-flex;
     -webkit-box-pack: center;
@@ -606,12 +585,8 @@ padding-top: 2px;
     text-align: center;
     font-size: 18px;
     font-weight: 600;
-    /* line-height: 1.17; */
-    background-color: rgb(255, 244, 191); /*#FFE773; *//*rgb(255, 244, 191);*/
+    background-color: rgb(255, 244, 191); 
     border: none;
-    /* box-shadow: inset 1px 1px 0 1px #fff; */
-    /* -webkit-transition: all .25s ease;
-    transition: all .25s ease; */
     white-space: pre-wrap;
     text-transform: none;
     letter-spacing: 0;
@@ -624,7 +599,6 @@ padding-top: 2px;
 
 .my-btn-primary {
     background-color: #FFE773 !important; 
-    /* #78f5d6 !important; */
     color: black !important;
     margin: .375rem;
     color: inherit;
@@ -654,23 +628,10 @@ padding-top: 2px;
     box-shadow: 0 5px 11px 0 rgb(0 0 0 / 18%), 0 4px 15px 0 rgb(0 0 0 / 15%);
 }
 
-/* .my-btn-primary:hover {
-    color: #fff;
-    background-color: #0069d9;
-    border-color: #0062cc;
-} */
-
-/* .my-btn:hover {
-    color: #212529;
-    text-decoration: none;
-} */
-
-/**** HOmescreen *****/
+/**** Homescreen *****/
 .sticky-top {
     padding-top: 4rem;
 }
-
-
 
 /********************* PAGINATION *********************/
 .pagination {
@@ -711,12 +672,9 @@ padding-top: 2px;
 
 /* https://stackoverflow.com/questions/2852276/make-div-overlay-entire-page-not-just-viewport */
  .fadeMe {
-    /* opacity:    0.7;  */
     background-color:rgba(0,0,0,.7);
-    /* background: #000;  */
     width:      100%;
     height:     100%; 
-    /* z-index: 1030 ma Header */
     z-index:    1050;
     top:        0; 
     left:       0; 

@@ -9,7 +9,7 @@ const Footer = () => {
                     <Col className='col-md-4' style={{ lineHeight: '2rem' }}>
                         <span className='fw-600'>Bc. Anna Skachová </span> <br/>
 
-                        <a href='https://github.com/SkaAnn/' style={{color: 'white'}}> 
+                        <a href="mailto:xskachova@stuba.sk" style={{color: 'white'}}> 
                             <i className="fas fa-at fa-lg mr-1"></i> xskachova@stuba.sk
                         </a> <br/>
                         <a href='https://github.com/SkaAnn/' style={{color: 'white'}}>

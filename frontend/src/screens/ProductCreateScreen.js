@@ -335,7 +335,7 @@ const ProductCreateScreen = ({ history }) => {
                                     {form.classification && form.classification === 'donor' ?
                                         <Form.Control plaintext readOnly value="Zadarmo" />
                                         :
-                                        <Form.Control type='number' step={'.01'} min={0}
+                                        <Form.Control type='number' step={'.01'} min={0} required
                                             onChange={(e) => setField('price', Number(e.target.value))} />
                                     }
                                     {form.classification && form.classification === 'demand' &&
