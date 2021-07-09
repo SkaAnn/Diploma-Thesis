@@ -18,8 +18,7 @@ import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET, PRODUCT_DELETE_RESET } from
 const UserProfileScreen = ({ history, match, prevProps }) => {
     const pageSize = 5  
     const pageNumber = match.params.pageNumber || 1
-    // ked nastavim useState na 1, tak sa nebude nacitavat pri Moj profil(lenze to i zosatne na poslednej prezeranej strane...)
-    const [newPageNumber, setNewPageNumber] = useState(0)   // TODO: rename oldPage
+    const [newPageNumber, setNewPageNumber] = useState(0)
 
     const dispatch = useDispatch()
 
@@ -53,8 +52,8 @@ const UserProfileScreen = ({ history, match, prevProps }) => {
     const { success: successDelete } = productDelete
 
     const componentDidUpdate = (prevProps) => {
-        if (newPageNumber !== pageNumber) {//match.params.pageNumber) {
-            setNewPageNumber(pageNumber)//match.params.pageNumber);
+        if (newPageNumber !== pageNumber) {
+            setNewPageNumber(pageNumber)
             dispatch(listMyProducts(pageNumber, pageSize))
         }
     }

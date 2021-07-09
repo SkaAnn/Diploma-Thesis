@@ -26,9 +26,9 @@ const productSchema = new mongoose.Schema(
 
         countInStock: { type: Number, required: true, default: 1 },
 
-        origin: { type: String, required: true },   // vyrobene v
+        origin: { type: String, required: true },   // slov. vyrobene v
 
-        brand: { type: String },    // vyrobca
+        brand: { type: String },    // slov. vyrobca
 
         images: [{ type: String }],
 
@@ -44,7 +44,7 @@ const productSchema = new mongoose.Schema(
             ref: 'User',
         }],
 
-        shipping: [     // informácie o dodaní, doprave
+        shipping: [  
             {
                 typ: { type: String, required: true },
                 price: { type: String, required: true },

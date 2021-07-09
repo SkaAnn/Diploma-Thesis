@@ -8,7 +8,7 @@ const getProducts = asyncHandler(async (req, res) => {
     let mysort
 
     // Pagination
-    const pageSize = Number(req.query.pageSize) || 8 // TODO: 12/20
+    const pageSize = Number(req.query.pageSize) || 8
     const page = Number(req.query.pageNumber) || 1
 
     // Sorting products criterium
@@ -36,17 +36,14 @@ const getProducts = asyncHandler(async (req, res) => {
     }
 
     // Search functionality
-    const keyword = req.query.keyword ? { // query strings za ? v url
+    const keyword = req.query.keyword ? {
         name: {
             $regex: req.query.keyword,
             $options: 'i'     // case insensitive
         }
     } : {}
 
-    // filter 0-2 bude pre classification a 3-5 pre condition
-
     // Classification filter
-  
     const classificationArr = []
     const classificationFilter = req.query.filter.substring(0, 3)
     if (classificationFilter.charAt(0) === '1') classificationArr.push('supply')
@@ -75,7 +72,6 @@ const getProducts = asyncHandler(async (req, res) => {
     res.json({ products, count, page, pages: Math.ceil(count / pageSize) })
 })
 
-// TODO nezobrazovat ked uz bude deaktivovany!
 // @desc    Fetch single product
 // @route   GET /api/products/:id
 // @access  Public
@@ -113,19 +109,15 @@ const createProduct = asyncHandler(async (req, res) => {
     res.status(201).json(createdProduct)
 })
 
-// TODO: pri kazdej zmene kodu modelu pozriet parametre ktore sa maju aktualizovat
 // @desc    Update a product
 // @route   PUT /api/products/:id
 // @access  Private
 const updateProduct = asyncHandler(async (req, res) => {
-    // const { name, price, description, image,
-    //     brand, category, countInStock } = req.body
     const body = req.body
 
     const product = await Product.findById(req.params.id)
 
     if (product) {
-        // TODO - Update params
         // active is true
         product.name = body.name
         product.description = body.description
@@ -165,15 +157,12 @@ const deleteProduct = asyncHandler(async (req, res) => {
     }
 })
 
-// TODO
-// deactivateProduct - oznacit produkt za neaktivny, vypredany
-
 // @desc    Get my products 
 // @route   GET /api/products/my
 // @access  Private
 const getMyProducts = asyncHandler(async (req, res) => {
     // Pagination
-    const pageSize = Number(req.query.pageSize) || 5 // TODO: 10
+    const pageSize = Number(req.query.pageSize) || 5
     const page = Number(req.query.pageNumber) || 1
     // Count all products
     const count = await Product.countDocuments({ user: req.user._id, active: true })
@@ -184,7 +173,6 @@ const getMyProducts = asyncHandler(async (req, res) => {
         .skip(pageSize * (page - 1))
 
     res.json({ products, count, page, pages: Math.ceil(count / pageSize) })
-    //  res.json(products)
 })
 
 
@@ -192,7 +180,7 @@ const getMyProducts = asyncHandler(async (req, res) => {
 // @route   GET /api/products/user/:id
 // @access  Public
 const getProductsByUser = asyncHandler(async (req, res) => {
-    const pageSize = Number(req.query.pageSize) || 6 // TODO: 10
+    const pageSize = Number(req.query.pageSize) || 6 
     const page = Number(req.query.pageNumber) || 1
     // Count all products
     const count = await Product.countDocuments({ user: req.params.id, active: true })
@@ -203,7 +191,6 @@ const getProductsByUser = asyncHandler(async (req, res) => {
         .skip(pageSize * (page - 1))
 
     res.json({ products, count, page, pages: Math.ceil(count / pageSize) })
-    // res.json(products)
 })
 
 // @desc    Add follower for product
@@ -241,7 +228,6 @@ const removeFollower = asyncHandler(async (req, res) => {
         await product.save()
 
         res.status(201).json({ message: 'Follower removed!' })
-        //res.json(product)
     } else {
         res.status(404)
         throw new Error('Product not found')
@@ -252,7 +238,7 @@ const removeFollower = asyncHandler(async (req, res) => {
 // @route   GET /api/products/favorite
 // @access  Private
 const getFavoriteProducts = asyncHandler(async (req, res) => {
-    const pageSize = Number(req.query.pageSize) || 5 // TODO: 10
+    const pageSize = Number(req.query.pageSize) || 5 
     const page = Number(req.query.pageNumber) || 1
     // Count all products
     const count = await Product.countDocuments({ followers: req.user._id, active: true })
@@ -263,7 +249,6 @@ const getFavoriteProducts = asyncHandler(async (req, res) => {
         .sort({createdAt: -1})
 
     res.json({ products, count, page, pages: Math.ceil(count / pageSize) })
-    //res.json(products)
 })
 
 export {

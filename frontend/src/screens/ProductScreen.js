@@ -46,8 +46,7 @@ const ProductScreen = ({ match }) => {
                 dispatch(listProductDetails(productId))
             }
         }
-    }, [dispatch, product, productId]) //history
-    // }, [dispatch, match.params.id, userInfo])
+    }, [dispatch, product, productId]) 
 
     const onClickHandler = (e) => {
         e.preventDefault()
@@ -93,8 +92,8 @@ const ProductScreen = ({ match }) => {
             REACT_APP_EMAILJS_USERID: user,
         } = env;
 
-        const receiverEmail = product.user.email //'skaann.dev@gmail.com'
-        const senderEmail = userInfo.email //'skaann.dev@gmail.com' //userInfo.email// userinfi
+        const receiverEmail = product.user.email
+        const senderEmail = userInfo.email 
 
         sendFeedback({
             templateId,
@@ -111,7 +110,6 @@ const ProductScreen = ({ match }) => {
     if (formSubmitted && formSubmitSuccessful) {
         setShow(false)
         setFormSubmitted(false)
-        // setFormSubmitSuccessful(false)
     }
 
 
@@ -124,7 +122,6 @@ const ProductScreen = ({ match }) => {
             <div style={{ width: '100%', height: '100%', display: 'table' }}>
                 <div className='m-auto' style={{
                     display: 'table-cell',
-                    // textAlign: 'center', 
                     verticalAlign: 'middle'
                 }}>
 
@@ -159,12 +156,12 @@ const ProductScreen = ({ match }) => {
                                 </Row>
 
                                 <Row className='mt-3'>
-                                    {/* LAVA CAST OBRAZOVKY */}
+                                    {/* Left part of the screen */}
                                     <Col md='6' className='mb-2'>
                                         <ImageCarousel images={product.images} />
                                     </Col>
 
-                                    {/* PRAVA CAST OBRAZOVKY */}
+                                    {/* Right part of the screen */}
                                     <Col md='6' >
 
                                         <div className='border px-4 py-4'>
@@ -175,7 +172,6 @@ const ProductScreen = ({ match }) => {
                                                     <h2 className=' fw-500 mb-3'>
                                                         {product.price !== 0 ? (product.classification === 'demand' ? 'Dohodou' : `${product.price}€  / ks`)
                                                             : 'Zadarmo'}
-                                                        {/* {product.price === 0 ? 'Zadarmo' : `${product.price}€ / ks`} */}
                                                     </h2>
                                                     <span>dostupnosť: {product.countInStock} ks</span>
                                                 </Col>
@@ -215,7 +211,6 @@ const ProductScreen = ({ match }) => {
                                                 <MDBNavItem>
                                                     <MDBNavLink style={{color:'rgb(63, 89, 158)'}} link to="#" active={activeItem === '3'} onClick={toggle("3")} role="tab" >
                                                         Doprava a doručenie
-                                                    {/* poštovné */}
                                                     </MDBNavLink>
                                                 </MDBNavItem>
                                             </MDBNav>
@@ -254,9 +249,6 @@ const ProductScreen = ({ match }) => {
                                                     <h6 className='text-uppercase fw-600 mt-3'>Ďalšie vlastnosti</h6>
 
                                                     {product.moreProperties !== undefined &&
-                                                        // product.moreProperties.length === 0 ?
-                                                        // <Message variant='info'>Tato cast je prazdna</Message>
-                                                        // :
                                                         <>
                                                             {product.moreProperties.length === 0 && <div className='mt-2'><Message variant='info'>Táto časť je prázdna</Message></div>}
 
@@ -272,16 +264,11 @@ const ProductScreen = ({ match }) => {
                                                             </Table>
                                                         </>
                                                     }
-
-                                                    {/* } */}
                                                 </MDBTabPane>
 
 
                                                 <MDBTabPane tabId="3" role="tabpanel">
                                                     {product.shipping !== undefined &&
-                                                        // product.moreProperties.length === 0 ?
-                                                        // <Message variant='info'>Tato cast je prazdna</Message>
-                                                        // :
                                                         <>
                                                             {product.shipping.length === 0 && <div className='mt-3'><Message variant='info'>Táto časť je prázdna</Message></div>}
 

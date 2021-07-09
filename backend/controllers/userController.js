@@ -11,7 +11,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email })
 
     if (user && (await user.matchPassword(password))) { // Match user password
-        // generate user token
+        // Generate user token
         const token = generateToken(user._id)
         user.token = token
         await user.save()
@@ -76,7 +76,7 @@ const registerUser = asyncHandler(async (req, res) => {
     })
 
     if (user) {
-        // generate user token
+        // Generate user token
         const token = generateToken(user._id)
         user.token = token
         await user.save()
@@ -148,7 +148,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             user.password = req.body.password
         }
 
-        // generate user token
+        // Generate user token
         const token = generateToken(user._id)
         user.token = token
 

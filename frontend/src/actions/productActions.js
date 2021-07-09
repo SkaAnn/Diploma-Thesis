@@ -168,8 +168,6 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
             type: PRODUCT_DELETE_REQUEST,
         })
 
-
-        // destructing, miesto bodkovej notacie
         const { userLogin: { userInfo } } = getState()
 
         const config = {

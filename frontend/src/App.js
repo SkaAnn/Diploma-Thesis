@@ -33,20 +33,20 @@ const App = () => {
           <Route path='/my/profile/page/:pageNumber' component={ProfileScreen} exact />
           <Route path='/my/product/create' component={ProductCreateScreen} />
           <Route path='/my/product/edit/:id' component={ProductEditScreen} />
-          {/* 4 jednoice */}
+          {/* ***** */}
           <Route path='/sort/:sortKey' component={HomeScreen} exact />
           <Route path='/search/:keyword' component={HomeScreen} exact />
           <Route path='/filter/:filter' component={HomeScreen} exact />
           <Route path='/page/:pageNumber' component={HomeScreen} exact />
-          {/* 3 dvojice (s page) */}
+          {/* ***** */}
           <Route path='/sort/:sortKey/page/:pageNumber' component={HomeScreen} exact />
           <Route path='/search/:keyword/page/:pageNumber' component={HomeScreen} exact />
           <Route path='/filter/:filter/page/:pageNumber' component={HomeScreen} exact />
-          {/* 3 trojice */}
+          {/* ***** */}
           <Route path='/sort/:sortKey/search/:keyword/page/:pageNumber' component={HomeScreen} exact />
           <Route path='/sort/:sortKey/filter/:filter/page/:pageNumber' component={HomeScreen} exact />
           <Route path='/search/:keyword/filter/:filter/page/:pageNumber' component={HomeScreen} exact />
-          {/* 1 stvorica */}
+          {/* ***** */}
           <Route path='/sort/:sortKey/search/:keyword/filter/:filter/page/:pageNumber' component={HomeScreen} exact />
           <Route path='/' component={HomeScreen} exact />
           <Route component={My404Screen} />

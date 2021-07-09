@@ -308,7 +308,6 @@ main {
     color: var(--black-color) !important;
     --border-color: var(--black-color);
     --button-bg-color: #fff;
-    /* --button-bg-color-hover: #9ff5df; */
     --button-bg-color-hover: var(--secondaryColorLight);
     --button-bg-color-active:  var(--secondaryColorLight);;
     display: -webkit-inline-box;
@@ -380,10 +379,6 @@ main {
     padding: 1rem 1.25rem 0.6rem 1.25rem !important;
 }
 
-/* .view{
-    background-color: rgba(0,0,0,.03);
-} */
-
 .fixed-right-bottom {
     position: absolute;
     bottom: 0;
@@ -414,8 +409,8 @@ main {
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
 
-/*https://codepen.io/cihadturhan/pen/BfGov */
-/************* PLACEHOLDER ICON *******************/
+/* https://codepen.io/cihadturhan/pen/BfGov */
+/******************* PLACEHOLDER ICON *******************/
 @import "//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css";
 
 .mainLoginInput{
@@ -514,7 +509,7 @@ padding-top: 2px;
     margin-top: 5rem;
 }
 
-/******** PRODUCT CREATE SCREEN ***************/
+/*************** PRODUCT CREATE SCREEN ***************/
 @media only screen and (max-width: 768px) {
     .my-form-section {
         padding: 0.9rem 0.5rem !important;
@@ -538,7 +533,6 @@ padding-top: 2px;
     --my-form-section-bg-color-hover: #FFE773;
     background-color: var(--my-form-section-bg-color);
     font-size: 15px;
-    /* font-weight: 600; */
     letter-spacing: -.09px;
     color: inherit;
     text-transform: uppercase;
@@ -614,10 +608,6 @@ padding-top: 2px;
     font-size: .81rem;
 }
 
-/* [type=button], [type=reset], [type=submit], button {
-    -webkit-appearance: button;
-} */
-
 .my-btn-primary:hover {
     color: #fff !important;
     background-color: #2160c5 !important;
@@ -628,7 +618,7 @@ padding-top: 2px;
     box-shadow: 0 5px 11px 0 rgb(0 0 0 / 18%), 0 4px 15px 0 rgb(0 0 0 / 15%);
 }
 
-/**** Homescreen *****/
+/***** Homescreen *****/
 .sticky-top {
     padding-top: 4rem;
 }
@@ -661,6 +651,7 @@ padding-top: 2px;
   ul.pagination li.active a {
     color: white;
   }
+  
   ul.pagination li.active {
     background-color: #337ab7;
   }

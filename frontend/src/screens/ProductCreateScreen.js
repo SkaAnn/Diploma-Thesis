@@ -9,7 +9,6 @@ import { categoryOptions, hintOptions } from '../utils/options'
 import { createProduct } from '../actions/productActions'
 import Message from '../components/Message'
 
-// osetrit aby sa do propList nezaratavali prazdne polozky
 const ProductCreateScreen = ({ history }) => {
     const dispatch = useDispatch()
 
@@ -46,7 +45,6 @@ const ProductCreateScreen = ({ history }) => {
         }
 
         if (successCreate) {
-            // TODO prepnut na zoznam mojich produktov a vypisat uspesnu hlasku
             history.push('/my/profile')
         }
 
@@ -128,7 +126,6 @@ const ProductCreateScreen = ({ history }) => {
     const uploadFiles = async (e) => {
         const formData = new FormData()
         formData.append('userId', userInfo._id);
-        // formData.append('photos', images)    // photos in backend
         // https://stackoverflow.com/questions/65496648/cant-upload-multiple-files-by-using-multer-on-react
         for (var i = 0; i < images.length; i++) {
             formData.append('photos', images[i])
@@ -159,14 +156,13 @@ const ProductCreateScreen = ({ history }) => {
     const submitSecondPartHandler = async (e) => {
         e.preventDefault()
 
-        // get our new errors
+        // Get our new errors
         const newErrors = findFormErrors()
         // Conditional logic:
         if (Object.keys(newErrors).length > 0) {
             // We got errors!
             setErrors(newErrors)
         } else {
-            // Mozeme pokracovat
             setPart(3)
             setStep3(true)
         }
@@ -202,7 +198,7 @@ const ProductCreateScreen = ({ history }) => {
         else {
             setAllDone(true)
 
-            // UPLOAD IMAGES
+            // Upload images
             let imagesArr = []
             if (images.length !== 0) {
                 imagesArr = await uploadFiles()
@@ -210,20 +206,11 @@ const ProductCreateScreen = ({ history }) => {
 
             const newProduct = form
             // https://www.codegrepper.com/code-examples/javascript/javascript+object+can+add+attribute
-            // newProduct['active'] = true
             newProduct['images'] = imagesArr
             newProduct['measures'] = measures
             newProduct['shipping'] = shippingList
             newProduct['moreProperties'] = propsList
 
-            // const newProduct = {
-            //     //form,
-            //     active: true, 
-            //     // images: imagesArr,
-            //     measures,
-            //     moreProperties: propsList,
-
-            // }
             // DISPATCH CREATE PRODUCT
             dispatch(createProduct(newProduct))
         }
@@ -234,8 +221,6 @@ const ProductCreateScreen = ({ history }) => {
             <h2 className='mb-4 pt-4 fw-600'><i className="fas fa-plus mr-1" style={{ color: 'plum' }}></i> Pridať produkt</h2>
             <Row style={{ minHeight: '70vh' }}>
                 <Col md={3} className='p-0' style={{ background: '#3f599e' }}>
-                    {/* if step 1 then on click */}
-                    {/* if setpart1 tak tie ostatne steps dame false, aby sme sa museli preklikat znovu  */}
                     <div className='my-form-section px-3'
                         onClick={(e) => { step1 && setPart(1) }}
                         style={{ color: `${!step1 ? '#6c757d' : 'white'}` }}>
@@ -376,12 +361,10 @@ const ProductCreateScreen = ({ history }) => {
                                 </Col>
 
                                 <Form.Label column sm="2" className='my-form-label'>Výrobca</Form.Label>
-                                {/* Značka */}
                                 <Col sm="4">
                                     <Form.Control type='text' onChange={(e) => setField('brand', e.target.value)}
                                         placeholder='Značka produktu' maxlength="100" ></Form.Control>
                                     <Form.Text id="brandBlock" muted> Zadajte výrobcu produktu alebo pomlčku</Form.Text>
-                                    {/* <Form.Text id="brandBlock" muted> Ak nie je známa alebo na nej nezáleží zadajte pomlčku </Form.Text> */}
                                 </Col>
                             </Form.Group>
 
@@ -441,7 +424,6 @@ const ProductCreateScreen = ({ history }) => {
                                             <Col sm='4' className='pad-l0'>
                                                 <Form.Control
                                                     type='text'
-                                                    // className="ml10"
                                                     name='price'
                                                     placeholder='Zadajte cenu doručenia'
                                                     value={x.val}
@@ -492,7 +474,6 @@ const ProductCreateScreen = ({ history }) => {
                                             <Col sm='4' className='pad-l0'>
                                                 <Form.Control
                                                     type='text'
-                                                    // className="ml10"
                                                     name='val'
                                                     placeholder='Zadajte hodnotu vlastnosti'
                                                     value={x.val}

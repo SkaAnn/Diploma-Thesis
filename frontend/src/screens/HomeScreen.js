@@ -24,25 +24,21 @@ const HomeScreen = ({ match, history }) => {
     const dispatch = useDispatch()  // call and manage an actions
 
     // Global states
-    const productList = useSelector(state => state.productList)     // get global state (from store.js)
-    const { loading, error, products, count, pages, page } = productList                // parts of global state productList (parts as in reducer)
-
-    // Do something when screen loads
+    const productList = useSelector(state => state.productList)             // get global state (from store.js)
+    const { loading, error, products, count, pages, page } = productList    // parts of global state productList (parts as in reducer)
 
     useEffect(() => {
         // @GET all products from db
         // FIRE OFF the action listProducts action
-        console.log('history ', history.location.pathname)
         dispatch(listProducts(sortKey, keyword, filter, pageNumber, pageSize))
     }, [dispatch, history, sortKey, keyword, filter, pageNumber])
 
     return (
         <>
-            
+
             <Route render={({ history, match }) => <SecondHeader history={history} match={match} keyword={keyword ? keyword : ''} />} />
 
             <Container className='mt-3'>
-                {/* <Route render={({ history }) => <SortPanel history={history} keyword={keyword ? keyword : ''} />} /> */}
                 {!keyword ?
                     <h2 className='mb-3 pt-3 fw-600'>Všetky produkty</h2>
                     : <>

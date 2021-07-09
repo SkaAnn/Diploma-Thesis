@@ -2,15 +2,16 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Table, Image } from 'react-bootstrap'
 import { Link, Route } from 'react-router-dom'
+
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listFavoriteProducts } from '../actions/productActions'
-import { getCategoryName, transformDate } from '../utils/translate'
 import MyPagination from '../components/MyPagination'
 
+import { listFavoriteProducts } from '../actions/productActions'
+import { getCategoryName, transformDate } from '../utils/translate'
 
 const FavoriteProductsScreen = ({ history, match }) => {
-    const pageSize = 5  // TODO 10
+    const pageSize = 5 
     const pageNumber = match.params.pageNumber || 1
 
     const dispatch = useDispatch()

@@ -5,7 +5,7 @@ const notFound = (req, res, next) => {
 }
 
 const errorHandler = (err, req, res, next) => {
-    // kontrola statusu (moze vratit i 200 a pritom je to error)
+    // check status (can return 200 even if its not error)
     const statusCode = res.statusCode === 200 ? 500 : res.statusCode
     res.status(statusCode)
     res.json({ 

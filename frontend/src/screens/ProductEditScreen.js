@@ -62,7 +62,7 @@ const ProductEditScreen = ({ match, history }) => {
                 oldImgs.push(images[j])
             }
 
-            // UPLOAD NEW IMG FILES
+            // Upload new image files
             const formData = new FormData()
             formData.append('userId', userInfo._id);
             for (var k = 0; k < newImgFiles.length; k++) {
@@ -317,7 +317,6 @@ const ProductEditScreen = ({ match, history }) => {
                                                     <Form.Label className='my-form-label'>Výrobca</Form.Label>
                                                     <Form.Control type='text' value={brand} onChange={(e) => setBrand(DOMPurify.sanitize(e.target.value))}
                                                         placeholder='Značka produktu' maxlength="100" ></Form.Control>
-                                                    {/* <Form.Text id="brandBlock" muted> Ak nie je známa alebo na nej nezáleží zadajte pomlčku </Form.Text> */}
                                                 </Col>
                                             </Row>
 
@@ -376,7 +375,6 @@ const ProductEditScreen = ({ match, history }) => {
                                                             <Col sm='4' className='pad-l0'>
                                                                 <Form.Control
                                                                     type='text'
-                                                                    // className="ml10"
                                                                     name='price'
                                                                     placeholder='Zadajte cenu doručenia'
                                                                     value={x.price}
@@ -425,7 +423,6 @@ const ProductEditScreen = ({ match, history }) => {
                                                             <Col sm='4' className='pad-l0'>
                                                                 <Form.Control
                                                                     type='text'
-                                                                    // className="ml10"
                                                                     name='val'
                                                                     placeholder='Zadajte hodnotu vlastnosti'
                                                                     value={x.val}

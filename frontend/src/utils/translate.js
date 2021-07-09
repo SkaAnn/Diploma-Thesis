@@ -41,7 +41,7 @@ export const translateCondition = (condition) => {
         case "used":
             return 'používané'
         case "handmade":
-            return 'vlastná výroba' // RUČNÁ
+            return 'vlastná výroba'
         default:
             return ''
     }

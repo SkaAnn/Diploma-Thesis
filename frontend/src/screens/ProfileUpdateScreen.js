@@ -30,8 +30,8 @@ const ProfileUpdateScreen = ({ history }) => {
     const [message, setMessage] = useState('')
 
     // ProfileImage
-    const [profileImage, setProfileImage] = useState('')    // tu uskladnene url, blob
-    const [image, setImage] = useState('')  // tu uskladneny File
+    const [profileImage, setProfileImage] = useState('')    // stored URL in blob
+    const [image, setImage] = useState('')  // stored File
     const [uploading, setUploading] = useState(false)
 
     // is logged
@@ -75,7 +75,6 @@ const ProfileUpdateScreen = ({ history }) => {
     }, [dispatch, userInfo, user, success, history])
 
     const deleteImage = () => {
-        console.log('DeleteImage')
         setProfileImage('')
         setImage('')
     }
